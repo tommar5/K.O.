@@ -1,0 +1,73 @@
+services:
+  app.terms.listener:
+    class: AppBundle\EventListener\VerifyTermsListener
+    arguments:
+      - @security.token_storage
+      - @router
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+  app.pass.listener:
+    class: AppBundle\EventListener\ChangePasswordListener
+    arguments:
+      - @security.token_storage
+      - @router
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+  app.login_listener:
+    class: AppBundle\EventListener\LoginListener
+    arguments:
+      - @security.token_storage
+      - @em
+    tags:
+      - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+
+  app.user_create.listener:
+    class: AppBundle\EventListener\UserCreateListener
+    arguments:
+      - @mail
+      - @router
+      - @em
+      - @translator
+    tags:
+      - { name: kernel.event_listener, event: user.created, method: notifyUser }
+      - { name: kernel.event_listener, event: user.created, method: notifyDeclarant }
+      - { name: kernel.event_listener, event: user.created, method: notifyAdmin }
+
+  app.status_change.listener:
+    class: AppBundle\EventListener\Licence\StatusChangeListener
+    arguments:
+      - @mail
+      - @router
+      - @em
+    tags:
+      - { name: kernel.event_listener, event: licence.status.changed, method: notify }
+
+  app.status_changed.listener:
+    class: AppBundle\EventListener\Application\ApplicationStatusChangeListener
+    arguments:
+      - @mail
+      - @router
+      - @em
+    tags:
+      - { name: kernel.event_listener, event: application.status.changed, method: notify }
+
+  file.status_changed.listener:
+    class: AppBundle\EventListener\DocumentStatusChangeListener
+    arguments:
+      - @mail
+      - @router
+      - @em
+    tags:
+      - { name: kernel.event_listener, event: document.status.changed, method: notify }
+  file.remove.listener:
+    class: AppBundle\EventListener\DocumentRemoveListener
+    tags:
+      - { name: doctrine.event_listener, event: preRemove }
+  app.application.listener:
+    class: AppBundle\EventListener\Application\ApplicationListener
+    arguments:
+      - @service_container
+    tags:
+      - { name: doctrine.event_listener, event: onFlush }

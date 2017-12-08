@@ -1,0 +1,45 @@
+{% if documents['additional_rules'] is defined %}
+    {% set confirmedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES') %}
+    {% set addedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_ADDED_ADDITIONAL_COMPETITION_RULES') %}
+    {% set confirmedSecretary = constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES_BY_SECRETARY') %}
+    {% set confirmedLASF = constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES_BY_LASF') %}
+    {% set calculated_terms = calculate_terms(application, documents['additional_rules']|last, 'AdditionalRulesTerm') %}
+    <div class="documents {{ documents['additional_rules']|statusChange([confirmedKey], [addedKey, confirmedSecretary, confirmedLASF]) }}">
+        <div class="status-content">
+          <span class="status-text">
+            {{ 'application.documents.additional_rules'|trans }}
+          </span>
+        </div>
+        {% if documents['additional_rules'][0].status != confirmedKey and legalTimes.additionalRulesTerm %}
+            <div class="status-day-counter">
+                <div class="days">
+                    {{ 'application.documents.uploaded'|trans }}
+                    ({{ calculated_terms }})
+                </div>
+            </div>
+        {% endif %}
+        <div class="confirmation-message">
+            {{ 'application.documents.messages.coordinated'|trans }}
+            {% if legalTimes.additionalRulesTerm %}
+                ({{ calculated_terms }})
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+  <div class="documents">
+    <div class="status-content">
+      <span class="status-text">
+        {{ 'application.documents.additional_rules'|trans }}
+      </span>
+    </div>
+    {% if legalTimes.additionalRulesTerm %}
+      <div class="status-day-counter">
+        <div class="days">
+          {{ 'application.documents.left'|trans }}
+          <span class="additional_rules"></span>
+          {{ 'application.documents.days'|trans }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

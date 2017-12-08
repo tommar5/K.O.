@@ -1,0 +1,168 @@
+
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+
+{% set title = "user.profile.title"|trans %}
+
+{% block content %}
+
+  <div class="page-header">
+    <h1>{{ title }}</h1>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <img class="img-responsive" src="{{ thumb(app.user, 'imageFile', 'profile_large') }}">
+        </div>
+        <div class="col-sm-9">
+          <table class="table table-borderless">
+            {% if app.user.legal and app.user.memberName %}
+              <tr>
+                <td style="width: 50%">{{ 'user.label.member_name'|trans }}:</td>
+                <td style="width: 50%"><strong>{{ app.user.memberName }}</strong></td>
+              </tr>
+            {% endif %}
+            {% if not app.user.legal %}
+              <tr>
+                <td>{{ 'user.label.firstname'|trans }}:</td>
+                <td><strong>{{ app.user.firstname }}</strong></td>
+              </tr>
+              <tr>
+                <td>{{ 'user.label.lastname'|trans }}:</td>
+                <td><strong>{{ app.user.lastname }}</strong></td>
+              </tr>
+            {% endif %}
+            <tr>
+              <td>{{ 'user.label.email'|trans }}:</td>
+              <td><strong>{{ app.user.email }}</strong></td>
+            </tr>
+            <tr>
+              <td>{{ 'user.label.city'|trans }}:</td>
+              <td><strong>{{ app.user.city }}</strong></td>
+            </tr>
+            <tr>
+              <td>{{ 'licences.label.language'|trans }}:</td>
+              <td>
+                  {% if not app.user.languages.empty %}
+                      {% for language in app.user.languages %}
+                          {% if language.language != constant('AppBundle\\Entity\\Language::OTHER_LANGUAGE') %}
+                            <strong>{{ language.language }}</strong><br>
+                          {% endif %}
+                      {% endfor %}
+                  {% else %}
+                    -
+                  {% endif %}
+              </td>
+            </tr>
+            <tr>
+            <tr>
+              <td>{{ 'licences.label.gender'|trans }}:</td>
+                {% if app.user.gender == constant('AppBundle\\Entity\\User::GENDER_MALE') %}
+                  <td><strong>{{ 'user.label.genders.male'|trans }}</strong></td>
+                {% else %}
+                  <td><strong>{{ 'user.label.genders.female'|trans }}</strong></td>
+                {% endif %}
+            </tr>
+            <tr>
+              <td>{{ 'user.label.registered_on'|trans }}:</td>
+              <td><strong>{{ app.user.createdAt|localizeddate('short', 'none') }}</strong></td>
+            </tr>
+            {% if app.user.parent %}
+              <tr>
+                <td>{{ 'user.roles.declarant'|trans }}:</td>
+                <td><strong>{{ app.user.parent.fullname }}</strong></td>
+              </tr>
+            {% endif %}
+            {% if app.user.birthday %}
+              <tr>
+                <td>{{ 'user.label.birthday'|trans }}:</td>
+                <td><strong>{{ app.user.birthday|localizeddate('short', 'none') }}</strong></td>
+              </tr>
+            {% endif %}
+            {% if app.user.legal and app.user.associated is not null %}
+              <tr>
+                <td>{{ 'user.label.associated'|trans }}:</td>
+                <td><strong>{{ app.user.associated ? 'user.edit.accociated'|trans : 'user.edit.not_accociated'|trans }}</strong></td>
+              </tr>
+            {% endif %}
+            {% if app.user.parent %}
+              <tr>
+                <td>{{ 'user.label.parent'|trans }}:</td>
+                <td><strong>{{ app.user.parent }}</strong></td>
+              </tr>
+            {% endif %}
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{ form_start(form, {action: path('app_user_profile')}) }}
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h4>{{ 'user.profile.details'|trans }}</h4>
+            <hr>
+            {{ form_row(form.phone) }}
+            {{ form_row(form.address) }}
+            {% if not app.user.legal %}
+              {{ form_row(form.city) }}
+              {{ form_row(form.gender) }}
+              {{ form_row(form.languages, {attr: {class: 'select2'}}) }}
+              <div id="secondary-language" style="display: none;">
+                {{ form_row(form.secondaryLanguage) }}
+              </div>
+              {{ form_row(form.identityCode) }}
+            {% endif %}
+            {{ form_row(form.receiveNotifications) }}
+            {% if form.birthday is defined %}
+              {{ form_row(form.birthday) }}
+            {% endif %}
+            {{ form_row(form.aboutMe) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h4>{{ 'user.profile.image'|trans }}</h4>
+            <hr>
+
+            {{ form_row(form.imageFile) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h4>{{ 'user.profile.change_password'|trans }}</h4>
+            <hr>
+            {{ form_row(form.plainPassword) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-4">
+        <button type="submit" class="btn btn-primary btn-block">{{ 'user.profile.submit'|trans }}</button>
+      </div>
+    </div>
+
+  {{ form_end(form) }}
+{% endblock %}
+{% block js %}
+    {% include 'AppBundle::driver_judge_form_js.html.twig' with {
+        'secondaryLanguage': 'profile_secondaryLanguage',
+        'languages' : 'profile_languages'
+    } %}
+    {% include 'AppBundle::google_maps.html.twig' with {'element': 'profile_city'} %}
+{% endblock %}

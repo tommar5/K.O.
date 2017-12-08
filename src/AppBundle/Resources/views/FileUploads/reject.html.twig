@@ -1,0 +1,25 @@
+{% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'button.close'|trans }}">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">{{ 'file_uploads.reject.title'|trans }}</h4>
+</div>
+
+{{ form_start(form, {attr: {class: 'js-form'}, action: path('app_fileuploads_reject', {id: file.id, licenceId: licence.id})}) }}
+
+<div class="modal-body">
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  {{ form_errors(form) }}
+
+  {{ form_rest(form) }}
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'button.close'|trans }}</button>
+  <button type="submit" class="btn btn-primary">{{ 'button.save'|trans }}</button>
+</div>
+
+{{ form_end(form) }}

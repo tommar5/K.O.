@@ -1,0 +1,50 @@
+{#Report Block#}
+{% if documents['organisator_licence'] is defined %}
+    {% if is_granted('organisator-licence-view', app.user)%}
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.organisator_licence'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% for document in documents['organisator_licence'] %}
+                    {% if document.type == 'organisator_licence' %}
+                        <li class="list-group-item">
+                            <i class="fa fa-file alert-info"></i>
+                            <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank" class="unvisited-blue hidden-print">
+                                {{ ('application.file_uploads.type.'~document.type)|trans }} ({{ document.fileName }})
+                            </a>
+                            {% if document.status == 'confirmed_organisator_licence' %}
+                                - {{ 'status.confirmed'|trans }} <i class="fa fa-check-circle"></i>
+                            {% else %}
+                                {% if is_granted('organisator-license-confirm', app.user) %}
+                                    <a href="{{ url('app_application_approvedocument', {id: document.id, applicationId: application.id}) }}"
+                                       class="btn btn-xs btn-success hidden-print pull-right ajax-submit" data-title="{{ 'button.confirm_doc'|trans }}" data-toggle="tooltip">
+                                        <i class="fa fa-check-circle"></i> {{ 'application.index.confirm'|trans }}
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                            <span class="confirmed-file hidden">- {{ 'status.confirmed'|trans }} <i class="fa fa-check-circle"></i></span>
+                            {% include 'AppBundle:Application:files/remove_document_button.html.twig' %}
+                            {% include 'AppBundle:Application:files/show_who_upload.html.twig' %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% else %}
+    {% if is_granted('organiser-license-upload', app.user) %}
+        {% if application.hasAgreementStatus %}
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.organisator_licence'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{ form_row(form.organisator_licence) }}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}

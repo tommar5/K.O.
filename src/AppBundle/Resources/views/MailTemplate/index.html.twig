@@ -1,0 +1,59 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>
+      {{ 'mail_template.index.title'|trans }}
+      <a href="{{ url('app_mailtemplate_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> {{ 'mail_template.index.new'|trans }}</a>
+    </h1>
+    <div class="clearfix"></div>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-envelope"></i> {{ 'mail_template.index.title'|trans }}</h3>
+    </div>
+    <div class="rows-to-columns">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ sorter_link(templates, 't.alias', 'mail_template.label.alias'|trans) }}</th>
+          <th>{{ sorter_link(templates, 't.subject', 'mail_template.label.subject'|trans) }}</th>
+          <th>{{ sorter_link(templates, 't.updatedAt', 'mail_template.label.last_updated'|trans) }}</th>
+          <th></th>
+        </tr>
+        <tr role="row" class="filter">
+          <td></td>
+          <td>{{ filter_search(templates, "t.alias") }}</td>
+          <td>{{ filter_search(templates, "t.subject") }}</td>
+          <td>{{ filter_search(templates, "t.updatedAt") }}</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for template in templates %}
+          <tr>
+            <td data-title="#" class="col-min">{{ template.id }}</td>
+            <td data-title="{{ 'mail_template.label.alias'|trans }}">{{ template.alias }}</td>
+            <td data-title="{{ 'mail_template.label.subject'|trans }}">{{ template.subject }}</td>
+            <td data-title="{{ 'mail_template.label.last_updated'|trans }}">{{ template.createdAt|localizeddate('short') }}</td>
+            <td class="col-min">
+              <a href="{{ url('app_mailtemplate_edit', {id: template.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="{{ url('app_mailtemplate_delete', {id: template.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="{{ 'title.delete'|trans }}" data-toggle="tooltip">
+                <i class="fa fa-times"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <div class="panel-footer">
+      {{ pagination(templates) }}
+    </div>
+  </div>
+{% endblock %}

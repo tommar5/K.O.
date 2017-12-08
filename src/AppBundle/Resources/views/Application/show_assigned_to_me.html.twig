@@ -1,0 +1,75 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    {% if is_granted('application-assigned-to-me', app.user) %}
+
+        <div class="page-header">
+            <h1>
+                {{ 'application.competition_chief_assigned.title'|trans }}
+                {{ back_button('app_application_index') }}
+            </h1>
+            <div class="clearfix"></div>
+        </div>
+
+        {% include 'AppBundle::flashes.html.twig' %}
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i
+                            class="fa fa-th-large"></i> {{ 'application.competition_chief_assigned.title'|trans }}</h3>
+            </div>
+            <div class="rows-to-columns">
+                <table class="table table-hover table-striped application-list">
+                    <thead>
+                    <tr role="row" class="filter">
+                        <th>{{ sorter_link(applications, 't.name', 'application.label.name'|trans) }}</th>
+                        <th>
+                            {{ sorter_link(applications, 't.createdAt', 'application.label.registered_on'|trans) }}
+                            <br>
+                            {{ sorter_link(applications, 't.dateFrom', 'application.label.date_from_index'|trans) }}
+                        </th>
+                        <th>{{ sorter_link(applications, 't.city', 'application.label.location'|trans) }}</th>
+                        <th>{{ sorter_link(applications, 's.name', 'application.label.sport'|trans) }}</th>
+                        <th>{{ sorter_link(applications, 't.competitionChiefConfirmed', 'application.label.competition_chief_confirmed'|trans) }}</th>
+                        <th></th>
+                    </tr>
+                    <tr role="row" class="filter">
+                        <td>{{ filter_search(applications, "t.name") }}</td>
+                        <td>{{ filter_search(applications, "t.dateFrom") }}</td>
+                        <td>{{ filter_search(applications, "t.city") }}</td>
+                        <td>{{ filter_search(applications, "s.name") }}</td>
+                        <td>{{ filter_search(applications, "t.competitionChiefConfirmed") }}</td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for application in applications %}
+                        <tr>
+                            <td data-title="{{ 'application.label.name'|trans }}">{{ application.name }}</td>
+                            <td data-title="{{ 'application.label.date_from_index'|trans }} / {{ 'application.label.date_from'|trans }}">{{ application.createdAt|localizeddate('long', 'none') }}
+                                <br>{{ application.dateFrom|localizeddate('short', 'none') }}</td>
+                            <td data-title="{{ 'application.label.location'|trans }}">{{ application.city }}</td>
+                            <td data-title="{{ 'application.label.sport'|trans }}">{{ ('application.sport_select.'~application.sport.alias)|trans }}</td>
+                            <td data-title="{{ 'application.label.status'|trans }}">{{ application.competitionChiefConfirmed ? ('application.competition_chief_assigned.state.yes' | trans) : ('application.competition_chief_assigned.state.no' | trans) }}</td>
+                            <td style="line-height: 2em">
+                                <a href="{{ url('app_application_togglechiefconfirmed', {id: application.id}) }}"
+                                   class="btn btn-xs btn-default js-no-ajax"
+                                   data-title="{{ 'application.competition_chief_assigned.toggle'|trans }}">
+                                    <i class="fa fa-info-circle"></i> {{ 'application.competition_chief_assigned.toggle'|trans }}
+                                </a>
+                                <br>
+                                {% if is_granted('application-show-actions', app.user) %}
+                                    {% include 'AppBundle:Application:application_actions.html.twig' %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                {{ pagination(applications) }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{
+  "name": "federacija-turbo",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "fontawesome": "~4.4.0",
+    "datetimepicker": "xdan/datetimepicker#~2.5.4",
+    "bootstrap-modal-form": "~0.0.3",
+    "select2": "~4.0.3",
+    "fullcalendar": "~2.9.1",
+    "select2-bootstrap-theme": "~0.1.0-beta.4",
+    "jquery-validation": "~1.15.0",
+    "moment": "^2.13.0",
+    "multifile": "~2.2.0",
+    "blockUI": "blockui#*"
+  },
+  "devDependencies": {}
+}

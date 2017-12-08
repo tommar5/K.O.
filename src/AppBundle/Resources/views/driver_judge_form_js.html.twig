@@ -1,0 +1,96 @@
+<script>
+    $(document).ready(function(){
+        text = $(".select2-selection__rendered li").text();
+        displaySecondaryLanguage(text);
+        var languages = "#"+"{{ languages }}";
+        $(languages).change(function(){
+            text = $(".select2-selection__rendered li").text();
+            displaySecondaryLanguage(text);
+        });
+    });
+
+    function displaySecondaryLanguage(text) {
+        var secodayLanguage = '#'+"{{ secondaryLanguage }}";
+        if (text.includes('Kita')) {
+            $("#secondary-language").css('display', 'block');
+            $(secodayLanguage).addClass("toggle-required").attr('required', 'required').removeAttr('disabled');
+        } else {
+            $("#secondary-language").css('display', 'none');
+            $(secodayLanguage).removeClass("toggle-required").removeAttr('required').attr('disabled', 'disabled');
+        }
+    }
+
+    $(document).ready(function() {
+        var $firstDriver = $('#licence_info_firstDriver');
+        var $secondDriver = $('#licence_info_secondDriver');
+        if ($firstDriver.is(':checked') || $secondDriver.is(':checked')) {
+            $firstDriver.removeAttr('required', 'required');
+            $secondDriver.removeAttr('required', 'required');
+        }
+        $firstDriver.change(function() {
+            changeRequired($firstDriver, $secondDriver);
+        });
+
+        $secondDriver.change(function() {
+            changeRequired($secondDriver, $firstDriver);
+        });
+    });
+
+    function changeRequired($changedField, $field) {
+        if ($changedField.is(':checked')) {
+            $field.removeAttr('required');
+        } else {
+            $field.attr('required', 'required');
+        }
+    }
+
+    $(document).ready(function() {
+        var $member = $('#user_legal');
+        if ($member.is(':checked')) {
+            displayUserInfo(false)
+        }
+        $member.change(function (){
+            if ($member.is(':checked')) {
+                displayUserInfo(false)
+            } else {
+                displayUserInfo(true)
+            }
+        });
+    });
+
+    function displayUserInfo($show) {
+        $("#languages-field").toggle();
+        $("#gender-field").toggle();
+        $("#city-field").toggle();
+        if ($show) {
+            $("#user_languages").addClass('toggle-required').attr('required', 'required');
+            $("#user_gender").addClass('toggle-required').attr('required', 'required');
+            $("#user_city").addClass('toggle-required').attr('required', 'required');
+        } else {
+            $("#user_languages").removeClass('toggle-required').removeAttr('required');
+            $("#user_gender").removeClass('toggle-required').removeAttr('required');
+            $("#user_city").removeClass('toggle-required').removeAttr('required');
+        }
+    }
+
+    function displayDeliverToAdress($deliverHidden, $deliverlp) {
+        $(document).ready(function() {
+            if ($deliverlp.is(':checked')) {
+                displayLpLocations();
+            }
+            $deliverHidden.change(function() {
+                if ($deliverlp.is(':checked')) {
+                    displayLpLocations();
+                } else {
+                    $('#delive_to_address').addClass('hidden col-md-12');
+                }
+            });
+        });
+    }
+
+    function displayLpLocations() {
+        $('#delive_to_address').removeClass('hidden');
+        $('.select2').width('100%');
+    }
+
+</script>

@@ -1,0 +1,44 @@
+{#Other documents Block#}
+{% if documents['other_documents'] is defined %}
+    {% if is_granted('other-documents-view', app.user) %}
+         <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.other_documents'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% if is_granted('other-documents-view', app.user) and application.hasAgreementStatus %}
+                    <li class="list-group-item">
+                        {{ form_row(form.other_documents) }}
+                    </li>
+                {% endif %}
+                {% for document in documents['other_documents'] %}
+                    {% if document.type == 'other_documents' %}
+                        <li class="list-group-item">
+                            <i class="fa fa-file alert-info"></i>
+                            <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank" class="unvisited-blue hidden-print">
+                                {{ ('application.file_uploads.type.'~document.type)|trans }} ({{ document.fileName }})
+                            </a>
+                            {% include 'AppBundle:Application:files/remove_document_button.html.twig' %}
+                            {% include 'AppBundle:Application:files/show_who_upload.html.twig' %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% else %}
+    {% if is_granted('other-documents-upload', app.user)%}
+        {% if application.hasAgreementStatus %}
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.other_documents'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{ form_row(form.other_documents) }}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}

@@ -1,0 +1,9 @@
+{% if title is iterable %}
+  {% for val, t in title %}
+    {% include 'DataDogPagerBundle:filters:singleSelect.html.twig' with {'val': val, 'title': t, 'pagination':pagination} %}
+  {% endfor %}
+{% else %}
+  <option {% if filter_is_active(pagination, key, val) %}selected="selected"{% endif %} value="{{ filter_uri(pagination, key, val) }}">
+    {{ title|trans }}
+  </option>
+{% endif %}

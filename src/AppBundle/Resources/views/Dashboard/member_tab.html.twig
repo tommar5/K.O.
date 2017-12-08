@@ -1,0 +1,20 @@
+<div class="col-sm-6">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <a href="{{ path('app_user_user', {id: member.id}) }}">
+            <img class="img-responsive" src="{{ thumb(member, 'imageFile', 'profile_small') }}">
+          </a>
+        </div>
+        <div class="col-sm-9">
+          <a href="{{ path('app_user_user', {id: member.id}) }}">
+            <h4>{{ member.memberName }}</h4>
+          </a>
+          {{ 'user.label.associated'|trans }}: {{ member.associated ? 'user.edit.accociated'|trans : 'user.edit.not_accociated'|trans }}
+          </tr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

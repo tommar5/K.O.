@@ -1,0 +1,16 @@
+services:
+  app.form.type.sub_competition:
+    class: AppBundle\Form\SubCompetitionType
+    arguments:
+      - @security.authorization_checker
+      - @security.token_storage
+    tags:
+      - { name: form.type, alias: sub_competition }
+
+  app.form.type.application:
+    class: AppBundle\Form\ApplicationType
+    arguments:
+      - @security.authorization_checker
+      - @security.token_storage
+    tags:
+      - { name: form.type, alias: application }

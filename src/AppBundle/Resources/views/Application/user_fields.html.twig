@@ -1,0 +1,20 @@
+<div class="col-sm-6">
+    {{ form_row(form.lasfName) }}
+    {{ form_row(form.lasfAddress) }}
+    {{ form_row(form.lasfEmail) }}
+    {{ form_row(form.phone) }}
+</div>
+<div class="col-sm-6">
+    {{ form_row(form.memberCode) }}
+    {{ form_row(form.vatNumber) }}
+    {{ form_row(form.bankAccount) }}
+    {{ form_row(form.bank) }}
+</div>
+<div class="clearfix"></div>
+<div class="col-sm-12 alert alert-info hidden-print user-validation-message">
+    <span class="fa fa-info-circle"></span>
+    {{ 'application.flash.missing_lasf_info' | trans }}
+    <a target="_blank" class="btn btn-xs btn-primary pull-right application-user-link" href="">
+        {{ 'application.flash.missing_lasf_info_add' | trans }} <i class="fa fa-arrow-right"></i>
+    </a>
+</div>

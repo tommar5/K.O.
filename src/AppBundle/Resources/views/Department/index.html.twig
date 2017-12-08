@@ -1,0 +1,79 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+
+  <div class="page-header">
+    <h1>
+      {{ 'department.roles.title'|trans }}
+    </h1>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  <div class="row">
+    {% for name, count in roles %}
+      <div class="col-sm-4">
+        <div class="panel panel-default text-center">
+          <div class="panel-body">
+            <h4>{{ name }}</h4>
+            <h1>{{ count }}</h1>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="page-header">
+    <h1>
+      {{ 'department.licences.title'|trans }}
+    </h1>
+  </div>
+
+  <div class="row">
+    {% for name, count in licences %}
+      <div class="col-sm-4">
+        <div class="panel panel-default text-center js-same-height">
+          <div class="panel-body">
+            <h4>{{ name|trim('licencija') }}</h4>
+            <h1>{{ count.count }}</h1>
+            {% for s in count.statuses %}
+              {{ s.count }}
+
+              {% if name == 'LASF narystė' and s.status == 'produced' %}
+                {{ ('licences.status.produced_membership')|trans|lower }};
+              {% else %}
+                {{ ('licences.status.'~s.status)|trans|lower }};
+              {% endif %}
+              <br>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+
+{% block js %}
+  {{ parent() }}
+
+  <script>
+    var maxH = 0;
+    $(document).ready(function() {
+      equalize();
+    });
+
+    $(window).on('resize', function() {
+      equalize();
+    });
+
+    function equalize() {
+      $('.js-same-height').each(function(i, e) {
+        if ($(e).height() > maxH) {
+          maxH = $(e).height();
+        }
+      }).height(maxH);
+    }
+  </script>
+
+{% endblock %}

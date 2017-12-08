@@ -1,0 +1,34 @@
+<script>
+    function addErrors(elem, error) {
+        $(elem).parent().children('.help-block').empty();
+
+        switch(error) {
+            case 'insurance_expiration':
+                errorMessage = '{{ 'validators.does_not_expire.too_soon'|trans }}';
+                break;
+
+            case 'expired':
+                errorMessage = '{{ 'validators.expired'|trans }}';
+                break;
+
+            case 'too_big_file':
+                errorMessage = '{{ 'validators.too_big_file'|trans }}';
+                break;
+
+            case 'too_big_all_files':
+                errorMessage = '{{ 'validators.too_big_all_files'|trans }}';
+                break;
+        }
+
+        $(elem).after("<span class='help-block'>" + errorMessage + "</span>");
+
+        if (error != 'too_big_all_files') {
+            $(elem).parent().addClass('has-error');
+        } else {
+            $(elem).parent().children('.help-block').css('color', '#a94442');
+        }
+    }
+
+    {% include 'AppBundle::jQuery_validation_message_js.html.twig' %}
+</script>
+

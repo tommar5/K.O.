@@ -1,0 +1,54 @@
+{#Track licence Block#}
+{% if documents['track_licence'] is defined %}
+    {% if is_granted('track-licence-view', app.user) %}
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.track_licence'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% if is_granted('track-license-upload', app.user) %}
+                    {% if application.hasAgreementStatus %}
+                        <li class="list-group-item">
+                            {{ form_row(form.track_licence) }}
+                        </li>
+                    {% endif %}
+                {% endif %}
+                {% for document in documents['track_licence'] %}
+                    {% if document.type == 'track_licence' %}
+                        <li class="list-group-item">
+                            <i class="fa fa-file alert-info"></i>
+                            <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank" class="unvisited-blue hidden-print">
+                                {{ ('application.file_uploads.type.'~document.type)|trans }} ({{ document.fileName }})
+                            </a>
+                            {% if document.status == 'confirmed_track_licence' %}
+                                - {{ 'status.confirmed'|trans }} <i class="fa fa-check-circle"></i>
+                            {% else %}
+                                {% if is_granted('track-license-confirm', app.user) %}
+                                    {% include 'AppBundle:Application:files/confirm_document_button.html.twig' %}
+                                {% endif %}
+                            {% endif %}
+                            <span class="confirmed-file hidden">- {{ 'status.confirmed'|trans }} <i class="fa fa-check-circle"></i></span>
+                            {% include 'AppBundle:Application:files/remove_document_button.html.twig' %}
+                            {% include 'AppBundle:Application:files/show_who_upload.html.twig' %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% else %}
+    {% if is_granted('track-license-upload', app.user) %}
+        {% if application.hasAgreementStatus %}
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.track_licence'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{ form_row(form.track_licence) }}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}

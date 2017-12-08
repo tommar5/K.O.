@@ -1,0 +1,55 @@
+{% if is_granted('competition-chief-view', app.user) %}
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.competition_chief_select.title'|trans }}
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.competitionChief) }}
+                    {{ form_row(form.competitionChiefConfirmed) }}
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+{% endif %}
+
+{% if is_granted('commissioner-select', app.user) %}
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.steward.title'|trans }}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(form.stewards, {attr: {class: 'select2'}}) }}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endif %}
+{% if is_granted('skk-chairman-select', app.user) %}
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.skk_head.title'|trans }}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(form.skkHead) }}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endif %}
+{% if (currentUser.id == competitionChiefId and is_granted('judge-assign-chief', app.user)) or is_granted('judge-assign-organiser', app.user) %}
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.judge_select.title'|trans }}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(form.judges, {attr: {class: 'select2'}}) }}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endif %}

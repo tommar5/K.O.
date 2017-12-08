@@ -1,0 +1,123 @@
+<script>
+    $(document).ready(function () {
+        $("input[type=file]").each(function () {
+            var id = $(this).attr('id');
+            $('#' + id).removeAttr('multiple', 'multiple');
+            $('#' + id).MultiFile({
+                list: ('#' + id),
+                afterFileSelect: function (element, value, master_element) {
+                    $(element).css({
+                        'visibility': 'hidden'
+                    });
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+
+        $('button[type="submit"]').prop('disabled', true);
+
+        $('{{ name }}').keyup(function () {
+            if ($(this).val().toLowerCase().indexOf("tarptautini") > -1 || $(this).val().toLowerCase().indexOf("europos") > -1 || $(this).val().toLowerCase().indexOf("pasaulini") > -1) {
+                $('button[type="submit"]').prop('disabled', true);
+                $(this).closest('.form-group').addClass('has-error');
+            } else {
+                $('button[type="submit"]').prop('disabled', false);
+                $(this).closest('.form-group').removeClass('has-error');
+            }
+        });
+
+    });
+
+    $.datetimepicker.setLocale('lt');
+
+    var getAllowedDates = {{ legalDates|json_encode|raw }};
+
+    if (getAllowedDates != '') {
+        var allowedDates = getAllowedDates;
+    } else {
+        var allowedDates = ['1949-01-01'];
+    }
+
+    $("{{ date_from }}, {{ date_to }}").datetimepicker({
+
+        allowDates: allowedDates,
+        formatDate: 'Y-m-d',
+        format: 'Y-m-d',
+        timepicker: false,
+        minDate: 0,
+        onChangeDateTime: function (dp, $input) {
+            if ($.inArray($input.val(), {{ legalDates|json_encode|raw }}) !== -1) {
+                // Do something if value is valid
+            } else {
+                $input.val('');
+            }
+        }
+    });
+</script>
+
+{% if application.hasAgreementStatus and competition is defined %}
+    {% if 'now'|date('Y-m-d') >= competition.dateTo|localizeddate('short', 'none') %}
+        <script>
+            $(document).ready(function () {
+                $('.list-group-item:not(.show-more-less) a.btn').addClass('no-pointer');
+            });
+        </script>
+    {% endif %}
+{% endif %}
+
+<script>
+    //Check if there are more than 1 comment
+    if ($('.safety.comment-area .comment').length < 2) {
+        $('.safety-toggle-area').hide();
+    }
+
+    if ($('.additional-rule.comment-area .comment').length < 2) {
+        $('.additional-rule-toggle-area').hide();
+    }
+
+    //Toggle comment view
+    $('a.safety-toggle').click(function () {
+        $('.safety.comment-area').toggleClass('toggled');
+        $('.safety .show-more').toggleClass('hide');
+        $('.safety .show-less').toggleClass('show');
+    });
+
+    $('a.additional-rule-toggle').click(function () {
+        $('.additional-rule.comment-area').toggleClass('toggled');
+        $('.additional-rule .show-more').toggleClass('hide');
+        $('.additional-rule .show-less').toggleClass('show');
+    });
+</script>
+
+{% if is_granted('ajax-submit', app.user) %}
+    <script>
+        $(document).ready(function () {
+            $(".ajax-submit").click(function (e) {
+
+                e.preventDefault();
+
+                $(this).siblings('.confirmed-file').toggleClass('hidden');
+                $(this).hide();
+                $(this).closest('li').css('opacity', '0.1');
+                $(this).closest('li').animate({opacity: 1}, 1000);
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('href'),
+                    data: $(this).serialize()
+                });
+            });
+        });
+    </script>
+{% endif %}
+
+<script>
+    $("a:visible[id*='upload-document']").each(function () {
+        if ( $(this).next().next().children('ul').children().length > 1 ) {
+            $(this).addClass("hidden");
+        } else {
+            $(this).removeClass("hidden");
+        }
+    });
+</script>

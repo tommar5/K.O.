@@ -1,0 +1,4 @@
+AppBundle\Entity\FileUpload:
+    file:
+        mapping:           attachment
+        filename_property: file_name

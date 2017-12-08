@@ -1,0 +1,183 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% set title = "user.public_profile.title"|trans %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>{{ title }}</h1>
+    </div>
+
+    {% include 'AppBundle::flashes.html.twig' %}
+
+    <div class="row">
+        <div class="col-sm-3">
+            <img class="img-responsive" src="{{ thumb(user, 'imageFile', 'profile_large') }}">
+        </div>
+        <div class="col-sm-9">
+            <table class="table table-borderless">
+                {% if user.legal %}
+                    <tr>
+                        <td>{{ 'user.label.member_name'|trans }}:</td>
+                        <td><strong>{{ user.memberName }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'user.label.parent'|trans }}:</td>
+                        <td><strong>{{ user.fullName }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'user.label.associated'|trans }}:</td>
+                        <td>
+                            <strong>{{ user.associated ? 'user.edit.accociated'|trans : 'user.edit.not_accociated'|trans }}</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'user.label.member_code'|trans }}:</td>
+                        <td><strong>{{ user.memberCode }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'user.label.phone'|trans }}:</td>
+                        <td><strong>{{ user.phone }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'user.label.address'|trans }}:</td>
+                        <td><strong>{{ user.address }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'user.label.vat_code'|trans }}:</td>
+                        <td><strong>{{ user.vatCode }}</strong></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>{{ 'user.label.firstname'|trans }}:</td>
+                        <td><strong>{{ user.firstname }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'user.label.lastname'|trans }}:</td>
+                        <td><strong>{{ user.lastname }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'user.label.city'|trans }}:</td>
+                        <td><strong>{{ user.city }}</strong></td>
+                    </tr>
+                    {% if not user.hasRole('ROLE_JUDGE') %}
+                        <tr>
+                            <td>{{ 'licences.label.gender'|trans }}:</td>
+                            {% if user.gender == constant('AppBundle\\Entity\\User::GENDER_MALE') %}
+                                <td><strong>{{ 'user.label.genders.male'|trans }}</strong></td>
+                            {% else %}
+                                <td><strong>{{ 'user.label.genders.female'|trans }}</strong></td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>{{ 'licences.label.language'|trans }}:</td>
+                        <td>
+                            {% for language in user.languages %}
+                                {% if language.language != constant('AppBundle\\Entity\\Language::OTHER_LANGUAGE') %}
+                                    <strong>{{ language.language }}<br></strong>
+                                {% endif %}
+                            {% endfor %}
+                            {% if user.secondaryLanguage %}
+                                <strong>{{ user.secondaryLanguage|default('-') }}</strong>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% if user.parent %}
+                        <tr>
+                            <td>{{ 'user.roles.declarant'|trans }}:</td>
+                            <td><strong>{{ user.parent.memberName }}</strong></td>
+                        </tr>
+                    {% endif %}
+                {% endif %}
+                <tr>
+                    <td style="width: 40%">{{ 'user.label.registered_on'|trans }}:</td>
+                    <td style="width: 60%"><strong>{{ user.createdAt|localizeddate('short', 'none') }}</strong></td>
+                </tr>
+                {% if user.aboutMe and not user.legal %}
+                    <tr>
+                        <td colspan="2">
+                            <hr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'user.label.about_me'|trans }}:</td>
+                        <td>{{ user.aboutMe }}<br></td>
+                    </tr>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+
+    {% for licence in licences %}
+        <hr>
+        <div class="row">
+            <div class="col-md-9 col-md-offset-3">
+                <table class="table table-borderless">
+                    <tr>
+                        <td style="width: 40%">{{ 'licences.label.type'|trans }}:</td>
+                        <td style="width: 60%">{{ ('licences.type.'~licence.type)|trans }}</td>
+                    </tr>
+                    {% if licence.teamName %}
+                        <tr>
+                            <td>{{ 'user.public_profile.team'|trans }}:</td>
+                            <td>{{ licence.teamName }}<br></td>
+                        </tr>
+                    {% endif %}
+                    {% if user.hasRole('ROLE_JUDGE') %}
+                        <tr>
+                            <td>{{ 'licences.label.judge.sports'|trans }}:</td>
+                            <td>{% for sport in licence.sports %}{% if loop.first %}{{ sport.name }}{% else %}, {{ sport.name }}{% endif %}{% endfor %}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>{{ 'licences.label.full_serial'|trans }}:</td>
+                        <td>{{ licence.fullSerial }}<br></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'licences.label.expires_at'|trans }}:</td>
+                        <td>{{ licence.expiresAt|localizeddate('short', 'none') }}<br></td>
+                    </tr>
+                    {% for rep in licence.representatives %}
+                        <tr>
+                            <td>{{ 'licences.label.representatives'|trans }}:</td>
+                            <td>{{ rep.fullName }}<br></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="col-sm-12">
+                <div class="row">
+                    {% for subLicence in licence.basedOnLicence if subLicence.active %}
+                        <div class="col-sm-6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <a href="{{ path('app_user_user', {id: subLicence.user.id}) }}">
+                                                <img class="img-responsive"
+                                                     src="{{ thumb(subLicence.user, 'imageFile', 'profile_small') }}">
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <a href="{{ path('app_user_user', {id: subLicence.user.id}) }}">
+                                                <h4>{{ subLicence.user.fullName }}</h4>
+                                            </a>
+                                            {{ 'licences.label.type'|trans }}
+                                            : {{ ('licences.type.'~subLicence.type)|trans }}<br>
+                                            {{ 'licences.label.expires_at'|trans }}
+                                            : {{ subLicence.expiresAt|localizeddate('short', 'none') }}<br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
+

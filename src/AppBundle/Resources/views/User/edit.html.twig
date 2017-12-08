@@ -1,0 +1,41 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>{{ 'user.edit.title'|trans }}</h1>
+  </div>
+  {% include 'AppBundle::flashes.html.twig' %}
+  {{ form_errors(form) }}
+  {{ form_start(form) }}
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-user"></i> {{ entity.email }}</h3>
+    </div>
+    <div class="panel-body">
+      {% include 'AppBundle:User:user_form.html.twig' %}
+    </div>
+    <div class="panel-footer text-center">
+      {% if not entity.confirmed and is_granted('ROLE_ADMIN') %}
+        <a href="{{ url('app_user_confirm', {id: entity.id}) }}" class="btn btn-success">{{ 'button.confirm_user'|trans }}</a>
+      {% endif %}
+      {% if not entity.termsConfirmed %}
+        <a href="{{ url('app_user_resend', {id: entity.id}) }}" class="btn btn-info">{{ 'user.edit.new_password'|trans }}</a>
+      {% endif %}
+      <button type="submit" class="btn btn-primary">{{ 'button.save'|trans }}</button>
+      <a href="{{ url('app_user_index') }}" class="btn btn-default">{{ 'button.cancel'|trans }}</a>
+    </div>
+  </div>
+  {{ form_end(form) }}
+{% endblock %}
+
+{% block js %}
+  {{ parent() }}
+
+  {% include 'AppBundle:User:form_js.html.twig' %}
+  {% include 'AppBundle::driver_judge_form_js.html.twig' with {
+          'secondaryLanguage': 'user_secondaryLanguage',
+          'languages' : 'user_languages'
+  } %}
+{% endblock %}

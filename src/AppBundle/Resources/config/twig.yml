@@ -1,0 +1,59 @@
+services:
+  twig.extension.cms_block:
+    class: AppBundle\Twig\CMSBlockExtension
+    arguments: [@doctrine.orm.entity_manager]
+    tags:
+      - { name: twig.extension }
+
+  twig.audit.extension:
+    class: AppBundle\Twig\AuditExtension
+    tags:
+      - { name: twig.extension }
+
+  twig.localisation.exension:
+    class: Twig_Extensions_Extension_Intl
+    tags:
+      - { name: twig.extension }
+
+  twig.extension.thumb:
+    class: AppBundle\Twig\ThumbExtension
+    tags:
+      - { name: twig.extension }
+    arguments:
+      - @vich_uploader.templating.helper.uploader_helper
+      - @liip_imagine.cache.manager
+      - @liip_imagine.filter.configuration
+
+  twig.back_button.extension:
+    class: AppBundle\Twig\BackButtonExtension
+    tags:
+      - { name: twig.extension }
+
+  twig.application.extension:
+    class: AppBundle\Twig\ApplicationExtension
+    arguments:
+      - @em
+    tags:
+      - { name: twig.extension }
+
+  twig.terms.calculation.extension:
+    class: AppBundle\Twig\TermsCalculationExtention
+    arguments:
+      - @em
+    tags:
+      - { name: twig.extension }
+
+  twig.sub_competition.extension:
+    class: AppBundle\Twig\SubCompetitionExtension
+    tags:
+      - { name: twig.extension }
+
+  twig.status_change.extension:
+    class: AppBundle\Twig\StatusChangeExtension
+    tags:
+      - { name: twig.extension }
+
+  twig.documents_confirmed.extension:
+    class: AppBundle\Twig\DocumentsConfirmedExtension
+    tags:
+      - { name: twig.extension }

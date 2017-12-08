@@ -1,0 +1,27 @@
+{% if documents['competition_insurance'] is defined %}
+    {% set confirmedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_COMPETITION_INSURANCE') %}
+    {% set addedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_ADDED_COMPETITION_INSURANCE') %}
+ <div class="documents {{ documents['competition_insurance']|statusChange([confirmedKey], [addedKey]) }}">
+    <div class="status-content">
+      <span class="status-text">
+          {{ 'application.documents.competition_insurance'|trans }}
+      </span>
+    </div>
+    <div class="status-day-counter"></div>
+    <div class="confirmation-message">
+        {% if documents['competition_insurance'][0].status == addedKey %}
+            {{ 'application.documents.competition_insurance'|trans }}
+        {% elseif documents['competition_insurance'][0].status == confirmedKey %}
+            {{ 'file_uploads.status.confirmed_competition_insurance'|trans }}
+        {% endif %}
+    </div>
+  </div>
+{% else %}
+    <div class="documents">
+        <div class="status-content">
+          <span class="status-text">
+            {{ 'application.documents.competition_insurance'|trans }}
+          </span>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,624 @@
+{% if licence.judgeLicence %}
+    <div class="visible-print pull-right signature-block">
+        <div class="pull-right text-uppercase">{{ 'print.accepted'|trans }}</div>
+        <br>
+        <div class="pull-right text-right">{{ 'print.lasf_committee'|trans }} <br> {{ 'print.chairman'|trans }}</div>
+        <br>
+        <div class="signature-path text-center"></div>
+        <div class="signature text-center">({{ 'print.signature'|trans }})</div>
+    </div>
+{% endif %}
+
+<div class="panel {{ licence.hasRejectedFiles or licence.declined ? 'panel-danger' : 'panel-default' }}  single-licence">
+    <div class="panel-heading">
+        {{ ('licences.type.'~licence.type)|trans }} (#{{ licence.id }})
+        {% if edit is not defined %}
+            {% set extend = 'licences.my.cannot_extend'|trans %}
+            {% if licence.licence and licence.licence.expiringOrExpired and licence.licence.produced %}
+                {% set extend = 'licences.my.extend_team_licence'|trans %}
+            {% endif %}
+            {% if licence.canBeExtended %}
+                <a href="{{ path('app_licences_extend', {id: licence.id}) }}" class="btn btn-primary btn-xs pull-right">
+                    {{ 'licences.my.extend'|trans }}
+                </a>
+            {% elseif licence.expiringOrExpired and licence.produced %}
+                {% set extend = 'licences.my.cannot_extend'|trans %}
+                {% if licence.licence and licence.licence.expiringOrExpired and licence.licence.produced %}
+                    {% set extend = 'licences.my.extend_team_licence'|trans %}
+                {% endif %}
+                <a href="#" class="btn btn-default btn-xs pull-right disabled" onclick="return false;">
+                    {{ extend }}
+                </a>
+            {% endif %}
+        {% endif %}
+        {% if edit is not defined and not licence.completed %}
+            <a href="{{ path('app_licences_modify', {id: licence.id}) }}" class="btn btn-info btn-xs pull-right">
+                {{ 'licences.my.edit'|trans }}
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <table class="table table-borderless">
+                    {% if licence.judgeLicence %}
+                        <tr class="visible-print">
+                            <td>{{ 'licences.label.judge.name'|trans }}:</td>
+                            <td>{{ licence.name }}</td>
+                        </tr>
+                        <tr class="visible-print">
+                            <td>{{ 'licences.label.judge.sports'|trans }}:</td>
+                            <td>{% for sport in licence.sports %}{% if loop.first %}{{ sport.name }}{% else %}, {{ sport.name }}{% endif %}{% endfor %}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.driverLicence %}
+                        <tr class="visible-print">
+                            <td>{{ 'print.name_lastname'|trans }}:</td>
+                            <td>{{ licence.user.fullName }}</td>
+                        </tr>
+                        <tr class="visible-print">
+                            <td>{{ 'licences.label.judge.sports'|trans }}:</td>
+                            <td>{% for sport in licence.sports %}{% if loop.first %}{{ sport.name }}{% else %}, {{ sport.name }}{% endif %}{% endfor %}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>{{ 'licences.label.status'|trans }}:</td>
+                        <td>
+                            {{ licence.translationStatus|trans }} {{ licence.extending and not licence.extend ? ' (' ~'licences.status.extend'|trans|lower ~ ')' }}
+
+                            {% if edit is defined %}
+                                <br>
+                                <div class="hidden-print">
+                                    {% include 'AppBundle:Licences:licence_actions.html.twig' with {licence: licence} %}
+
+                                    {% if is_granted('ROLE_ACCOUNTANT') and (licence.paid or licence.invoiceSent) %}
+                                        (<a href="{{ url('app_licences_markasnotpaid', {id: licence.id}) }}">{{ 'licences.edit.mark_as_not_paid'|trans }}</a>)
+                                    {% endif %}
+                                </div>
+
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% if licence.urgency is not null %}
+                        <tr class="hidden-print">
+                            <td>{{ 'licences.label.urgency'|trans }}:</td>
+                            <td>
+                                {{ include(cms_block('urgency_'~licence.urgency))|nl2br }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>{{ 'licences.label.serial_code'|trans }}:</td>
+                        <td>{{ licence.fullSerial }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'licences.label.created_at'|trans }}:</td>
+                        <td>{{ licence.createdAt|localizeddate('short', 'none') }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-nowrap">{{ 'licences.label.expires_at'|trans }}:</td>
+                        <td>{{ licence.expiresAt ? licence.expiresAt|localizeddate('short', 'none') : '-' }}</td>
+                    </tr>
+
+                    {% if not licence.membershipLicence %}
+                        <tr>
+                            <td>{{ 'licences.label.deliver_to'|trans }}:</td>
+                            <td>{{ licence.deliverTo != 0 ? lpExpressList[licence.deliverToAddress] : 'application.label.lasf'|trans }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.driverLicence or licence.judgeLicence %}
+                        <tr class="{{ not licence.user.mature ? 'text-danger' }}">
+                            <td>{{ 'user.label.birthday'|trans }}:</td>
+                            <td>{{ licence.user.birthday ? licence.user.birthday|localizeddate('short', 'none') : '-' }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.declarantLicence %}
+                        <tr>
+                            <td>{{ 'licences.label.declarant.vat_number'|trans }}:</td>
+                            <td>{{ licence.vatNumber }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.mobile_number'|trans }}:</td>
+                            <td>{{ licence.mobileNumber }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.team_name'|trans }}:</td>
+                            <td>{{ licence.teamName }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.membershipLicence %}
+                        <tr>
+                            <td>{{ 'user.label.associated'|trans }}:</td>
+                            <td>{{ licence.personalCode is not null and licence.personalCode != 0 ? 'user.edit.accociated'|trans : 'user.edit.not_accociated'|trans }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.driverLicence %}
+                        <tr>
+                            <td>{{ 'licences.label.declarant.lasf_name'|trans }}:</td>
+                            <td>{{ licence.licence ? licence.licence.user.memberName }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.lasf_address'|trans }}:</td>
+                            <td>{{ licence.lasfAddress }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.email'|trans }}:</td>
+                            <td>{{ licence.email }}</td>
+                        </tr>
+                        <tr class="hidden-print">
+                            <td>{{ 'print.name_lastname'|trans }}:</td>
+                            <td>{{ licence.user.fullName }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.licence'|trans }}:</td>
+                            <td>{{ licence.licence ? licence.licence.teamName }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.mobile_number'|trans }}:</td>
+                            <td>{{ licence.mobileNumber }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.personal_code'|trans }}:</td>
+                            <td>{{ licence.personalCode }}</td>
+                        </tr>
+                        <tr class="hidden-print">
+                            <td>{{ 'licences.label.judge.sports'|trans }}:</td>
+                            <td>{% for sport in licence.sports %}{% if loop.first %}{{ sport.name }}{% else %}, {{ sport.name }}{% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.city'|trans }}:</td>
+                            <td>{{ licence.city|default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.language'|trans }}:</td>
+                            <td>
+                                {% if not licence.user.languages.empty %}
+                                    {% for language in licence.user.languages %}
+                                        {% if language.language != 'languages.Other'|trans %}
+                                            {{ language.language }}<br>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% if licence.secondaryLanguage %}
+                            <tr>
+                                <td>{{ 'licences.label.other_language'|trans }}:</td>
+                                <td>{{ licence.secondaryLanguage|default('-') }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td>{{ 'licences.label.gender'|trans }}:</td>
+                            {% if licence.gender == constant('AppBundle\\Entity\\User::GENDER_MALE') %}
+                                <td>{{ 'user.label.genders.male'|trans }}</td>
+                            {% else %}
+                                <td>{{ 'user.label.genders.female'|trans }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.driver_type'|trans }}:</td>
+                            <td colspan="1">{% if licence.firstDriver %}{{ 'licences.label.driver.first_driver'|trans }}
+                                    <br>{% endif %}
+                                {% if licence.secondDriver %}{{ 'licences.label.driver.second_driver'|trans }}{% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.organisatorLicence %}
+                        <tr>
+                            <td>{{ 'licences.label.declarant.vat_number'|trans }}:</td>
+                            <td>{{ licence.vatNumber }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.organisator.bank'|trans }}:</td>
+                            <td>{{ licence.bank }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.organisator.bank_account'|trans }}:</td>
+                            <td>{{ licence.bankAccount }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.organisator.mobile_number'|trans }}:</td>
+                            <td>{{ licence.mobileNumber }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.judgeLicence %}
+                        <tr>
+                            <td>{{ 'licences.label.judge.mobile_number'|trans }}:</td>
+                            <td>{{ licence.mobileNumber }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.judge.email'|trans }}:</td>
+                            <td>{{ licence.email }}</td>
+                        </tr>
+                        <tr class="hidden-print">
+                            <td>{{ 'licences.label.judge.name'|trans }}:</td>
+                            <td>{{ licence.name }}</td>
+                        </tr>
+                        <tr class="hidden-print">
+                            <td>{{ 'licences.label.judge.sports'|trans }}:</td>
+                            <td>{% for sport in licence.sports %}{% if loop.first %}{{ sport.name }}{% else %}, {{ sport.name }}{% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.city'|trans }}:</td>
+                            <td>{{ licence.city|default('-') }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.language'|trans }}:</td>
+                            <td>
+                                {% if not licence.user.languages.empty %}
+                                    {% for language in licence.user.languages %}
+                                        {{ language.language }}<br>
+                                    {% endfor %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% if licence.secondaryLanguage %}
+                            <tr>
+                                <td>{{ 'licences.label.other_language'|trans }}:</td>
+                                <td>{{ licence.secondaryLanguage|default('-') }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td>{{ 'licences.label.gender'|trans }}:</td>
+                            {% if licence.gender == constant('AppBundle\\Entity\\User::GENDER_MALE') %}
+                                <td><strong>{{ 'user.label.genders.male'|trans }}</strong></td>
+                            {% else %}
+                                <td><strong>{{ 'user.label.genders.female'|trans }}</strong></td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.membershipLicence %}
+                        <tr>
+                            <td>{{ 'user.label.phone'|trans }}:</td>
+                            <td>{{ licence.user.phone }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'user.label.bank'|trans }}:</td>
+                            <td>{{ licence.user.bank ?: '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'user.label.bank_account'|trans }}:</td>
+                            <td>{{ licence.user.bankAccount ?: '-' }}</td>
+                        </tr>
+                    {% endif %}
+                </table>
+            </div>
+
+            <div class="col-sm-6">
+                <table class="table table-borderless">
+                    {% if not licence.organisatorLicence %}
+                        <tr>
+                            <td class="text-nowrap">{{ 'licences.label.documents'|trans }}:</td>
+                            <td>
+                                {% set fileType = constant('AppBundle\\Entity\\FileUpload::TYPE_INSURANCE') %}
+                                {% for file in licence.documents %}
+                                    {% set fileType = file.type %}
+                                    {% if file.approved %}
+                                        <i class="fa fa-check text-success"
+                                           data-title="{{ 'licences.my.document_accepted'|trans }}"
+                                           data-toggle="tooltip"></i>
+                                    {% elseif file.rejected %}
+                                        <br>
+                                        <i class="fa fa-times text-danger"
+                                           data-title="{{ 'licences.my.document_rejected'|trans }}"
+                                           data-toggle="tooltip"></i>
+                                    {% endif %}
+                                    {% if edit is defined %}
+                                        <a href="{{ url('app_licences_removedocument', {'id': licence.id, 'document': file.id}) }}"
+                                           class="btn btn-xs btn-danger js-confirm js-no-ajax hidden-print" data-text="{{ 'application.index.document_remove'|trans }}" data-title="{{ 'button.delete'|trans }}" data-toggle="tooltip">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    {% endif %}
+                                    <a href="{{ vich_uploader_asset(file, 'file') }}" target="_blank"
+                                       class="unvisited-blue hidden-print">
+                                        {{ ('file_uploads.type.'~file.type)|trans }}
+                                    </a>
+
+                                    <span class="visible-print-inline">{{ ('file_uploads.type.'~file.type)|trans }}</span>
+
+                                    {% if edit is defined %}
+                                        <span class="text-nowrap">
+                                            {{ file.number }} {{ file.validUntil ? file.validUntil|localizeddate('short', 'none') : '-' }}
+                                        </span>
+                                        {% if not file.rejected %}
+                                            <a href="{{ url('app_fileuploads_reject', {id: file.id, licenceId: licence.id}) }}"
+                                               class="btn btn-xs btn-link js-modal hidden-print"
+                                               data-title="{{ 'licences.index.reject'|trans }}" data-toggle="tooltip">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        {% if file.rejected %}
+                                            <a href="{{ url('app_fileuploads_edit', {id: file.id, licenceId: licence.id}) }}"
+                                               class="btn btn-xs btn-link js-modal hidden-print"
+                                               data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% if file.rejected and file.reason %}
+                                        <br><br>
+                                        <div class="well well-sm">{{ file.reason }}</div>
+                                    {% elseif not loop.last %}
+                                        <br>
+                                    {% endif %}
+
+                                {% else %}
+                                    -
+                                {% endfor %}
+
+                                {% set insurance = constant('AppBundle\\Entity\\FileUpload::TYPE_INSURANCE') %}
+                                {% if edit is defined and licence.lasfInsurance %}
+                                    <br>
+                                    <i class="fa fa-times text-danger"
+                                       data-title="{{ 'licences.my.document_rejected'|trans }}"
+                                       data-toggle="tooltip"></i>
+                                    {{ ('file_uploads.type.'~insurance)|trans }}
+                                    <a href="{{ url('app_fileuploads_new', {licence: licence.id, type: insurance}) }}"
+                                       class="btn btn-xs btn-link js-modal hidden-print"
+                                       data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <br><br>
+                                    <div class="well well-sm">{{ 'licences.label.driver.identity_code'|trans }}
+                                        : {{ licence.identityCode }}</div>
+                                {% endif %}
+
+                                {% if edit is defined and licence.documentsTypes is not empty %}
+                                    <span class="hidden-print">
+                                        <br />
+                                        <br />
+                                        <select id="document-type-select" class="select2">
+                                            <option value="">{{ ('file_uploads.label.choose_type')|trans }}</option>
+                                            {% for type in licence.documentsTypes %}
+                                                <option value="{{ type }}">{{ ('file_uploads.type.'~type)|trans }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <br />
+                                        <a href="{{ url('app_fileuploads_new', {licence: licence.id, type: fileType}) }}"
+                                           class="btn btn-xs btn-default js-modal hidden-print create-new hidden">
+                                            {{ 'licences.my.upload_new'|trans }}
+                                        </a>
+                                    </span>
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.membershipLicence %}
+                        <tr>
+                            <td>{{ 'user.label.member_name'|trans }}:</td>
+                            <td>{{ licence.user.memberName }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'user.label.member_code'|trans }}:</td>
+                            <td>{{ licence.user.memberCode }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'print.name_lastname'|trans }}:</td>
+                            <td>{{ licence.user.fullName }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'user.label.vat_code'|trans }}:</td>
+                            <td>{{ licence.user.vatCode }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'user.label.address'|trans }}:</td>
+                            <td>{{ licence.user.address }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'user.label.email'|trans }}:</td>
+                            <td>{{ licence.user.email }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.declarantLicence %}
+                        <tr>
+                            <td>{{ 'licences.label.declarant.lasf_name'|trans }}:</td>
+                            <td>{{ licence.lasfName }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.manager_full_name'|trans }}:</td>
+                            <td>{{ licence.managerFullName }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.personal_code'|trans }}:</td>
+                            <td>{{ licence.personalCode }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.lasf_address'|trans }}:</td>
+                            <td>{{ licence.lasfAddress }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'print.name_lastname'|trans }}:</td>
+                            <td>{{ licence.user.fullName }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.email'|trans }}:</td>
+                            <td>{{ licence.email }}</td>
+                        </tr>
+                        {% for rep in licence.representatives %}
+                            <tr>
+                                <td>{% if loop.first %}{{ 'licences.label.representatives'|trans }}:{% endif %}</td>
+                                <td>{{ rep.fullName }}<br></td>
+                            </tr>
+                        {% endfor %}
+
+                        {% for singleLicence in licences %}
+                            {% if singleLicence.id is same as(licence.id) %}
+                                {% for subLicence in singleLicence.basedOnLicence if subLicence.active %}
+                                    <tr>
+                                        <td>
+                                            {% if loop.first %}{{ 'licences.label.users'|trans }}:{% endif %}
+                                        </td>
+                                        <td>
+                                            {{ subLicence.user.fullName }}<br>
+                                            - {{ ('licences.type.'~subLicence.type)|trans }}<br>
+                                            ({{ subLicence.fullSerial }})
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if licence.organisatorLicence %}
+                        <tr>
+                            <td>{{ 'licences.label.organisator.name'|trans }}:</td>
+                            <td>{{ licence.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.organisator.date'|trans }}:</td>
+                            <td>{{ licence.date|localizeddate('short', 'none') }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.lasf_name'|trans }}:</td>
+                            <td>{{ licence.lasfName }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.lasf_address'|trans }}:</td>
+                            <td>{{ licence.lasfAddress }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.organisator.phone'|trans }}:</td>
+                            <td>{{ licence.phone }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.organisator.email'|trans }}:</td>
+                            <td>{{ licence.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.manager_full_name'|trans }}:</td>
+                            <td>{{ licence.managerFullName }}</td>
+                        </tr>
+                    {% endif %}
+
+                    {% if licence.judgeLicence %}
+                        <tr>
+                            <td>{{ 'licences.label.judge.declarant'|trans }}:</td>
+                            <td>{{ licence.declarant.membername }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.judge.date'|trans }}:</td>
+                            <td>{{ licence.date|localizeddate('short', 'none') }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'user.label.member_code'|trans }}:</td>
+                            <td>{{ licence.declarant.memberCode }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'licences.label.declarant.lasf_address'|trans }}:</td>
+                            <td>{{ licence.declarant.address }}</td>
+                        </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+        <table class="table table-borderless visible-print signature">
+            <tr>
+                <td><b>({{ "print.name_lastname"|trans }})</b></td>
+                <td><b>({{ "print.date"|trans }})</b></td>
+                <td><b>({{ "print.signature"|trans }})</b></td>
+            </tr>
+        </table>
+        {% if licence.comment %}
+            <strong>{{ 'licences.edit.comment'|trans }}:</strong>
+            <p>{{ licence.comment }}</p>
+        {% endif %}
+
+        {% if licence.declarantLicence %}
+            <p>{{ 'licences.edit.conditions.declarant'|trans }}</p>
+        {% elseif licence.driverLicence %}
+            <p>{{ 'licences.edit.conditions.driver'|trans }}</p>
+        {% elseif licence.judgeLicence %}
+            <p>{{ 'licences.edit.conditions.judge'|trans }}</p>
+        {% endif %}
+
+        {% if licence.judgeLicence %}
+            <div class="visible-print">
+                <table class="signature-table">
+                    <tr>
+                        <td>
+                            <div class="first">{{ 'print.licence_receiver'|trans }}</div>
+                            <div class="second text-center signature">{{ 'print.signature_placeholder'|trans }}</div>
+                        </td>
+                        <td>
+                            <div>{{ 'print.date_input'|trans }}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="first">{{ 'print.declarant'|trans }}</div>
+                            <div class="second text-center signature">{{ 'print.signature_placeholder'|trans }}</div>
+                        </td>
+                        <td>
+                            <div>{{ 'print.date_input'|trans }}</div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="clearfix"> {{ 'print.separator_text'|trans }} </div>
+
+                <table class="signature-table">
+                    <tr>
+                        <td colspan="2">
+                            <div>{{ 'print.lasf_licence_field'|trans }}
+                                <i>{{ 'print.lasf_licence_field_two'|trans }}</i></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>{{ 'print.date_licence_field'|trans }}</div>
+                        </td>
+                        <td>
+                            <div class="text-center signature lasf-signature">
+                                {{ 'print.signature_placeholder_lasf'|trans }}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+
+        <div class="visible-print">
+            {% if licence.driverLicence %}
+                <table class="signature-driver">
+                    <tr>
+                        <td>
+                            <div class="text-uppercase">
+                                <b>{{ 'print.lasf_field'|trans }}</b></div>
+                            <div>{{ 'print.driver_category_field'|trans }} </div>
+                            <div>{{ 'print.licence_giver_signature'|trans }} </div>
+                            <div>{{ 'print.date_field'|trans }} </div>
+                        </td>
+                        <td>
+                            <div class="text-uppercase">
+                                <b>{{ 'print.lasf_theory_block'|trans }}</b></div>
+                            <div>{{ 'print.result'|trans }}</div>
+                            <div>{{ 'print.accepted_exam'|trans }}</div>
+                            <div>
+                                .......................................................................................
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+

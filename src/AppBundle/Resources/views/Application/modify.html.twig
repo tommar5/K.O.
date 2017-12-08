@@ -1,0 +1,118 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+{% block js %}
+    {% include 'AppBundle::application_subApplication_js.html.twig' with
+        {
+            'date_from': '#application_dateFrom',
+            'date_to' : '#application_dateTo',
+            'name' : '#application_name'
+    }
+    %}
+    {% include 'AppBundle:Application:form_js.html.twig' %}
+    {% include 'AppBundle::google_maps.html.twig' with {'element': 'application_location'} %}
+    {% include 'AppBundle:Application/status:status_js.html.twig' with {'application': application}  %}
+{% endblock %}
+{% block content %}
+    {% if is_granted('application-modify', app.user) %}
+        <div class="page-header">
+            <h1>{{ 'application.new.title'|trans }}
+                {{ back_button('app_application_index') }}
+            </h1>
+        </div>
+
+        {% include 'AppBundle::flashes.html.twig' %}
+
+        {% if application.isNotPaid or application.isOrganisatorUploadedContract %}
+            {% if is_granted('pay-invoice-message-view', app.user) %}
+                <div class="alert alert-info hidden-print">
+                    <span class="fa fa-info-circle"></span>
+                    {{ 'application.flash.ready_to_pay' | trans }}
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% include 'AppBundle:Application/status:status_display.html.twig' %}
+
+        {{ form_errors(form) }}
+        {{ form_start(form) }}
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                {% if is_granted('application-confirm', app.user) %}
+                    <h3 class="panel-title with-btn"><i
+                                class="fa fa-file"></i> {{ 'application.new.enter_details'|trans }}</h3>
+                    {% if(application.getApplicationAgreement is null) %}
+                        <a href="{{ url('app_application_createagreement', {'id' : application.id}) }}"
+                           class="btn btn-success pull-right">
+                            <i class="fa fa-check"></i> {{ 'application_agreement.create' | trans }}
+                        </a>
+                    {% else %}
+                        <a href="{{ url('app_applicationagreement_modify', {'id' : application.getApplicationAgreement.id}) }}"
+                           class="btn btn-info pull-right">
+                            <i class="fa fa-file"></i> {{ 'application_agreement.modify' | trans }}
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <h3 class="panel-title"><i class="fa fa-file"></i> {{ 'application.new.enter_details'|trans }}</h3>
+                {% endif %}
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body application-block">
+                <div class="row">
+                    <div class="application-form">
+                        {% if application.isUnconfirmed and is_granted('admin-fields-view', app.user) %}
+                            {% include 'AppBundle:Application:form_fields.html.twig' %}
+                            <div class="col-md-6">
+                                <a href="{{ path('app_sub_competition_new', {'id' : application.id}) }}" class="btn btn-primary" style="margin-top: 25px;">{{ 'application.new.new_sub_competition'|trans }}</a>
+                            </div>
+                        {% else %}
+                            {% include 'AppBundle:Application:form_fields_modify.html.twig' %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% if not application.subCompetitions.empty %}
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.sub_competition'|trans }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        {% include 'AppBundle:SubCompetition:sub_competitions.html.twig' %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.organizer_info'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    {% include 'AppBundle:Application:user_fields.html.twig' %}
+                </div>
+            </div>
+            {% if application.id and application.hasAgreementStatus %}
+                {% include 'AppBundle:Application:modify_additional_fields.html.twig' %}
+            {% endif %}
+
+            {% if application.isUnconfirmed and (is_granted('delivery-modify', app.user)) %}
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.deliver_info'|trans }}</h3>
+                </div>
+                <div class="panel-body address-conditions">
+                    {{ form_row(form.deliverTo) }}
+                    <div class="delive_to_address">{{ form_row(form.deliverToAddress, {attr: {class: 'select2'}}) }}</div>
+                </div>
+            {% endif %}
+
+            {% if application.hasAgreementStatus %}
+                {% include 'AppBundle:Application:secretary_fields.html.twig' %}
+            {%  endif %}
+
+            {% include 'AppBundle:Application:files.html.twig' %}
+            <div class="panel-footer text-center">
+                <button type="submit" class="btn btn-primary">{{ 'button.save'|trans }}</button>
+                <a href="{{ url('app_application_index') }}" class="btn btn-default">{{ 'button.cancel'|trans }}</a>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    {% endif %}
+{% endblock %}

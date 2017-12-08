@@ -1,0 +1,37 @@
+{#After competition results Block#}
+{% if documents['competition_results'] is defined %}
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.competition_results'|trans }}</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="list-group">
+            {% for document in documents['competition_results'] %}
+                {% if document.type == 'competition_results' %}
+                    <li class="list-group-item">
+                        <i class="fa fa-file alert-info"></i>
+                        <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank" class="unvisited-blue hidden-print">
+                            {{ ('application.file_uploads.type.'~document.type)|trans }} ({{ document.fileName }})
+                        </a>
+                        {% include 'AppBundle:Application:files/remove_document_button.html.twig' %}
+                        {% include 'AppBundle:Application:files/show_who_upload.html.twig' %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    {% if is_granted('result-upload', app.user)%}
+        {% if application.isPaid%}
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.competition_results'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{ form_row(form.competition_results) }}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}

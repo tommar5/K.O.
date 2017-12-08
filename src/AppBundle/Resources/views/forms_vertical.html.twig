@@ -1,0 +1,70 @@
+{% extends "bootstrap_3_layout.html.twig" %}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+    {% if form.parent %}<span class="help-block">{% else %}<div class="alert alert-danger">{% endif %}
+    <ul class="list-unstyled">
+        {%- for error in errors -%}
+            <li>{{ error.message }}</li>
+        {%- endfor -%}
+    </ul>
+    {% if form.parent %}</span>{% else %}</div>{% endif %}
+    {%- endif %}
+{%- endblock form_errors %}
+
+{% block _licence_info_users_entry_widget %}
+  <div class="collection-form-item clearfix">
+    <div class="form-group{{ form.email.vars.errors|length ? ' has-error' }}">
+      <div class="col-lg-6">
+          {{ form_widget(form.email, {attr: {style: "width: 75%"}}) }}
+          {{ form_widget(form.firstname, {attr: {style: "width: 75%"}}) }}
+          {{ form_widget(form.lastname, {attr: {style: "width: 75%"}}) }}
+      </div>
+      <div class="col-lg-6">
+          {{ form_widget(form.prefLicence, {attr: {style: "width: 75%"}}) }}
+          {{ form_widget(form.city, {attr: {style: "width: 75%"}}) }}
+          {{ form_widget(form.gender, {attr: {style: "width: 75%"}}) }}
+      </div>
+      {{ form_errors(form.email) }}
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block _licence_info_representatives_entry_widget %}
+  <div class="collection-form-item clearfix">
+    <div class="form-group">
+        {{ form_widget(form.fullName) }}
+    </div>
+  </div>
+{% endblock %}
+
+{% block _application_subCompetitions_entry_widget %}
+    <div class="panel-primary">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="fa fa-file"></i>
+                <span class="subCompetition-title">{{ 'application.new.sub_competition'|trans }}</span>
+            </span>
+            <a class="btn btn-sm btn-default show-button pull-right hidden">
+                {{ 'application.new.show_sub_competitions'|trans }}</a>
+        </div>
+        <div class="panel-body">
+            <ul class="col-md-6 list-unstyled">
+                <li>{{ form_row(form.sport) }}</li>
+                <li>{{ form_row(form.name, {attr: {class: 'subCompetition-name'}}) }}</li>
+                <li>{{ form_row(form.league) }}</li>
+                <li>{{ form_row(form.dateFrom, {attr: {class: 'date subCompetition-dateFrom'}}) }}</li>
+                <li>
+                    <a class="btn btn-primary collapse-button">{{ 'application.sub_competition.sub_competition_modify'|trans }}</a>
+                    <a class="btn btn-danger remove-button">{{ 'application.sub_competition.sub_competition_delete'|trans }}</a>
+                </li>
+            </ul>
+            <ul class="col-md-6 list-unstyled">
+                <li>{{ form_row(form.location, {attr: {class: 'subCompetition-location'}}) }}</li>
+                <li>{{ form_row(form.stage) }}</li>
+                <li>{{ form_row(form.type) }}</li>
+                <li>{{ form_row(form.dateTo, {attr: {class: 'date subCompetition-dateTo'}}) }}</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+<div class="col-sm-12 col-md-6 col-lg-6">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <a href="{{ path('app_user_user', {id: user.id}) }}">
+            <img class="img-responsive" src="{{ thumb(user, 'imageFile', 'profile_small') }}">
+          </a>
+        </div>
+        <div class="col-sm-9">
+          <a href="{{ path('app_user_user', {id: user.id}) }}">
+            <h4>{{ user.fullName }}</h4>
+          </a>
+          {% if licence is defined %}
+            {{ 'licences.label.type'|trans }}: {{ ('licences.type.'~licence.type)|trans }}<br>
+            {% if licence.isDriverLicence %}
+              {{ 'user.public_profile.team'|trans }}: {{ licence.licence.teamName }}<br>
+              {{ 'user.label.lasf_name'|trans }}: {{ licence.licence.user.legal ? licence.licence.user.memberName : licence.licence.user.fullName }}
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>
+      {{ 'licences.user.title'|trans }}
+      <a href="{{ url('app_licences_new', {id: user.id}) }}" class="btn btn-success pull-right">
+        <i class="fa fa-plus"></i> {{ 'licences.user.new'|trans }}
+      </a>
+    </h1>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  {% for licence in licences %}
+    {% include 'AppBundle:Licences:single_licence.html.twig' with {licence: licence} %}
+  {% endfor %}
+{% endblock %}

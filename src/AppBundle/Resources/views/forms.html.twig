@@ -1,0 +1,19 @@
+{% extends "bootstrap_3_horizontal_layout.html.twig" %}
+
+{# adds novalidate to prevent html5 validation#}
+{% block form_start -%}
+  {% set attr = attr|merge({novalidate: null}) %}
+  {{- parent() -}}
+{%- endblock form_start %}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+    {% if form.parent %}<span class="help-block">{% else %}<div class="alert alert-danger">{% endif %}
+    <ul class="list-unstyled">
+        {%- for error in errors -%}
+            <li>{{ error.message }}</li>
+        {%- endfor -%}
+    </ul>
+    {% if form.parent %}</span>{% else %}</div>{% endif %}
+    {%- endif %}
+{%- endblock form_errors %}

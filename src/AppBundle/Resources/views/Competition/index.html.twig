@@ -1,0 +1,85 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATOR') or is_granted('ROLE_RACER') %}
+
+    <div class="page-header">
+      <h1>
+        {{ 'competition.index.title'|trans }}
+        {% if is_granted('ROLE_ORGANISATOR') %}
+          <a href="{{ url('app_competition_terms') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> {{ 'competition.index.new'|trans }}
+        {% endif %}
+        </a>
+      </h1>
+      <div class="clearfix"></div>
+    </div>
+
+    {% include 'AppBundle::flashes.html.twig' %}
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-th-large"></i> {{ 'competition.index.title'|trans }}</h3>
+      </div>
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>{{ sorter_link(competitions, 't.name', 'competition.label.name'|trans) }}</th>
+            <th>{{ sorter_link(competitions, 't.dateFrom', 'competition.label.date_from'|trans) }}</th>
+            <th>{{ sorter_link(competitions, 't.dateTo', 'competition.label.location'|trans) }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for competition in competitions %}
+            <tr>
+              <td>
+                <a href="{{ url('app_competition_show', {id: competition.id}) }}" data-title="{{ 'title.show'|trans }}" data-toggle="tooltip">
+                  {{ competition.name }}
+                </a>
+              </td>
+              <td>{{ competition.dateFrom|localizeddate('short') }}</td>
+              <td>{{ competition.location }}</td>
+              <td class="col-min">
+                {% if is_granted('ROLE_ORGANISATOR') or is_granted('ROLE_ADMIN') %}
+                  <a href="{{ url('app_competition_edit', {id: competition.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
+                    <i class="fa fa-search"></i>
+                  </a>
+                  <a href="{{ url('app_competition_delete', {id: competition.id}) }}" class="btn btn-xs btn-link js-confirm" data-title="{{ 'title.delete'|trans }}" data-toggle="tooltip">
+                    <i class="fa fa-times"></i>
+                  </a>
+                {% endif %}
+                {% if is_granted('ROLE_RACER') %}
+                  {% if app.user.participatesInCompetition(competition) %}
+                    <button class="btn btn-xs btn-default" disabled>
+                      <i class="fa fa-user-plus"></i> {{ 'competition.btn.already_participating'|trans }}
+                    </button>
+                  {% else %}
+                    <a href="{{ url('app_competition_join', {id: competition.id}) }}" class="btn btn-xs btn-default" data-title="{{ 'competition.index.join'|trans }}" data-toggle="tooltip">
+                      <i class="fa fa-user-plus"></i> {{ 'competition.btn.participate'|trans }}
+                    </a>
+                  {% endif %}
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="panel-footer">
+        {{ pagination(competitions) }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if is_granted('ROLE_JUDGE') %}
+    <div class="page-header">
+      <h1>
+        {{ 'competition.index.competition_calendar_title'|trans }}
+      </h1>
+    </div>
+
+    {% include 'AppBundle::flashes.html.twig' %}
+
+    <div id="calendar"></div>
+  {% endif %}
+{% endblock %}
+

@@ -1,0 +1,191 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+
+{% block css %}
+    {% include 'AppBundle:Application:form_css.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    {% if is_granted('application-new', app.user) %}
+        <div class="page-header">
+            <h1>{{ 'application.new.title'|trans }}
+                {{ back_button('app_application_index') }}
+            </h1>
+        </div>
+
+        {% include 'AppBundle::flashes.html.twig' %}
+
+        {{ form_errors(form) }}
+        {{ form_start(form) }}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-file"></i> {{ 'application.new.enter_details'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    {% include 'AppBundle:Application:form_fields.html.twig' %}
+                    <div class="col-md-6">
+                        <a href="#" class="btn btn-primary" id="add-another-subCompetition" style="margin-top: 25px;">{{ 'application.new.new_sub_competition'|trans }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <ul class="no-padding list-unstyled" id="subCompetitions-fields-list"
+                        data-prototype="{{ form_widget(form.subCompetitions.vars.prototype)|e }}">
+                        <li>{{ form_widget(form.subCompetitions) }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.organizer_info'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    {% include 'AppBundle:Application:user_fields.html.twig' %}
+                </div>
+            </div>
+            {% if is_granted('additional-fields-view', app.user) %}
+                {% if application.isUnconfirmed %}
+                    {% include 'AppBundle:Application:additional_fields.html.twig' %}
+                {% endif %}
+            {% endif %}
+
+            {% if application.id and application.hasAgreementStatus %}
+                {% include 'AppBundle:Application:secretary_fields.html.twig' %}
+            {% endif %}
+
+            <div class="panel-footer text-center">
+                <button type="submit"
+                        class="btn btn-primary validate-application">{{ 'button.confirm_application'|trans }}</button>
+                <a href="{{ url('app_application_index') }}" class="btn btn-default">{{ 'button.cancel'|trans }}</a>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    {% include 'AppBundle::application_subApplication_js.html.twig' with
+        {
+            'date_from': '#application_dateFrom',
+            'date_to' : '#application_dateTo',
+            'name' : '#application_name'
+        }
+    %}
+    {% include 'AppBundle:Application:form_js.html.twig' %}
+    <script>
+        var subCompetitionsCount = '{{ form.subCompetitions|length }}';
+        $(document).ready(function() {
+            $('#add-another-subCompetition').click(function(e) {
+                e.preventDefault();
+
+                var subCompetitionList = $('#subCompetitions-fields-list');
+                var newWidget = subCompetitionList.attr('data-prototype');
+
+                newWidget = newWidget.replace(/__name__/g, subCompetitionsCount);
+                subCompetitionsCount++;
+
+                var newLi = $('<li></li>').html(newWidget);
+                newLi.appendTo(subCompetitionList);
+            });
+        });
+
+        $(document).on('click', '.remove-button', function() {
+            $(this).closest('.panel-primary').parent().remove();
+        });
+
+        $(document).ready(function () {
+            $('button[type="submit"]').prop('disabled', true);
+            $(document).on('keyup', '.subCompetition-name',function () {
+                if ($(this).val().toLowerCase().indexOf("tarptautini") > -1 || $(this).val().toLowerCase().indexOf("europos") > -1 || $(this).val().toLowerCase().indexOf("pasaulini") > -1) {
+                    $('button[type="submit"]').prop('disabled', true);
+                    $(this).closest('.form-group').addClass('has-error');
+                } else {
+                    $('button[type="submit"]').prop('disabled', false);
+                    $(this).closest('.form-group').removeClass('has-error');
+                }
+            });
+        });
+
+        $.datetimepicker.setLocale('lt');
+        var getAllowedDates = {{ legalDates|json_encode|raw }};
+        if (getAllowedDates != '') {
+            var allowedDates = getAllowedDates;
+        } else {
+            var allowedDates = ['1949-01-01'];
+        }
+        $(document).on('click', '.subCompetition-dateTo, .subCompetition-dateFrom', function(){
+            $(this).datetimepicker({
+
+                allowDates: allowedDates,
+                formatDate: 'Y-m-d',
+                format: 'Y-m-d',
+                timepicker: false,
+                minDate: 0,
+                onChangeDateTime: function (dp, $input) {
+                    if ($.inArray($input.val(), {{ legalDates|json_encode|raw }}) !== -1) {
+                        // Do something if value is valid
+                    } else {
+                        $input.val('');
+                    }
+                }
+            });
+        });
+
+        // change name of a header on subCompetition collapse
+        $(document).on('click', '.collapse-button', function(){
+            icon = "<i class='fa fa-file'</i>";
+            $(this).closest('.panel-body').toggle('fast');
+            $(this).closest('.panel-primary').children('.panel-heading').children('.show-button').removeClass('hidden');
+            name = $(this).closest('ul').find('.subCompetition-name').val();
+            if (name) {
+                $(this).closest('.panel-primary').find('.subCompetition-title').text(' '+name);
+            }
+        });
+
+        $(document).on('click', '.show-button', function(){
+            $(this).closest('.panel-primary').children('.panel-body').toggle('fast');
+            $(this).closest('.panel-primary').children('.panel-body').children('.collapse-button').toggle();
+        });
+
+        
+        var placeSearch, autocomplete;
+        var componentForm = {
+            street_number: 'short_name',
+            route: 'long_name',
+            locality: 'long_name',
+            administrative_area_level_1: 'short_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+        };
+
+        function initAutocomplete() {
+            $(document).on('click', '.subCompetition-location', function() {
+                autocomplete = new google.maps.places.Autocomplete(
+                    (document.getElementById($(this).attr('id'))),
+                    {types: ['geocode']});
+                autocomplete.addListener('place_changed', fillInAddress);
+            });
+        }
+
+        function fillInAddress() {
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+
+            for (var component in componentForm) {
+                document.getElementById(component).value = '';
+                document.getElementById(component).disabled = false;
+            }
+
+            for (var i = 0; i < place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if (componentForm[addressType]) {
+                    var val = place.address_components[i][componentForm[addressType]];
+                    document.getElementById(addressType).value = val;
+                }
+            }
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places&callback=initAutocomplete"></script>
+{% endblock %}

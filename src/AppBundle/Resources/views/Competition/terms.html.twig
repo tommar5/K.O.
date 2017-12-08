@@ -1,0 +1,25 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% set title = 'competition.terms.title'|trans %}
+
+{% block content %}
+
+  <div class="page-header">
+    <h1>{{ title }}</h1>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  {{ include(cms_block('competition_terms'))|nl2br }}
+
+  {{ form_errors(form) }}
+
+  <div class="text-center">
+    {{ form_start(form) }}
+      {{ form_widget(form.termsConfirmed, {label: 'competition.terms.agree'}) }}
+      {{ form_rest(form) }}
+      <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans }}</button>
+    {{ form_end(form) }}
+  </div>
+
+{% endblock %}

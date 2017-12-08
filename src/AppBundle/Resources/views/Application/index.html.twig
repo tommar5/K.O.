@@ -1,0 +1,171 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    {% if is_granted('application-view', app.user) %}
+
+        <div class="page-header">
+            <h1>
+                {{ 'application.index.title'|trans }}
+            </h1>
+            <h1>
+                {% if is_granted('application-new', app.user) %}
+                    <a href="{{ url('app_application_new') }}" class="btn btn-success pull-right new-application">
+                        <i class="fa fa-plus"></i> {{ 'application.index.new'|trans }}
+                    </a>
+                {% endif %}
+                {% if is_granted('date-restriction', app.user) %}
+                    <a href="{{ url('app_daterestriction_index') }}" class="btn btn-info pull-right dates_menu">
+                        <i class="fa fa-calendar-check-o"></i> {{ 'application.index.dates'|trans }}
+                    </a>
+                {% endif %}
+                {% if is_granted('upload-terms', app.user) %}
+                    <a href="{{ path('app_timerestriction_index', { 'id': 1 }) }}" class="btn btn-info pull-right dates_menu">
+                        <i class="fa fa-clock-o"></i> {{ 'application.index.times'|trans }}
+                    </a>
+                {% endif %}
+                {% if is_granted('application-assigned-to-me', app.user) %}
+                    <a href="{{ path('app_application_showassignedtome') }}" class="btn btn-info pull-right dates_menu">
+                        <i class="fa fa-user"></i> {{ 'application.competition_chief_assigned.title'|trans }}
+                    </a>
+                {% endif %}
+                {% if is_granted('safety-chiefs-view', app.user) %}
+                    <a href="{{ path('app_safetychief_index') }}" class="btn btn-info pull-right dates_menu">
+                        <i class="fa fa-user"></i> {{ 'application.safety_chief_list.title'|trans }}
+                    </a>
+                {% endif %}
+            </h1>
+            <div class="clearfix"></div>
+
+        </div>
+        {% include 'AppBundle::flashes.html.twig' %}
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-th-large"></i> {{ 'application.index.title'|trans }}</h3>
+            </div>
+            <div class="rows-to-columns">
+                <table class="table table-hover table-striped application-list">
+                    <thead>
+                    <tr role="row" class="filter">
+                        <th>{{ sorter_link(applications, 't.name', 'application.label.name'|trans) }}</th>
+                        <th>
+                            {{ sorter_link(applications, 't.createdAt', 'application.label.registered_on'|trans) }}
+                            <br>
+                            {{ sorter_link(applications, 't.dateFrom', 'application.label.date_from_index'|trans) }}
+                        </th>
+                        <th>{{ sorter_link(applications, 't.location', 'application.label.location'|trans) }}</th>
+                        <th>{{ sorter_link(applications, 't.sport', 'application.label.sport'|trans) }}</th>
+                        <th>{{ sorter_link(applications, "t.user", 'application.label.organisator'|trans) }}</th>
+                        <th>{{ sorter_link(applications, 't.status', 'application.label.status'|trans) }}</th>
+                        <th></th>
+                    </tr>
+                    <tr role="row" class="filter">
+                        <td>{{ filter_search(applications, "t.name") }}</td>
+                        <td>{{ filter_search(applications, "t.dateFrom") }}</td>
+                        <td>{{ filter_search(applications, "t.location") }}</td>
+                        <td>{{ filter_select(applications, "t.sport", sportTypes) }}</td>
+                        <td>{{ filter_search(applications, "t.user") }}</td>
+                        <td>{{ filter_select(applications, "t.status", statuses) }}</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for application in applications %}
+                        <tr class="application">
+                            <td data-title="{{ 'application.label.name'|trans }}">
+                                <a href="{{ url('app_application_modify', {id: application.id}) }}" class="application-title">{{ application.name }}</a>
+                            </td>
+                            <td data-title="{{ 'application.label.date_from_index'|trans }} / {{ 'application.label.date_from'|trans }}">
+                                {{ application.createdAt|localizeddate('long', 'none') }}<br>
+                                {{ application.dateFrom|localizeddate('short', 'none') }}</td>
+                            <td data-title="{{ 'application.label.location'|trans }}">
+                                {% if application.city %}
+                                    {{ application.city }}
+                                {% else %}
+                                    {{ application.location }}
+                                {% endif %}
+                            </td>
+                            <td data-title="{{ 'application.label.sport'|trans }}">{{ ('application.sport_select.'~application.sport.alias)|trans }}</td>
+                            <td data-title="{{ 'application.label.organisator'|trans }}">{{ application.user.legal ? application.user.memberName : application.user.fullName }}</td>
+                            <td data-title="{{ 'application.label.status'|trans }}">
+                                {% if 'now'|date('Y-m-d') > application.dateTo|localizeddate('short', 'none') %}
+                                    {% if application.status == constant('AppBundle\\Entity\\Application::STATUS_PAID') %}
+                                        {{ 'application.status.paid'|trans }} - {{ 'application.status.done'|trans }}
+                                    {% else %}
+                                        {{ ('application.status.'~application.status)|trans }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ ('application.status.'~application.status)|trans }}
+                                {% endif %}
+                            </td>
+                            <td class="application-actions">
+                                {% if application|checkForSports(app.user) %}
+                                    <a href="{{ url('app_application_modify', {id: application.id}) }}"
+                                       class="btn btn-xs btn-default js-no-ajax"
+                                       data-title="{{ 'application.index.modify'|trans }}">
+                                        <i class="fa fa-info-circle"></i> {{ 'button.preview'|trans }}
+                                    </a>
+                                {% endif %}
+                                <br>
+                                {% if is_granted('application-show-actions', app.user) %}
+                                    {% include 'AppBundle:Application:application_actions.html.twig' %}
+                                {% endif %}
+                                {% if application.subCompetitions.first and application.subCompetitions|checkForSports((app.user)) %}
+                                    <button class="btn btn-xs btn-default toggle-sub-competition" data-title="{{ 'application.index.sub_competition'|trans }}">
+                                        <i class="fa fa-arrow-down"></i> {{ 'button.sub_competition'|trans }}
+                                    </button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% for subCompetition in application.subCompetitions %}
+                            {% if subCompetition|checkForSports(app.user) %}
+                                <tr class="hidden">
+                                    <td class="sub-competition-title" data-title="{{ 'application.label.name'|trans }}">{{ subCompetition.name }}</td>
+                                    <td data-title="{{ 'application.label.date_from_index'|trans }} / {{ 'application.label.date_from'|trans }}">
+                                        {{ subCompetition.createdAt|localizeddate('long', 'none') }}<br>
+                                        {{ subCompetition.dateFrom|localizeddate('short', 'none') }}
+                                    </td>
+                                    <td data-title="{{ 'application.label.location'|trans }}">{{ subCompetition.location }}</td>
+                                    <td data-title="{{ 'application.label.sport'|trans }}">{{ subCompetition.sport.name }}</td>
+                                    <td data-title="{{ 'application.label.organisator'|trans }}">{{ application.user.legal ? application.user.memberName : application.user.fullName }}</td>
+                                    <td data-title="{{ 'application.index.sub_competition'|trans }}">{{ 'application.index.sub_competition'|trans }}</td>
+                                    <td class="application-actions">
+                                        <a href="{{ path('app_sub_competition_modify', {'id': application.id, 'competition_id': subCompetition.id}) }}"
+                                           class="btn btn-xs btn-default js-no-ajax"
+                                           data-title="{{ 'application.index.modify'|trans }}">
+                                            <i class="fa fa-info-circle"></i> {{ 'button.preview'|trans }}
+                                        </a>
+                                        {% if is_granted('application-delete', app.user) %}
+                                            <br>
+                                            <a href="{{ url('app_sub_competition_delete', {id: subCompetition.id}) }}"
+                                               class="btn btn-xs btn-default js-confirm js-no-ajax" data-text="{{ 'application.index.remove_text'|trans }}"
+                                               data-title="{{ 'button.delete'|trans }}">
+                                                <i class="fa fa-times-circle"></i> {{ 'button.delete'|trans }}
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                {{ pagination(applications) }}
+            </div>
+        </div>
+        <hr>
+        <div id="calendar"></div>
+
+    {% endif %}
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function() {
+            $('.toggle-sub-competition').click(function(e){
+                $(this).closest('.application').nextUntil('.application').toggleClass('hidden');
+                $(this).children('i').toggleClass('fa-arrow-up fa-arrow-down');
+            });
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,37 @@
+user:
+  reset:
+    invalid_captcha: 'Nepažymėtas patvirtinimo laukelis.'
+  profile:
+    password_mismatch: 'Įvesti slaptažodžiai nesutapo, bandykite dar kartą.'
+    bad_image_type: 'Netinkamas paveikslėlio formatas. Tinkami: .png, .jpg, .gif.'
+    incorrect_phone: 'Įveskite teisingą telefono numerį - "+370123456789".'
+    incorrect_code: 'Neteisingas asmens kodo formatas'
+
+competition:
+  name: 'Pavadinimas negali būti tuščias.'
+  date_from: 'Pradžios data negali būti tuščia.'
+  date_to: 'Pabaigos data negali būti ankstenė nei pradžios data.'
+  location: 'Vieta negali būti tuščia.'
+
+sport:
+  name: 'Sporto šakos pavadinimas negali būti tuščias.'
+  alias: 'Laukas negali būti tuščias.'
+
+application:
+  date_to: 'Pabaigos data negali būti ankstenė nei pradžios data.'
+  name: 'Neleistinas varžybų pavadinimas "%string%"'
+  league: 'Pasirinkite lygą'
+  type: 'Pasirinkite varžybų tipą'
+  stage: 'Pasirinkite varžybų etapą'
+
+does_not_expire:
+  too_soon: "Privalo galioti bent iki metų pabaigos."
+
+birthday_required:
+  required: "Fiziniams asmenims privaloma įvesti gimimo datą."
+
+user_is_natural:
+  legal: "Vartotojas šiuo el. pašto adresu pažymėtas kaip juridis asmuo."
+
+time_restriction:
+  invalid_number: "Nurodytas neteisingas dienų skaičius."

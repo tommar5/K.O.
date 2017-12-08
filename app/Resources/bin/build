@@ -1,0 +1,10 @@
+#!/bin/sh
+
+rm -rf build
+composer install --no-dev --ignore-platform-reqs
+tar -c --exclude-from=.tarignore -zf build.tar.gz *
+composer install --ignore-platform-reqs
+mkdir -p build
+tar -C build -xf build.tar.gz
+rm -f build.tar.gz
+

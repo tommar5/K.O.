@@ -1,0 +1,43 @@
+{% if documents['safety_plan'] is defined %}
+  {% set confirmedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_SAFETY_PLAN') %}
+  {% set addedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_ADDED_SAFETY_PLAN') %}
+  {% set calculated_terms = calculate_terms(application, documents['safety_plan']|last, 'SafetyPlanTerm') %}
+  <div class="documents {{ documents['safety_plan']|statusChange([confirmedKey], [addedKey]) }}">
+      <div class="status-content">
+        <span class="status-text">
+          {{ 'application.documents.safety_plan'|trans }}
+        </span>
+      </div>
+      {% if documents['safety_plan'][0].status != confirmedKey and legalTimes.safetyPlanTerm %}
+          <div class="status-day-counter">
+              <div class="days">
+                  {{ 'application.documents.uploaded'|trans }}
+                  ({{ calculated_terms }})
+              </div>
+          </div>
+      {% endif %}
+      <div class="confirmation-message">
+          {{ 'application.documents.messages.approved'|trans }}
+          {% if legalTimes.safetyPlanTerm %}
+              ({{ calculated_terms }})
+          {% endif %}
+      </div>
+  </div>
+{% else %}
+  <div class="documents">
+    <div class="status-content">
+      <span class="status-text">
+        {{ 'application.documents.safety_plan'|trans }}
+      </span>
+    </div>
+    {% if legalTimes.safetyPlanTerm %}
+      <div class="status-day-counter">
+        <div class="days">
+          {{ 'application.documents.left'|trans }}
+          <span class="safety_plan"></span>
+          {{ 'application.documents.days'|trans }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

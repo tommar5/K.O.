@@ -1,0 +1,31 @@
+{% set organisatorLicenceConfirmedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ORGANISATOR_LICENCE') %}
+{% set trackLicenceConfirmedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_TRACK_LICENCE') %}
+
+{% if application.getDocuments %}
+    {% if application.hasAgreementStatus %}
+        {% include 'AppBundle:Application:files/contract.html.twig' %}
+        {% include 'AppBundle:Application:files/invoice.html.twig' %}
+        {% include 'AppBundle:Application:files/competition_insurance.html.twig' %}
+        {% include 'AppBundle:Application:files/other_documents.html.twig' %}
+        {% include 'AppBundle:Application:files/additional_rules.html.twig' %}
+        {% include 'AppBundle:Application:files/safety_plan.html.twig' %}
+        {% include 'AppBundle:Application:files/track_acceptance.html.twig' %}
+        {% if 'now'|date('Y-m-d') >= application.dateFrom|localizeddate('short', 'none') or
+        app.user != application.user or
+        ((documents['organisator_licence'] is defined and
+        documents['organisator_licence']|documentsConfirmed([organisatorLicenceConfirmedKey])) and
+        (documents['track_licence'] is defined and
+        documents['track_licence']|documentsConfirmed([trackLicenceConfirmedKey]))) %}
+            {% include 'AppBundle:Application:files/track_licence.html.twig' %}
+            {% include 'AppBundle:Application:files/organisator_licence.html.twig' %}
+        {% endif %}
+        {% if 'now'|date('Y-m-d') >= application.dateTo|localizeddate('short', 'none') %}
+            {% include 'AppBundle:Application:files/competition_results.html.twig' %}
+            {% include 'AppBundle:Application:files/report.html.twig' %}
+            {% include 'AppBundle:Application:files/bulletin.html.twig' %}
+            {% include 'AppBundle:Application:files/skk_report.html.twig' %}
+            {% include 'AppBundle:Application:files/competition_chief_decisions.html.twig' %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+{% include 'AppBundle:Application:files/application_copy.html.twig' %}

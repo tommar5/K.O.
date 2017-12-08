@@ -1,0 +1,52 @@
+{#Competition Insurance Block#}
+{% if documents['competition_insurance'] is defined %}
+    {% if is_granted('insurance-view', app.user)%}
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.competition_insurance'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% for document in documents['competition_insurance'] %}
+                    {% if document.type == 'competition_insurance' %}
+                        <li class="list-group-item">
+                            <i class="fa fa-file alert-info"></i>
+                            <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank" class="unvisited-blue hidden-print">
+                                {{ ('application.file_uploads.type.'~document.type)|trans }} ({{ document.fileName }})
+                            </a>
+                            {% if document.status == constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_COMPETITION_INSURANCE') %}
+                                - {{ 'status.confirmed'|trans }} <i class="fa fa-check-circle"></i>
+                            {% else %}
+                                {% if is_granted('competition-insurance-confirm', app.user) %}
+                                    <a href="{{ path('app_application_approvedocument', {id: document.id, applicationId: application.id}) }}" class="btn btn-xs btn-success hidden-print pull-right ajax-submit with_margin"
+                                       data-title="{{ 'button.confirm_doc'|trans }}" data-toggle="tooltip">
+                                        <i class="fa fa-check-circle"></i> {{ 'application.index.confirm'|trans }}
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                            {% include 'AppBundle:Application:files/remove_document_button.html.twig' %}
+                            {% include 'AppBundle:Application:files/show_who_upload.html.twig' %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% else %}
+    {% if date(application.dateFrom) > date() %}
+        {% include 'AppBundle:Application:files/remind_upload_document.html.twig' with {applicationId : application.id, documentType: 'competition_insurance'} %}
+    {% endif %}
+    {% if is_granted('insurance-upload', app.user)%}
+        {% if application.hasAgreementStatus%}
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.competition_insurance'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{ form_row(form.competition_insurance) }}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}

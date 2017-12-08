@@ -1,0 +1,21 @@
+{% set keyUp = "search_filter_key_up_" ~ key | replace({".": "_"}) %}
+<input type="text"
+       class="form-control input-sm"
+       value="{{ value }}"
+       data-link="{{ filter_uri(pagination, key, "_search_pattern_") }}"
+       {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+       onkeyup="{{ keyUp }}(this, event)"/>
+
+<script>
+    (function(wnd, doc) {
+        wnd.{{ keyUp }} = function(inp, e) {
+            if (e.keyCode == 13) {
+                if (inp.value == '') {
+                    doc.location.href = inp.getAttribute('data-link').replace("&filters%5B{{ key }}%5D=_search_pattern_", "");
+                } else {
+                    doc.location.href = inp.getAttribute('data-link').replace("_search_pattern_", inp.value);
+                }
+            }
+        };
+    }(window, document));
+</script>

@@ -1,0 +1,45 @@
+{% if documents['track_licence'] is defined %}
+  {% set confirmedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_TRACK_LICENCE') %}
+  {% set addedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_ADDED_TRACK_LICENCE') %}
+  <div class="documents {{ documents['track_licence']|statusChange([confirmedKey], [addedKey]) }}">
+    <div class="status-content">
+      <span class="status-text">
+        {{ 'application.documents.contact_lasf'|trans }}
+      </span>
+    </div>
+    {% if documents['track_licence'][0].status != 'confirmed_track_licence' %}
+      {% if legalTimes.contactAdministrationTerm %}
+        <div class="status-day-counter">
+          <div class="days">
+            {{ 'application.documents.left'|trans }}
+            <span class="contact_lasf"></span>
+            {{ 'application.documents.days'|trans }}
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+    <div class="confirmation-message">
+      {{ 'application.documents.messages.issued'|trans }}
+      {% if legalTimes.contactAdministrationTerm %}
+        ({{ calculate_terms(application, documents['track_licence']|last, 'ContactAdministrationTerm') }})
+      {% endif %}
+    </div>
+  </div>
+{% else %}
+  <div class="documents">
+    <div class="status-content">
+      <span class="status-text">
+        {{ 'application.documents.contact_lasf'|trans }}
+      </span>
+    </div>
+    {% if legalTimes.contactAdministrationTerm %}
+      <div class="status-day-counter">
+        <div class="days">
+          {{ 'application.documents.left'|trans }}
+          <span class="contact_lasf"></span>
+          {{ 'application.documents.days'|trans }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

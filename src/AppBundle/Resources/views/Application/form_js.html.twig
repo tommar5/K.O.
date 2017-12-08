@@ -1,0 +1,126 @@
+
+{% if application.status == 'unconfirmed' %}
+    <script>
+        if ($('#application_name').val() == '') {
+            $('#application_deliverTo_0').click();
+        }
+        $('.role-edible-fields input').attr('readonly', true);
+        $('.role-edible-fields').css('pointer-events', 'none');
+    </script>
+{% endif %}
+
+<script>
+    $(function () {
+        if ($('#application_deliverTo_0').is(':checked')) {
+            $('.address-conditions .delive_to_address').hide();
+        } else {
+            $('.address-conditions .delive_to_address').show();
+        }
+        $('#application_deliverTo').change(function () {
+            if ($('#application_deliverTo_0').prop('checked')) {
+                $('.address-conditions .delive_to_address').hide();
+            } else {
+                $('.address-conditions .delive_to_address').show();
+            }
+        })
+    });
+</script>
+
+{% if application.id and not (application.isUnconfirmed) %}
+    <script>
+        $(document).ready(function () {
+            $('.application-block input').attr('readonly', true);
+            $('.application-form').css('pointer-events', 'none');
+        });
+    </script>
+{% endif %}
+
+<script>
+    $(document).ready(function () {
+        $(".readonly").keydown(function (e) {
+            e.preventDefault();
+        });
+    });
+</script>
+
+{% if application.hasAgreementStatus %}
+    {% if 'now'|date('Y-m-d') >= application.dateTo|localizeddate('short', 'none') %}
+        <script>
+            $(document).ready(function () {
+                $('.list-group-item:not(.show-more-less) a.btn').addClass('no-pointer');
+            });
+        </script>
+    {% endif %}
+{% endif %}
+
+{% if application.status == 'unconfirmed' and is_granted('competition-member-view', app.user) %}
+    <script>
+        $(document).ready(function () {
+
+            $('.validate-application').click(function () {
+                $('form').valid();
+            });
+
+            $.extend($.validator.messages, {
+                required: "{{ 'validators.required'|trans }}"
+            });
+
+            var $eventSelect = $("#application_lasfName");
+            $eventSelect.on("select2:select", function (e) {
+                $.blockUI({message: 'Palaukite...'});
+                var value = $(this).val();
+                if ($.isNumeric(value)) {
+                    $.getJSON('/application/member/' + value + '/', {}, function (res) {
+                        $('.user-validation-message').hide();
+                    })
+                    .done(function (res) {
+                        $('#lasf-user-id').val(res.member);
+                        $('#application_lasfAddress').val(res.address);
+                        $('#application_lasfEmail').val(res.email);
+                        $('#application_memberCode').val(res.memberCode);
+                        $('#application_vatNumber').val(res.vatCode);
+                        $('#application_bank').val(res.bank);
+                        $('#application_bankAccount').val(res.bankAccount);
+                        $('#application_phone').val(res.phone);
+                        $('.user-validation-message').hide();
+                        $.unblockUI();
+                    })
+                    .fail(function () {
+                        $('#lasf-user-id').val('');
+                        $('#application_lasfAddress').val('');
+                        $('#application_lasfEmail').val('');
+                        $('#application_memberCode').val('');
+                        $('#application_vatNumber').val('');
+                        $('#application_bank').val('');
+                        $('#application_bankAccount').val('');
+                        $('#application_phone').val('');
+                        $('.user-validation-message').show();
+                        $('.application-user-link').attr('href', '/user/' + value + '/edit');
+                        $.unblockUI();
+                    })
+                } else {
+                    $('#lasf-user-id').val('');
+                    $('#application_lasfAddress').val('');
+                    $('#application_lasfEmail').val('');
+                    $('#application_memberCode').val('');
+                    $('#application_vatNumber').val('');
+                    $('#application_bank').val('');
+                    $('#application_bankAccount').val('');
+                    $('#application_phone').val('');
+                    $('.user-validation-message').hide();
+                    $.unblockUI();
+                }
+            });
+        });
+    </script>
+{% endif %}
+
+<script>
+    $("a:visible[id*='upload-document']").each(function () {
+        if ( $(this).next().next().children('ul').children().length > 1 ) {
+            $(this).addClass("hidden");
+        } else {
+            $(this).removeClass("hidden");
+        }
+    });
+</script>

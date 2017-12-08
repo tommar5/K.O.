@@ -1,0 +1,9 @@
+{% if is_granted('remind-upload-document', app.user) %}
+    {% set url = url('app_application_reminduploaddocument', {id: applicationId, type: documentType}) %}
+    {% if app.request.attributes.get("_route") == 'app_sub_competition_modify' %}
+        {% set url = url('sub_competition_remind_upload_document', {'id': competition.id, 'type': documentType}) %}
+    {% endif %}
+    <a id="upload-document" href="{{ url }}" class="btn btn-xs btn-info pull-right upload-document-btn" data-title="{{ 'button.remind_upload_doc'|trans }}" data-toggle="tooltip">
+        <i class="fa fa-check-circle"></i> {{ 'application.index.remind_upload_document'|trans }}
+    </a>
+{% endif %}

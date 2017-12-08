@@ -1,0 +1,22 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  <div class="page-header hidden-print">
+    <h1>
+      {{ 'licences.my.title'|trans }}
+      <a href="{{ url('app_licences_new') }}" class="btn btn-success pull-right">
+        <i class="fa fa-plus"></i> {{ 'licences.my.new'|trans }}
+      </a>
+    </h1>
+    <div class="clearfix"></div>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  {% for licence in licences %}
+    {% include 'AppBundle:Licences:single_licence.html.twig' with {licence: licence} %}
+  {% else %}
+    {{ 'licences.my.no_licences'|trans }}
+  {% endfor %}
+
+{% endblock %}

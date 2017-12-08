@@ -1,0 +1,80 @@
+{#Signed Application by LASF President Block#}
+{% if is_granted('contract-view', app.user) %}
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.contract'|trans }}</h3>
+    </div>
+    <div class="panel-body">
+        {# LASF Contract Url #}
+        <ul class="list-group">
+            {% if not application.contractUrl %}
+                {% if (form.contractUrl is defined) %}
+                    <li class="list-group-item">
+                        {{ form_row(form.contractUrl) }}
+                    </li>
+                {% endif %}
+            {% else %}
+                <li class="list-group-item">
+                    <label class="control-label">{{ 'application.label.contract_by_lasf_url'|trans }}:</label>
+                    <a target="_blank" href="{{ application.contractUrl }}">{{ application.contractUrl }} <i
+                                class="fa fa-arrow-right"></i></a>
+                </li>
+                {% if (form.contractUrl is defined) %}
+                    <li class="list-group-item">
+                        {{ form_row(form.contractUrl) }}
+                    </li>
+                {% endif %}
+            {% endif %}
+            {# LASF Contract #}
+            {% if form.signed_application_by_lasf is defined %}
+                <li class="list-group-item">
+                    {{ form_row(form.signed_application_by_lasf) }}
+                </li>
+            {% endif %}
+            {% if (documents['signed_application_by_lasf'] is defined) %}
+                    {% for document in documents['signed_application_by_lasf'] %}
+                        {% if document.type == 'signed_application_by_lasf' %}
+                            <li class="list-group-item">
+                                <i class="fa fa-file alert-info"></i>
+                                <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank"
+                                   class="unvisited-blue hidden-print">
+                                    {{ ('application.file_uploads.type.'~document.type)|trans }}
+                                    ({{ document.fileName }})
+                                </a>
+                                {% include 'AppBundle:Application:files/remove_document_button.html.twig' %}
+                                {% include 'AppBundle:Application:files/show_who_upload.html.twig' %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+            {% endif %}
+        </ul>
+        {# Organisator Contract #}
+        <ul class="list-group">
+            {% if form.signed_application_by_organisator is defined %}
+                <li class="list-group-item">
+                    {% if date(application.dateFrom) > date() %}
+                        {% include 'AppBundle:Application:files/remind_upload_document.html.twig' with {applicationId : application.id, documentType: 'signed_application_by_organisator'} %}
+                    {% endif %}
+                    {{ form_row(form.signed_application_by_organisator) }}
+                </li>
+            {% endif %}
+            {% if documents['signed_application_by_organisator'] is defined %}
+                {% for document in documents['signed_application_by_organisator'] %}
+                    {% if document.type == 'signed_application_by_organisator' %}
+                        <li class="list-group-item">
+                            <i class="fa fa-file alert-info"></i>
+                            <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank"
+                               class="unvisited-blue hidden-print">
+                                {{ ('application.file_uploads.type.'~document.type)|trans }}
+                                ({{ document.fileName }})
+                            </a>
+                            {% if application.getStatus is not same as('paid') %}
+                                {% include 'AppBundle:Application:files/remove_document_button.html.twig' %}
+                                {% include 'AppBundle:Application:files/show_who_upload.html.twig' %}
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}

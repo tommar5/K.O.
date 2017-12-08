@@ -1,0 +1,48 @@
+<div>
+    {# hidden fields #}
+    {{ form_row(form.city, {'id': 'locality'}) }}
+    {{ form_row(form.state, {'id': 'administrative_area_level_1'}) }}
+    {{ form_row(form.street, {'id': 'route'}) }}
+    {{ form_row(form.country, {'id': 'country'}) }}
+    {{ form_row(form.zip_code, {'id': 'postal_code'}) }}
+    {{ form_row(form.street_number, {'id': 'street_number'}) }}
+</div>
+
+{% if is_granted('additional-fields-view', app.user) %}
+    {% if application.isUnconfirmed() %}
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-home"></i> {{ 'application.new.deliver_info'|trans }}</h3>
+        </div>
+        <div class="panel-body address-conditions">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.deliverTo) }}
+                    <div class="delive_to_address">{{ form_row(form.deliverToAddress, {attr: {class: 'select2'}}) }}</div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-file"></i> {{ 'application.new.handled_paper_copy'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="uploads-area">
+                        {{ form_row(form.application_copy) }}
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-6">
+                {% if not application.termsConfirmed %}
+                    <strong>{{ 'application.terms.links'|trans }}:</strong><br>
+                    <a target="_blank" href="http://www.lasf.lt/wp-content/uploads/2013/12/Lietuvos-automobilių-sporto-varžybų-organizavimo-ir-vykdymo-taisyklių-redakcija-2015-11-263.pdf  ">LASVOT taisyklės</a><br>
+                    <a target="_blank" href="http://www.lasf.lt/wp-content/uploads/2013/12/Lietuvos-automobili%C5%B3-sporto-kodeksas-2016.pdf">LASK taisyklės</a><br>
+                    <a target="_blank" href="http://www.lasf.lt/wp-content/uploads/2013/12/Licenciju-isdavimo-tvarkos-taisykliu-2015-02-17redakcija.pdf">Licenzijų išdavimo taisyklės</a><br>
+                    {{ form_widget(form.termsConfirmed, {label: 'application.terms.agree'}) }}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

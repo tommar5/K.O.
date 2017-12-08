@@ -1,0 +1,58 @@
+{#Track Acceptance Block#}
+{% if documents['track_acceptance'] is defined %}
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.track_acceptance'|trans }}</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="list-group">
+            {% if is_granted('track-acceptance-upload', app.user) %}
+                {% if application.hasAgreementStatus %}
+                    <li class="list-group-item">
+                        {{ form_row(form.track_acceptance) }}
+                    </li>
+                {% endif %}
+            {% endif %}
+            {% for document in documents['track_acceptance'] %}
+                {% if document.type == 'track_acceptance' %}
+                    <li class="list-group-item">
+                        <i class="fa fa-file alert-info"></i>
+                        <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank" class="unvisited-blue hidden-print">
+                            {{ ('application.file_uploads.type.'~document.type)|trans }} ({{ document.fileName }})
+                        </a>
+                        {% if document.status == 'confirmed_track_acceptance' %}
+                            - {{ 'status.confirmed'|trans }} <i class="fa fa-check-circle"></i>
+                        {% else %}
+                            {% if is_granted('track-acceptance-confirm', app.user) %}
+                                {% include 'AppBundle:Application:files/confirm_document_button.html.twig' %}
+                            {% endif %}
+                        {% endif %}
+                        <span class="confirmed-file hidden">- {{ 'status.confirmed'|trans }} <i class="fa fa-check-circle"></i></span>
+                        {% include 'AppBundle:Application:files/remove_document_button.html.twig' %}
+                        {% include 'AppBundle:Application:files/show_who_upload.html.twig' %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    {% if date(application.dateFrom) > date() %}
+        {% include 'AppBundle:Application:files/remind_upload_document.html.twig' with {applicationId : application.id, documentType: 'track_acceptance'} %}
+        {% if application.getSvoDelegate is null %}
+            <h3 class="remind-select">{{ 'application.svo_delegate.placeholder'|trans }}</h3>
+        {% endif %}
+    {% endif %}
+    {% if is_granted('track-acceptance-upload', app.user)%}
+        {% if application.hasAgreementStatus %}
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.track_acceptance'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{ form_row(form.track_acceptance) }}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}

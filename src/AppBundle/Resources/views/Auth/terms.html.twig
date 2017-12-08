@@ -1,0 +1,72 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% set title = 'user.terms.title'|trans %}
+{% block js %}
+  <script>
+    $(function() {
+      $('button[type="submit"]').attr('disabled', true);
+
+      $('#user_termsConfirmed').change(function() {
+        if($(this).is(":checked")) {
+          $('button[type="submit"]').attr('disabled', false);
+        } else {
+          $('button[type="submit"]').attr('disabled', true);
+        }
+
+      });
+    });
+  </script>
+{% endblock %}
+{% block content %}
+
+  <div class="page-header">
+    <h1>{{ title }}</h1>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  {{ include(cms_block('terms')) }}
+
+  {{ form_errors(form) }}
+
+  <div class="text-center">
+    {{ form_start(form) }}
+      {{ form_widget(form.termsConfirmed, {label: 'user.terms.agree'}) }}
+      {{ form_rest(form) }}
+      <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans }}</button>
+    {{ form_end(form) }}
+  </div>
+
+{% endblock %}
+
+{% block css %}
+  {{ parent() }}
+  <style>
+    ol {
+      list-style-type: none;
+      counter-reset: item;
+      margin: 0;
+      padding: 0;
+    }
+
+    ol > li {
+      display: table;
+      counter-increment: item;
+      margin-bottom: 0.6em;
+    }
+
+    ol > li:before {
+      content: counters(item, ".") ". ";
+      display: table-cell;
+      padding-right: 0.6em;
+    }
+
+    li ol > li {
+      margin: 0;
+    }
+
+    li ol > li:before {
+      content: counters(item, ".") " ";
+    }
+  </style>
+{% endblock %}

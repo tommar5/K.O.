@@ -1,0 +1,59 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+
+  <div class="page-header">
+    <h1>
+      {{ 'dashboard.help.title'|trans }}
+    </h1>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  {{ include(cms_block('instruction'))|nl2br }}
+
+  <div class="page-header">
+    <h1>
+      {{ 'dashboard.help.contact'|trans }}
+    </h1>
+  </div>
+
+  <div class="row">
+    {% for user in users %}
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <a href="{{ path('app_user_user', {id: user.id}) }}">
+                  <img class="img-responsive" src="{{ thumb(user, 'imageFile', 'profile_small') }}">
+                </a>
+              </div>
+              <div class="col-sm-9">
+                <a href="{{ path('app_user_user', {id: user.id}) }}">
+                  <h4>{{ user.fullName }}</h4>
+                </a>
+                {{ 'user.label.email'|trans }}: <strong><a href="mailto:{{ user.email }}">{{ user.email }}</a></strong><br><br>
+
+                {% if user.phone %}
+                  {{ 'user.label.phone'|trans }}: <strong>{{ user.phone }}</strong>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="page-header">
+    <h1>
+      {{ 'dashboard.documentation.title'|trans }}
+    </h1>
+  </div>
+
+  <div class="list-group col-sm-6">
+    <a target="_blank" href="/documentation/applications/index.html"  class="list-group-item">{{ 'dashboard.documentation.application'|trans }} <i class="fa fa-link" aria-hidden="true"></i></a>
+  </div>
+
+{% endblock %}

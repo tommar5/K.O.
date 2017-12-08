@@ -1,0 +1,89 @@
+{% set disabled = application.isConfirmed %}
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+{% block content %}
+    {% if is_granted('application-modify', app.user) %}
+    <div class="page-header">
+        <h1>{{ 'application.new.title'|trans }}
+            <a href="{{ path('app_application_modify', {'id': application.id}) }}" class="btn btn-default pull-right">
+                <i class="fa fa-arrow-left"></i> {{ 'back'|trans }}
+            </a>
+        </h1>
+    </div>
+
+    {% include 'AppBundle::flashes.html.twig' %}
+    <div class="row">
+        {% if application.hasAgreementStatus %}
+            {# Status Block #}
+            <div class="status-block documents">
+                <div class="status-title">
+                    {{ 'application.documents.label'|trans }}
+                </div>
+                <div class="status-body">
+                    {% include 'AppBundle:Application/status:status_additional_rules.html.twig' %}
+                    {% include 'AppBundle:Application/status:status_safety_plan.html.twig' %}
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-file"></i> {{ 'application.sub_competition.application'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="application-form">
+                        {% if application.isUnconfirmed and is_granted('admin-fields-view', app.user) %}
+                            {% include 'AppBundle:Application:form_fields.html.twig' %}
+                        {% else %}
+                            {% include 'AppBundle:Application:form_fields_modify.html.twig' %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="panel-heading" style="background-color: #337ab7; color: #ffffff;">
+                <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.organizer_info'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    {% include 'AppBundle:Application:user_fields.html.twig' %}
+                </div>
+            </div>
+            {% if application.hasAgreementStatus %}
+                {% include 'AppBundle:SubCompetition:declarants.html.twig' %}
+                {% include 'AppBundle:Application:files/other_documents.html.twig' %}
+                {% include 'AppBundle:Application:files/additional_rules.html.twig' %}
+                {% include 'AppBundle:Application:files/safety_plan.html.twig' %}
+                {% if 'now'|date('Y-m-d') >= competition.dateTo|localizeddate('short', 'none') %}
+                    {% include 'AppBundle:Application:files/competition_results.html.twig' %}
+                    {% include 'AppBundle:Application:files/report.html.twig' %}
+                    {% include 'AppBundle:Application:files/bulletin.html.twig' %}
+                    {% include 'AppBundle:Application:files/skk_report.html.twig' %}
+                    {% include 'AppBundle:Application:files/competition_chief_decisions.html.twig' %}
+                {% endif %}
+            {% endif %}
+
+            <div class="panel-footer text-center">
+                <button type="submit"
+                        class="btn btn-primary validate-application" disabled="{{ application.isConfirmed }}">{{ 'application.sub_competition.sub_competition_modify'|trans }}</button>
+                <a href="{{ url('app_application_modify', {'id': application.id}) }}" class="btn btn-default">{{ 'button.cancel'|trans }}</a>
+            </div>
+        </div>
+    {{ form_end(form) }}
+    {% endif %}
+{% endblock %}
+{% block js %}
+    {% include 'AppBundle::application_subApplication_js.html.twig' with
+        {
+            'date_from': '#sub_application_dateFrom',
+            'date_to' : '#sub_application_dateTo',
+            'name' : '#sub_application_name'
+        }
+    %}
+    {% include 'AppBundle::google_maps.html.twig' with {'element': 'sub_application_location'} %}
+    {% include 'AppBundle:Application/status:status_js.html.twig' with {'application': competition} %}
+{% endblock %}

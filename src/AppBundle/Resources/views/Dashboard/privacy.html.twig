@@ -1,0 +1,13 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>
+            {{ 'dashboard.privacy.title'|trans }}
+        </h1>
+    </div>
+
+    {{ include(cms_block('privacy'))|nl2br }}
+
+{% endblock %}

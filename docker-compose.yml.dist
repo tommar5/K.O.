@@ -1,0 +1,27 @@
+php:
+  image: datadoglt/php56
+  links: [mysql]
+  volumes: [ ".:/var/www", "./app/Resources/docker/init.sh:/init.sh", "./app/session:/var/lib/php/session" ]
+
+web:
+  image: datadoglt/nginx-sf
+  volumes: [".:/var/www"]
+  ports: [80]
+  links: [php]
+  environment: { VIRTUAL_HOST: lasf.dev, PUB_DIR: "httpdocs" }
+
+mysql:
+  image: mysql
+  hostname: mysql
+  ports: ["3306"]
+  volumes: [".:/var/www"]
+  environment:
+    MYSQL_DATABASE: symfony2
+    MYSQL_USER: symfony2
+    MYSQL_PASSWORD: symfony2
+    MYSQL_ROOT_PASSWORD: mysecretpw
+
+webtools:
+  image: datadoglt/webtools
+  volumes: [".:/var/www"]
+  environment: { GRUNT_TASK: "default" }

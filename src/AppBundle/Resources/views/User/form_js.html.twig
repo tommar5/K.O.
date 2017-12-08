@@ -1,0 +1,55 @@
+<script>
+  legalChange();
+  $(document).on('change', '#user_legal', function() {
+    legalChange();
+  }).ready(function() {
+    $(this).find('[required="required"]').addClass('toggle-required');
+    legalChange();
+  });
+
+  function legalChange() {
+      var isChecked = $("#user_legal").is(":checked");
+
+      if (isChecked) {
+          $('.natural-member input').val('');
+          $('.legal-member').removeClass('hidden').find('.toggle-required').attr('required', 'required');
+          $('.natural-member').addClass('hidden').find('.toggle-required').removeAttr('required');
+          $('#user_birthday_year, #user_birthday_month, #user_birthday_day').val('');
+          $('#user_parent').removeClass('hidden').prev().removeClass('hidden');
+          $('input[data-legal]').each(function (i, e) {
+              var elem = $(e);
+              elem.parents('.form-group').find('label').html(elem.data('legal'));
+          });
+      } else {
+          $('.legal-member input').val('');
+          $('.legal-member').addClass('hidden').find('.toggle-required').removeAttr('required');
+          $('.natural-member').removeClass('hidden').find('.toggle-required').attr('required', 'required');
+          $('#user_parent').addClass('hidden').prev().addClass('hidden');
+          $('input[data-natural]').each(function (i, e) {
+              var elem = $(e);
+              elem.parents('.form-group').find('label').html(elem.data('natural'));
+          });
+      }
+  }
+
+  $(document).ready(function(){
+      var commitee_input = '#committe-sports';
+      var commitee_role = '#user_ROLE_LASF_COMMITTEE';
+
+      committeSelect(commitee_role, commitee_input);
+
+      $(document).on('change', commitee_role, function (){
+          committeSelect(commitee_role, commitee_input);
+      });
+  });
+
+  function committeSelect(commitee_role, commitee_input) {
+      if ($(commitee_role).is(":checked")) {
+          $(commitee_input).removeClass('hidden').find('.toggle-required').attr('required', 'required');
+      } else {
+          $(commitee_input).addClass('hidden').find('.toggle-required').removeAttr('required');
+      }
+  }
+</script>
+
+{% include 'AppBundle::google_maps.html.twig' with {'element': 'user_city'} %}

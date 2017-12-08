@@ -1,0 +1,5 @@
+{% if blame %}
+  {{ 'audit.index.by_user'|trans }} {{ audit_assoc(blame) }}
+{% else %}
+  {{ 'audit.index.by_system'|trans|raw }}
+{% endif %}

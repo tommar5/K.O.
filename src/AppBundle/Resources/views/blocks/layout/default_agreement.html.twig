@@ -1,0 +1,443 @@
+<div style="display: none;">
+{% macro createTerm(application, term) %}
+    {% if term %}
+        {% set rulesTerm = "now" | date("Y-m-d") | date_modify("+" ~ term ~ " days") | date("Y \\m. m \\m\\ė\\n. d \\d.") %}
+        {% set booleanTerm = 'is'~term %}
+        {% if booleanTerm  %}
+            {%  set rulesTerm = application.dateFrom | date_modify("-" ~ term ~ " days") | date("Y \\m. m \\m\\ė\\n. d \\d.") %}
+        {% endif %}
+    {% endif %}
+    {% if not term is empty %}
+        Iki {{ rulesTerm }}
+    {% else %}
+        Iki &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m. &nbsp;&nbsp;&nbsp;&nbsp;mėn. &nbsp;&nbsp;&nbsp;&nbsp;d.
+    {% endif %}
+{% endmacro %}
+</div>
+
+<p>Priedas Nr. 1 Tipinė varžybų organizavimo sutartis</p>
+<div style="text-align: center;">VARŽYBŲ ORGANIZAVIMO SUTARTIS</div>
+<div style="text-align: center;">NR. VOS {{ "now"|date("Y") }}/</div>
+<div style="text-align: center;">&nbsp;</div>
+<div style="text-align: center;">{{ "now"|date("Y") }} m. {{ "now"|date("m") }} mėn. {{ "now"|date("d") }} d.</div>
+<div style="text-align: center;">Kaunas</div>
+<p>Asociacija Lietuvos automobilių sporto federacija, įmonės kodas 190642938, buveinės adresas: Savanorių pr. 56, Kaunas, LT-51230, Lietuvos Respublika, atstovaujama Prezidento Romo Austinsko, veikiančio pagal Lietuvos automobilių sporto federacijos įstatus, toliau vadinama &bdquo;Federacija&ldquo;, i&scaron; vienos pusės, ir <br>
+{% if not application.user.memberName is empty %}{{ application.user.memberName }}{% else %}________________{% endif %}, įmonės kodas {% if not application.user.memberCode is empty %}{{ application.user.memberCode }}{% else %}__________{% endif %}, buveinės adresas {% if not application.user.address is empty %}{{ application.user.address }}{% else %}________________________{% endif %}, atstovaujama vadovo {% if not application.user.getFullName() is empty %}{{ application.user.getFullName() }}{% else %}___________________{% endif %}, veikiančio pagal įstaigos įstatus, toliau vadinama &bdquo;Organizatorius&ldquo;, i&scaron; kitos pusės, toliau abi kartu vadinamos &bdquo;&Scaron;alimis&ldquo;, o bet kuri i&scaron; jų atskirai vadinama &bdquo;&Scaron;alimi&ldquo;, laisva valia sudarė &scaron;ią automobilių sporto varžybų organizavimo sutartį (toliau vadinama &bdquo;Sutartis&ldquo;) ir susitarė:</p>
+<table style="height: 59px; border: none;" width="680">
+    <tbody>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">I.</td>
+        <td style="border: none; vertical-align: top;">BENDROSIOS SUTARTIES SĄLYGOS</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">1.</td>
+        <td style="border: none;">Sutarties dalykas</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">1.1.</td>
+        <td style="border: none;">Federacija, vadovaudamasi Tarptautinės automobilių federacijos (toliau - FIA) statutu ir Tarptautiniu sporto kodeksu, LR Kūno kultūros ir sporto įstatymu, Federacijos įstatais, Lietuvos automobilių sporto kodeksu (toliau &ndash; LASK), Lietuvos automobilių sporto varžybų organizavimo ir pravedimo taisyklėmis (toliau &ndash; LASVOVT), Federacijos simbolių naudojimo taisyklėmis, Federacijos Komitetų parengtais automobilių sporto varžybas reglamentuojančiais norminiais aktais, bei &scaron;ioje Sutartyje aptartomis sąlygomis bei tvarka, suteikia teisę Organizatoriui rengti:</td>
+    </tr>
+    </tbody>
+</table>
+<table style="height: 59px; border: 1px solid black; border-collapse: collapse; margin-left: 30px; margin-top: 15px; margin-bottom: 15px;" border="1" width="650">
+    <tbody>
+    <tr>
+        <td style="width: 100px; padding-left: 5px;">Pagrindinės varžybos</td>
+        <td style="padding-left: 5px;">{% if not application.name is empty %}{{ application.name }}{% else %}&nbsp;{% endif %}</td>
+    </tr>
+    <tr>
+        <td style="width: 100px; padding-left: 5px;">Data</td>
+        <td style="padding-left: 5px;">{% if not application.dateFrom is empty %}{{ application.dateFrom | date("Y-m-d") }}{% else %}&nbsp;{% endif %}{% if not application.dateTo is empty and not application.dateFrom | date("Y-m-d") == application.dateTo | date("Y-m-d")  %} - {{ application.dateTo | date("Y-m-d") }}{% endif %}</td>
+    </tr>
+    <tr>
+        <td style="width: 100px; padding-left: 5px;">Vieta</td>
+        <td style="padding-left: 5px;">{% if not application.location is empty %}{{ application.location }}{% else %}&nbsp;{% endif %}</td>
+    </tr>
+    </tbody>
+</table>
+{% if application.subCompetitions %}
+    <table style="border: 1px solid black; border-collapse: collapse; margin-left: 30px; margin-top: 15px; margin-bottom: 15px;" border="1" width="650">
+    <tbody>
+    {% for competition in application.subCompetitions %}
+        <tr>
+            <td style="width: 100px; padding-left: 5px;">Papildomos varžybos</td>
+            <td style="padding-left: 5px;">{% if not competition.name is empty %}{{ competition.name }}{% else %}&nbsp;{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endif %}
+<table style="width: 680px; border: none;">
+    <tbody>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">2.</td>
+        <td style="border: none;">&Scaron;alių tikslai</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">2.1.</td>
+        <td style="border: none;">Federacijos tikslas yra sėkmingai suorganizuoti ir sėkmingai įvykdyti Varžybas, kurios prisideda prie Federacijos tikslų ir uždavinių, skatinti ir vystyti automobilių sporto plėtrą Lietuvoje;</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">2.2</td>
+        <td style="border: none;">Organizatoriaus tikslas &ndash; įgyti i&scaron;imtinę, neperleidžiamą, tik Lietuvos Respublikos teritorijoje galiojančią, terminuota teisę, vykdyti Varžybas, kurios nuosavybės teise priklauso Federacijai, tik &scaron;ios Sutarties tikslais, bei teisę gauti visą i&scaron; tokio naudojimo (varžybų organizavimo ir vykdymo metu) atsiradusią naudą, jeigu yra įvykdytos visos Sutartyje numatytos sąlygos.</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">II.</td>
+        <td style="border: none;">&Scaron;ALIŲ ĮSIPAREIGOJIMAI</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">3.</td>
+        <td style="border: none;">Federacija įsipareigoja</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">3.1.</td>
+        <td style="border: none;">Ne vėliau kaip iki žemiau nurodytų datų organizatoriui:</td>
+    </tr>
+    </tbody>
+</table>
+<table style="height: 59px; border: 1px solid black; border-collapse: collapse; margin-left: 30px; margin-top: 15px; margin-bottom: 15px;" border="1" width="650">
+    <tbody>
+    <tr style="padding-left: 10px;">
+        <td style="width: 150px; padding-left: 5px;">Iki &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m. &nbsp;&nbsp;&nbsp;&nbsp;mėn. &nbsp;&nbsp;&nbsp;&nbsp;d.</td>
+        <td style="padding-left: 5px;">I&scaron;duoti varžybų Organizatoriaus licenciją, jei Organizatorius įvykdė &scaron;ios sutarties 4.1 punkte numatytus reikalavimus</td>
+    </tr>
+    <tr>
+        <td style="width: 150px; padding-left: 5px;">Iki &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m. &nbsp;&nbsp;&nbsp;&nbsp;mėn. &nbsp;&nbsp;&nbsp;&nbsp;d.</td>
+        <td style="padding-left: 5px;">Paskelbti www.lasf.lt svetainėje Organizatoriaus (ar varžybų vadovo) pasira&scaron;ytus ir su atitinkamu autosporto komitetu Varžybų papildomus nuostatus ir kitą susijusią informaciją 3.2.&nbsp;</td>
+    </tr>
+    </tbody>
+</table>
+<table style="width: 680px; border: none;">
+    <tbody>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">3.2.</td>
+        <td style="border: none;">Teikti metodinę paramą Organizatoriui ruo&scaron;iantis varžyboms.</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">3.3.</td>
+        <td style="border: none;">Ra&scaron;tu informuoti Organizatorių, apie Federacijos ir/ar Federacijos rėmėjų reklaminius logotipus, kurie bus naudojami varžybų metu terminais nurodytais LASVOVT.</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">3.4.</td>
+        <td style="border: none;">Ginti Organizatoriaus teisėtus interesus, susijusius su Varžybų organizavimu ir vykdymu prie&scaron; trečiuosius asmenis, jeigu Organizatorius laikėsi &scaron;ioje sutartyje nustatytų sąlygų.</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">4.</td>
+        <td style="border: none;">Organizatorius įsipareigoja</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">4.1.</td>
+        <td style="border: none;">Organizuoti ir vykdyti Varžybas laikantis &scaron;ios Sutarties 1.1 p. nurodytų norminių aktų reikalavimų.</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">4.2.</td>
+        <td style="border: none;">Iki žemiau nurodytų datų sumokėti žemiau i&scaron;vardintus Federacijos tikrųjų narių suvažiavime patvirtintus mokesčius:</td>
+    </tr>
+    </tbody>
+</table>
+<div style="display: none;">
+    {% set timeRestriction = "now" | date("Y-m-d") | date_modify("+" ~ timeRestrictions.payTaxesTerm ~ " days") | date("Y \\m. m \\m\\ė\\n. d \\d.") %}
+    {% set reverseTimeRestriction = application.dateFrom | date_modify("-" ~ timeRestrictions.payTaxesTerm ~ " days") | date("Y \\m. m \\m\\ė\\n. d \\d.") %}
+    {% if timeRestrictions.isPayTaxesTerm %}
+        {% set timeRestriction = application.dateFrom | date_modify("-" ~ timeRestrictions.payTaxesTerm ~ " days") | date("Y \\m. m \\m\\ė\\n. d \\d.") %}
+        {% set reverseTimeRestriction = "now" | date("Y-m-d") | date_modify("+" ~ timeRestrictions.payTaxesTerm ~ " days") | date("Y \\m. m \\m\\ė\\n. d \\d.") %}
+{% endif %}
+</div>
+<table style="height: 59px; border: 1px solid black; border-collapse: collapse; margin-left: 30px; margin-top: 15px; margin-bottom: 15px;" border="1" width="650">
+    <tbody>
+        <tr style="padding-left: 10px;">
+            <td style="width: 150px; padding-left: 5px;">
+                {% if not timeRestrictions.payTaxesTerm is empty %}
+                    Iki {{ timeRestriction }}
+                {% else %}
+                    Iki &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m. &nbsp;&nbsp;&nbsp;&nbsp;mėn. &nbsp;&nbsp;&nbsp;&nbsp;d.
+                {% endif %}</td>
+            <td style="padding: 5px;">Už varžybų trasos organizatoriaus licenciją:</td>
+            <td style="padding: 5px;">&euro; 00</td>
+        </tr>
+        <tr>
+            <td style="width: 150px; padding-left: 5px;">
+                {% if not timeRestrictions.payTaxesTerm is empty %}
+                    Iki {{ reverseTimeRestriction }}
+                {% else %}
+                    Iki &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m. &nbsp;&nbsp;&nbsp;&nbsp;mėn. &nbsp;&nbsp;&nbsp;&nbsp;d.
+                {% endif %}
+            </td>
+            <td style="padding: 5px;">Už varžybų trasos licenciją:</td>
+            <td style="padding: 5px;">&euro; 00</td>
+        </tr>
+    </tbody>
+</table>
+
+<table style="width: 680px; border: none;">
+    <tbody>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">4.3.</td>
+        <td style="border: none;">Apdrausti Varžybas sporto &scaron;akos reglamente nurodyta draudimine suma.</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">4.4.</td>
+        <td style="border: none;">Pateikti Varžybų dokumentų projektus:</td>
+    </tr>
+    </tbody>
+</table>
+
+<table style="height: 59px; border: 1px solid black; border-collapse: collapse; margin-left: 30px; margin-top: 15px; margin-bottom: 15px;" border="1" width="650">
+    <tbody>
+        <tr style="padding-left: 10px;">
+            <td style="width: 150px; padding-left: 5px;">
+                {{ _self.createTerm(application, timeRestrictions.additionalRulesTerm) }}
+            <td style="padding-left: 5px;">Papildomus varžybų nuostatus</td>
+        </tr>
+        <tr>
+            <td style="width: 150px; padding-left: 5px;">
+                {{ _self.createTerm(application, timeRestrictions.contactAdministrationTerm) }}
+            </td>
+            <td style="padding-left: 5px;">Kreiptis į LASF dėl trasos inspektavimo</td>
+        </tr>
+        <tr>
+            <td style="width: 150px; border-right: 1px solid black; padding: 10px;">
+                {{ _self.createTerm(application, timeRestrictions.safetyPlanTerm) }}
+            </td>
+            <td style="padding-left: 5px;">Vadovaujantis Saugaus varžybų organizavimo reglamentu paruo&scaron;ti varžybų &bdquo;Saugos plano&ldquo; projektą ir pateikti jį SVO komiteto pirmininkui.</td>
+        </tr>
+    </tbody>
+</table>
+<table style="width: 680px; border: none;">
+    <tbody>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">4.5.</td>
+        <td style="border: none;">Naudotis elektronine &bdquo;Starto-fini&scaron;o&ldquo; įranga ir užtikrinti radijo ry&scaron;į Varžybų metu kaip numatyta Saugos plane.</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">4.6.</td>
+        <td style="border: none;">Varžybų Organizatoriui suteikiama teisė i&scaron;duoti varžybų dieną galiojančias žemiau nurodytos kategorijos vienkartines licencijas (vadovaujantis LASVOVT 57.3 punktu):</td>
+    </tr>
+    </tbody>
+</table>
+<table style="height: 30px; border: 1px solid black; border-collapse: collapse; margin-left: 30px; margin-top: 15px; margin-bottom: 15px;" border="1" width="647">
+    <tbody>
+    <tr style="padding-left: 10px;">
+        <td style="width: 100px; padding-left: 5px;">E kategorijos licencija</td>
+        <td style="padding-left: 5px;">&ldquo;nuliniams&rdquo; ekipažams</td>
+    </tr>
+    </tbody>
+</table>
+<table style="width: 680px; border: none;">
+    <tbody>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">4.7.</td>
+        <td style="border: none;">Vienkartinių Vairuotojo licencijų blankai ir vienkartinių Vairuotojo licencijų i&scaron;davimo žiniara&scaron;tis Organizatoriui yra i&scaron;duodami, kai yra suderinti varžybų dokumentai su atitinkamos sporto &scaron;akos komitetu.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">4.8.</td>
+        <td style="border: none;">Varžybų Organizatorius ar jo įgaliotas asmuo, pasibaigus varžyboms, nevėliau kaip per 5 darbo dienas, pristato LASF sekretoriatui vienkartinių Vairuotojo licencijų žiniara&scaron;tį, surinktus mokesčius už vienkartines Vairuotojo licencijas, i&scaron;duotų vienkartinių Vairuotojo licencijų &scaron;akneles ir nepanaudotus vienkartinių Vairuotojo licencijų blankus.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">4.9.</td>
+        <td style="border: none;">Organizatorius įsipareigoja dalyvauti atitinkamos sporto &scaron;akos komiteto posėdyje, Varžybų aptarime.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">4.10.</td>
+        <td style="border: none;">Organizatorius pripažįsta ir ai&scaron;kiai parei&scaron;kia, kad turi žinių, gebėjimų ir resursų atlikti visas jam Sutartyje nustatytas prievoles bei pareigas.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">III.</td>
+        <td style="border: none;">&Scaron;ALIŲ ATSAKOMYBĖ</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">5.</td>
+        <td style="border: none;">Federacijos atsakomybė</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">5.1.</td>
+        <td style="border: none;">Federacija subsidiariai prisiima atsakomybę dėl galinčios kilti žalos padarymo tretiesiems asmenis, jeigu Organizatorius laikėsi Sutarties 1.1. p. nurodytų norminių aktų reikalavimų.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">6.</td>
+        <td style="border: none;">Organizatoriaus atsakomybė</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">6.1.​</td>
+        <td style="border: none;">​Organizatorius prisiima visą atsakomybę dėl netinkamo Varžybų saugumo organizavimo ir įsipareigoja ginti Federaciją dėl netinkamo Varžybų saugumo nukreiptų reikalavimų, grindžiamų pretenzijomis, jog dėl netinkamo Varžybų saugumo buvo padaryta žala tretiesiems asmenims. Organizatorius sutinka kompensuoti Federacijai ir padengti visus jos nuostolius bei i&scaron;laidas, įskaitant ir advokato honorarą, priteisiamą i&scaron; Federacijos pagal tokius reikalavimus.​</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">7.​</td>
+        <td style="border: none;">Nenugalimos jėgos (force majeure) aplinkybės</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">7.1.</td>
+        <td style="border: none;">&Scaron;alys neatsako už visi&scaron;ką ar dalinį savo įsipareigojimų pagal &scaron;ią Sutartį nevykdymą, jei tai įvyksta dėl nenugalimos jėgos aplinkybių veikimo. &Scaron;alys nenugalimos jėgos (force majeure) aplinkybes supranta taip, kaip nustato Lietuvos Respublikos Vyriausybės 1996 m. liepos 15 d. nutarimu Nr.840 patvirtintos &bdquo;Atleidimo nuo atsakomybės, esant nenugalimos jėgos (force majeure) aplinkybėms, taisyklės&ldquo;.​​</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">7.2</td>
+        <td style="border: none;">Prane&scaron;imas apie 7.1 įvykius ir jo pasekmes ne vėliau kaip per 5 dienas perduodamas kitai &scaron;aliai faksograma arba el.pa&scaron;tu po &scaron;io įvykio ar aplinkybių atsiradimo. &Scaron;alis laiku neprane&scaron;usi kitai &scaron;aliai apie nenugalimos jėgos (force majeure) aplinkybes, netenka teisės jomis remtis.​</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">IV.</td>
+        <td style="border: none;">&nbsp;SANKCIJOS</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">8.​</td>
+        <td style="border: none;">Sankcijų skyrimo tvarka ir apskundimas</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">8.1.</td>
+        <td style="border: none;">Dėl &scaron;ioje Sutartyje numatytų Organizatoriaus įsipareigojimų nevykdymo LASF skiria baudas numatytas LASK 153 str. Bei LASVOVT Priede Nr. 2 .</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">V.</td>
+        <td style="border: none;">SUTARTIES GALIOJIMAS, PABAIGA, PAKEITIMAI IR PAPILDYMAI, NUTRAUKIMAS​</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">8.2.</td>
+        <td style="border: none;">&Scaron;i Sutartis yra sudaryta tik varžyboms, nurodytoms &scaron;ios sutarties 1.1. punkte.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">8.3.</td>
+        <td style="border: none;">Sutartis galioja nuo jos pasira&scaron;ymo iki pilno &scaron;alių prievolių įvykdymo dienos pagal LASVOVT 38 str. reikalavimus.​</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">9.</td>
+        <td style="border: none;">Sutarties pakeitimai ir/ar papildymai</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">9.1.</td>
+        <td style="border: none;">&Scaron;i Sutartis gali būti keičiama esant abiejų &Scaron;alių sutikimui.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">9.2.</td>
+        <td style="border: none;">Sutarties keitimas daromas ra&scaron;tu, sura&scaron;ant papildomą susitarimą prie &scaron;ios Sutarties ir pasira&scaron;ius abiejų &scaron;alių įgaliotiems asmenims.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">10.</td>
+        <td style="border: none;">Sutarties nutraukimas&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">10.1.</td>
+        <td style="border: none;">Federacija turi teisę viena&scaron;ali&scaron;kai nutraukti Sutartį, jeigu Organizatorius nevykdo &scaron;ioje Sutartyje nustatytų įsipareigojimų, apie tai ra&scaron;tu informavus Organizatorių ne vėlai kaip per 5 kalendorines dienas nuo sprendimo nutraukti Sutartį priėmimo.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">10.2.</td>
+        <td style="border: none;">Organizatorius turi teisę viena&scaron;ali&scaron;kai nutraukti Sutartį, jeigu Federacija nevykdo &scaron;ioje Sutartyje nustatytų įsipareigojimų apie tai ra&scaron;tu informavus Federaciją ne vėlai kaip per 5 kalendorines dienas nuo sprendimo nutraukti Sutartį priėmimo.​</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">10.3.</td>
+        <td style="border: none;">Sutartis taip pat gali būti nutraukta &Scaron;alių susitarimu.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">10.4.</td>
+        <td style="border: none;">Sutartis su Organizatoriumi nutraukiama automati&scaron;kai, jeigu Organizatorius &scaron;ioje Sutartyje numatytais terminais nei&scaron;siima varžybų Organizatoriaus licencijos ir/ar nesumoka nustatytų Federacijos mokesčių.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">VI.</td>
+        <td style="border: none;">GINČŲ SPRENDIMAS</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">11.</td>
+        <td style="border: none;">&Scaron;alys imsis visų galimų priemonių, kad visi ginčai ir nesutarimai, kylantys dėl Sutarties, jos vykdymo arba susiję su Sutartimi, būtų sprendžiami draugi&scaron;kai, &Scaron;alių tarpusavio derybose.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">12.</td>
+        <td style="border: none;">&Scaron;alims nepriėmus abi puses tenkinančio sprendimo, &Scaron;alys visus ginčus privalo spręsti Federacijos Apeliaciniame teisme, kuris yra galutinė instancija, sprendžianti oficialiose, Lietuvoje vykstančiose, automobilių sporto varžybose, tarp LASF narių, varžybų Organizatorių, Parei&scaron;kėjų, Vairuotojų arba bet kurių kitų LASF licencijų turėtojų ginčus automobilių sporte, įskaitant konkrečias varžybas.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">VII.</td>
+        <td style="border: none;">BAIGIAMOSIOS NUOSTATOS</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">13.</td>
+        <td style="border: none;">Informacija ir korespondencija</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">13.1.</td>
+        <td style="border: none;">Registruotais lai&scaron;kais, faksu, elektroniniu pa&scaron;tu siunčiami prane&scaron;imai yra teisėti ir galiojantys prane&scaron;imai.​​</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">13.2.​</td>
+        <td style="border: none;">Jei viena i&scaron; &scaron;alių pakeitė adresą, ji privalo informuoti kitą &scaron;alį ne vėliau kaip per 14 dienų po adreso pasikeitimo.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">14.</td>
+        <td style="border: none;">Kitos Sutarties nuostatos</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">14.1.</td>
+        <td style="border: none;">&Scaron;alių sutarimu Organizatorius nėra įgaliotas prisiimti jokių pareigų Federacijos vardu ir už jokias Organizatoriaus prievoles Federacija neatsako.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">14.2.</td>
+        <td style="border: none;">Sutarties &scaron;alys pripažįsta ir patvirtina, kad dėl visų Sutartyje nustatytų įsipareigojimų buvo derėtasi ir kiekviena &scaron;alis turėjo galimybę daryti įtaką jų turiniui, i&scaron;skyrus imperatyviąsias teisės normas nustatytas Tarptautinės automobilių federacijos (toliau - FIA) statutu ir Tarptautiniu sporto kodeksu, LR Kūno kultūros ir sporto įstatymu, Federacijos įstatais, Lietuvos automobilių sporto kodeksu, Lietuvos automobilių sporto varžybų organizavimo ir pravedimo taisyklėmis, Federacijos Komitetų parengtais automobilių sporto varžybas reglamentuojančiais norminiais aktais. &Scaron;alys taip pat patvirtina, kad jų nuomone nei viena i&scaron; Sutarties sąlygų neprotingai nepažeidžia nei vienos i&scaron; &Scaron;alių teisių, o jų teisės bei pareigos pagal &scaron;ią Sutartį yra subalansuotos. &Scaron;alys ai&scaron;kiai konstatuoja, kad visas Sutarties sąlygas ir terminus jos laiko protingais ir įsipareigoja jų laikytis. &Scaron;ią sąlygą Sutarties &scaron;alys papildomai patvirtina savo para&scaron;ais ir antspaudais.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">14.3.</td>
+        <td style="border: none;">&Scaron;alys negali perleisti ar kitaip perduoti tretiesiems asmenims savo teisių ir pareigų, kylančių i&scaron; Sutarties, be ra&scaron;ti&scaron;ko kitos &scaron;alies sutikimo, i&scaron;skyrus Federacijos teisę gauti nuostolių atlyginimą pagal Sutartį. &Scaron;alių sutarimu pastaruoju atveju i&scaron;lieka visos papildomos Federacijos teisės.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">14.4.</td>
+        <td style="border: none;">Bet koks pavėluotas pareigos vykdymas ar teisės įgyvendinimas dar nerei&scaron;kia, kad yra atleidžiama nuo prievolės vykdymo ar atsisakoma nuo reikalavimo teisės, o bet koks atskiras ar dalinis prievolės įvykdymas, ar teisės įgyvendinimas nepanaikina pareigos, ar reikalavimo teisės likusioje prievolės dalyje, nebent Sutartyje būtų nurodyta kitaip.</td>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: left; vertical-align: top;">14.5.</td>
+        <td style="border: none;">Sutartis ir jos priedai sudaryti lietuvių kalba dviem egzemplioriais, turinčiais vienodą juridinę galią, po vieną &scaron;ios Sutarties su priedais egzempliorių lieka Sutarties &Scaron;alims.</td>
+    </tr>
+    </tbody>
+</table>
+<table style="width: 680px; border: none;">
+    <tbody>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">15.</td>
+        <td style="width: 200px; border: none;">&Scaron;alių rekvizitai ir para&scaron;ai</td>
+        <td style="border: none; vertical-align: top;">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">&nbsp;</td>
+        <td style="width: 200px; border: none;">
+            <p>FEDERACIJA</p>
+            <div>Asociacija</div>
+            <div>&bdquo;Lietuvos automobilių sporto federacija&ldquo;</div>
+            <div>&nbsp;</div>
+            <div>Įmonės kodas: 190642938</div>
+            <div>Adresas: Savanorių pr. 56, Kaunas</div>
+            <div>Banko sąskaita LT157300010002246403</div>
+            <div>Įregistruota LR Teisingumo ministerijoje</div>
+            <div>Registro nr. 239-v</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+        </td>
+        <td style="border: none; vertical-align: top;">
+            <p>ORGANIZATORIUS</p>
+            <div>{% if not application.user.memberName is empty %}{{ application.user.memberName }}{% else %}&nbsp;{% endif %}</div>
+            <div>&nbsp;</div>
+            <div>Įmonės kodas: {% if not application.user.memberCode is empty %}{{ application.user.memberCode }}{% endif %}</div>
+            <div>Adresas: {% if not application.user.address is empty %}{{ application.user.address }}{% endif %}</div>
+            <div>Banko sąskaita {% if not application.user.bankAccount is empty %}{{ application.user.bankAccount }}{% endif %}</div>
+            <div>{% if not application.user.bank is empty %}{{ application.user.bank }}{% endif %}</div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">&nbsp;</td>
+        <td style="width: 200px; border: none;">A.V.&nbsp;</td>
+        <td style="border: none; vertical-align: top;">&nbsp;A.V.</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">&nbsp;</td>
+        <td style="width: 200px; border: none;">_________________________________________</td>
+        <td style="border: none; vertical-align: top;">_________________________________________</td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">&nbsp;</td>
+        <td style="width: 200px; border: none;"><sup>(para&scaron;as)</sup></td>
+        <td style="border: none; vertical-align: top;"><sup>&nbsp;(para&scaron;as)</sup></td>
+    </tr>
+    <tr>
+        <td style="width: 30px; border: none; text-align: left; vertical-align: top;">&nbsp;</td>
+        <td style="width: 200px; border: none;">Prezidentas Romas Austinskas</td>
+        <td style="border: none; vertical-align: top;">&nbsp;</td>
+    </tr>
+    </tbody>
+</table>

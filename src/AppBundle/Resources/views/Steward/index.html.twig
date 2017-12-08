@@ -1,0 +1,52 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SKK_HEAD') %}
+
+    <div class="page-header">
+      <h1>
+        {{ 'steward.index.title'|trans }}
+        {{ back_button('app_user_index') }}
+        <a href="{{ url('app_steward_new') }}" class="btn btn-success pull-right with_margin"><i class="fa fa-plus"></i> {{ 'steward.index.new'|trans }}</a>
+      </h1>
+      <div class="clearfix"></div>
+    </div>
+
+    {% include 'AppBundle::flashes.html.twig' %}
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-th-large"></i> {{ 'steward.index.title'|trans }}</h3>
+      </div>
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>{{ sorter_link(stewards, 't.user.fullName', 'steward.label.name'|trans) }}</th>
+            <th>{{ 'steward.label.sports'|trans }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for steward in stewards %}
+            <tr>
+              <td>{{ steward.user.fullName }}</td>
+              <td>{% for sport in steward.sports %}{% if loop.first %}{{ sport.name }}{% else %}, {{ sport.name }}{% endif %}{% endfor %}</td>
+              <td class="col-min">
+                <a href="{{ url('app_steward_edit', {id: steward.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
+                  <i class="fa fa-edit"></i>
+                </a>
+                <a href="{{ url('app_steward_delete', {id: steward.id}) }}" class="btn btn-xs btn-link js-confirm js-no-ajax" data-text="{{ 'steward.title.remove_text'|trans }}"  data-title="{{ 'steward.title.delete'|trans }}" data-toggle="tooltip">
+                  <i class="fa fa-times"></i>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="panel-footer">
+        {{ pagination(stewards) }}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+

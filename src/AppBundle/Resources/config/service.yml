@@ -1,0 +1,68 @@
+services:
+  app.registrator:
+    class: AppBundle\Lasf\Registrator
+    arguments:
+        - @security.encoder_factory
+
+  app.application_document_handler:
+    class: AppBundle\Lasf\ApplicationDocumentHandler
+    arguments:
+      - @doctrine.orm.entity_manager
+      - @event_dispatcher
+      - @security.token_storage
+      - @security.authorization_checker
+
+  lasf.licence_serial_code:
+    class: AppBundle\Lasf\LicenceSerialCode
+    arguments:
+      - @em
+
+  app.filter.type.service:
+    class: AppBundle\Lasf\FilterTypesService
+    arguments:
+      - @em
+
+  app.lasf.lp_express.service:
+    class: AppBundle\Lasf\LpExpressService
+    arguments:
+      - %lp_express_key%
+
+  app.licence_document_handler:
+    class: AppBundle\Lasf\LicenceDocumentHandler
+    arguments:
+      - @doctrine.orm.entity_manager
+
+  app.document_handler:
+    class: AppBundle\Lasf\DocumentHandler
+    arguments:
+      - @doctrine.orm.entity_manager
+      - @vich_uploader.storage.file_system
+      - @filesystem
+
+  app.cms_block_repository:
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - AppBundle\Entity\CmsBlock
+
+  app.urgency_choices:
+    class: AppBundle\Lasf\UrgencyChoices
+    arguments:
+      - @app.cms_block_repository
+
+  app.filter_licences.service:
+    class: AppBundle\Lasf\FilterLicencesService
+
+  app.licence_repository:
+    class: AppBundle\Entity\LicenceRepository
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - AppBundle\Entity\Licence
+
+  app.licences_csv_generator.service:
+    class: AppBundle\Lasf\LicencesCsvGeneratorService
+    arguments:
+      - @translator
+      - @app.licence_repository
+      - @app.filter_licences.service
+

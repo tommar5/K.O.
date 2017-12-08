@@ -1,0 +1,114 @@
+<div class="rows-to-columns">
+    <table class="table table-hover table-striped">
+        <tbody>
+        {% for competition in application.subCompetitions %}
+            <tr>
+            <td>{{ competition.name }}</td>
+                {% if application.hasAgreementStatus and is_granted('applicatiion-status-view', app.user) %}
+                {% set documents = competition.AllTypeDocuments %}
+                    <td>
+                        {% if documents['additional_rules'] is defined %}
+                            <div class="documents {% for document in documents['additional_rules'] %}{% if document.status == 'confirmed_additional_competition_rules' %} confirmed {% else %} pending {% endif %} {% endfor %}">
+                                <div class="sub-competition">
+                                    <span class="status-text">{{ 'application.documents.additional_rules'|trans }}</span>
+                                </div>
+                                {% if documents['additional_rules'][0].status != 'confirmed_additional_competition_rules' %}
+                                    {% if legalTimes.additionalRulesTerm %}
+                                        <div class="days">
+                                            {{ 'application.documents.left'|trans }}
+                                            <span class="sub_competition_additional_rules">
+                                                -{{ terms_calculation(competition, 'AdditionalRules') }}
+                                            </span>
+                                            {{ 'application.documents.days'|trans }}
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                <div class="text-left">
+                                    {{ 'application.documents.messages.coordinated'|trans }}
+                                    {% if legalTimes.additionalRulesTerm %}
+                                        -({{ calculate_terms(competition, documents['additional_rules']|last, 'AdditionalRulesTerm') }})
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <div class="documents">
+                                <div class="sub-competition">
+                                    <span class="status-text">{{ 'application.documents.additional_rules'|trans }}</span>
+                                </div>
+                                {% if legalTimes.additionalRulesTerm %}
+                                    <div class="days">
+                                        {{ 'application.documents.left'|trans }}
+                                        <span class="sub_competition_additional_rules">
+                                                -{{ terms_calculation(competition, 'AdditionalRules') }}
+                                        </span>
+                                        {{ 'application.documents.days'|trans }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if documents['safety_plan'] is defined %}
+                            <div class="documents {% for document in documents['safety_plan'] %}{% if document.status == 'confirmed_safety_plan' %} confirmed {% else %} pending {% endif %} {% endfor %}">
+                                <div class="sub-competition">
+                                    <span class="status-text">{{ 'application.documents.safety_plan'|trans }}</span>
+                                </div>
+                                {% if documents['safety_plan'][0].status != 'confirmed_safety_plan' %}
+                                    {% if legalTimes.safetyPlanTerm %}
+                                        <div class="days text-left">
+                                            {{ 'application.documents.left'|trans }}
+                                            <span class="sub_competition_safety_plan">
+                                                -{{ terms_calculation(competition, 'SafetyPlan') }}
+                                            </span>
+                                            {{ 'application.documents.days'|trans }}
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                <div class="text-left">
+                                    {{ 'application.documents.messages.approved'|trans }}
+                                    {% if legalTimes.safetyPlanTerm %}
+                                        -({{ calculate_terms(competition, documents['safety_plan']|last, 'SafetyPlanTerm') }})
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <div class="documents">
+                                <div class="sub-competition">
+                                    <span class="status-text">
+                                        {{ 'application.documents.safety_plan'|trans }}
+                                    </span>
+                                </div>
+                                {% if legalTimes.safetyPlanTerm %}
+                                    <div class="status-day-counter no-padding">
+                                        <div class="days text-left">
+                                            {{ 'application.documents.left'|trans }}
+                                            <span class="sub_competition_safety_plan">
+                                               -{{ terms_calculation(competition, 'SafetyPlan') }}
+                                            </span>
+                                            {{ 'application.documents.days'|trans }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </td>
+                {% endif %}
+                <td class="text-right">
+                    {% if is_granted('application-delete', app.user) %}
+                        <a href="{{ path('app_sub_competition_delete', {'id': competition.id}) }}" class="btn btn-danger">
+                            {{ 'competition_chief.title.delete'|trans }}
+                        </a>
+                    {% endif %}
+                    {% if competition|checkForSports(app.user) %}
+                        <a href="{{ path('app_sub_competition_modify', {'id': application.id, 'competition_id': competition.id}) }}" style="margin-right: 10px;" class="btn btn-primary">
+                            {{ 'application.index.modify'|trans }}
+                        </a>
+                    {% endif %}
+                </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

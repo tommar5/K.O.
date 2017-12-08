@@ -1,0 +1,63 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>
+            {{ 'sport.index.title'|trans }}
+            <a href="{{ url('app_sport_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> {{ 'sport.index.new'|trans }}
+            </a>
+        </h1>
+    </div>
+
+    {% include 'AppBundle::flashes.html.twig' %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-th-large"></i> {{ 'sport.index.title'|trans }}</h3>
+        </div>
+        <div class="rows-to-columns">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ sorter_link(sports, 's.name', 'sport.label.name'|trans) }}</th>
+                        <th>{{ sorter_link(sports, 's.alias', 'sport.label.alias'|trans) }}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for sport in sports %}
+                <tr>
+                    <td data-title="{{ '#'|trans }}" class="col-min">{{ sport.id }}</td>
+                    <td data-title="{{ 'sport.label.name'|trans }}">{{ sport.name }}</td>
+                    <td data-title="{{ 'sport.label.alias'|trans }}">{{ sport.alias }}</td>
+                    <td data-title="" class="col-min">
+                        <a href="{{ url('app_sport_edit', {id: sport.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        {% set delete = true %}
+                        {% if sport.committee is not empty or sport.licence is not empty or sport.applications is not empty or sport.competitionChiefs is not empty or sport.stewards is not empty or sport.subCompetitions is not empty%}
+                            {% set delete = false %}
+                        {% endif %}
+                        {% if delete == true %}
+                        <a href="{{ url('app_sport_delete', {id: sport.id}) }}" class="btn btn-xs btn-link js-confirm" data-toggle="tooltip" data-title="{{ 'title.delete'|trans }}" data-text="{{ 'sport.flash.are_you_sure'|trans }}">
+                            <i class="fa fa-times"></i>
+                        </a>
+                        {% else %}
+                        <a href="#" class="btn btn-xs btn-default fa-border" data-toggle="tooltip" data-title="{{ 'sport.flash.cant_remove'|trans }}">
+                            <i class="fa fa-times"></i>
+                        </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="panel-footer">
+                {{ pagination(sports) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

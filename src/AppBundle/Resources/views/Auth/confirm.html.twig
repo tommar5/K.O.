@@ -1,0 +1,28 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+
+{% set bodyClass = 'gray-bg' %}
+{% set title = "user.confirm.title"|trans %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h4>{{ title }}</h4>
+          <hr>
+
+          {% include 'AppBundle::flashes.html.twig' %}
+
+          {{ form_start(form, {action: path('app_auth_confirm', {token: token})}) }}
+          {{ form_row(form.plainPassword) }}
+
+          <button type="submit" name="_submit" class="btn btn-primary">{{ 'user.confirm.submit'|trans }}</button>
+
+          {{ form_end(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

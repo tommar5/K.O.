@@ -1,0 +1,9 @@
+{% set flashIconMap = {danger: 'exclamation-circle', success: 'check-circle', info: 'info-circle', warning: 'exclamation-triangle'} %}
+{% for type, bag in app.session.flashbag.all() %}
+  {% for message in bag %}
+    <div class="alert alert-{{ type }} hidden-print">
+      <span class="fa fa-{{ flashIconMap[type] }}"></span>
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endfor %}

@@ -1,0 +1,82 @@
+{#Admin and organisator block#}
+{% if is_granted('applicatiion-status-view', app.user) %}
+  <div class="row">
+    <div class="status-block {{ application.isUnconfirmed ? 'un': '' }}confirmed">
+      <div class="status-title">
+        {{ 'application.new.title'|trans }}
+      </div>
+      <div class="status-body">
+        <div class="status-content">
+          <span class="status-text">
+              {{ ('application.status.' ~ (application.isUnconfirmed ? 'un': '') ~ 'confirmed')|trans }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    {% if application.hasUploadInvoiceStatus %}
+        {% if application.isPaid %}
+            {% set confirmed = 'confirmed' %}
+            {% set statusText = 'application.status.paid'|trans %}
+        {% else %}
+            {% set confirmed = 'not-paid' %}
+            {% set statusText = 'application.status.payment_pending'|trans %}
+        {% endif %}
+      <div class="status-block {{ confirmed }}">
+        <div class="status-title">
+          {{ 'application.new.invoice'|trans }}
+        </div>
+        <div class="status-body">
+          <div class="status-content">
+            <span class="status-text">
+                {{ statusText }}
+            </span>
+          </div>
+          {% if application.isNotPaid and legalTimes.payTaxesTerm and legalTimes.payTaxesTerm != '0' %}
+            <div class="status-day-counter">
+              <div class="days">
+                {{ 'application.documents.left'|trans }}
+                <span class="taxes_term"></span>
+                {{ 'application.documents.days'|trans }}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    {% if application.hasAgreementStatus %}
+      {# Status Block #}
+      <div class="status-block documents">
+        <div class="status-title">
+          {{ 'application.documents.label'|trans }}
+        </div>
+        <div class="status-body">
+          {% include 'AppBundle:Application/status:status_additional_rules.html.twig' %}
+          {% include 'AppBundle:Application/status:status_safety_plan.html.twig' %}
+          {% include 'AppBundle:Application/status:status_track_license.html.twig' %}
+          {% include 'AppBundle:Application/status:status_track_acceptance.html.twig' %}
+          {% include 'AppBundle:Application/status:status_insurance.html.twig' %}
+          {% include 'AppBundle:Application/status:status_organisator_license.html.twig' %}
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+{#Secretary block#}
+{% if is_granted('invoice-confirm', app.user) %}
+  {% if application.isNotPaid or application.isOrganisatorUploadedContract %}
+    <div
+        class="hide" {% for document in application.documents %}{% if document.type == 'invoice' %} style='display:block !important' {% endif %} {% endfor %}>
+      <a href="{{ url('app_application_markaspaid', {id: application.id }) }}"
+         class="btn btn-xl btn-primary double-click-prevent">
+        <i class="fa fa-check-circle-o"></i> {{ 'application.status.paid'|trans }}
+      </a>
+      <a href="{{ url('app_application_remind', {id: application.id }) }}"
+         class="btn btn-xl btn-primary double-click-prevent">
+        <i class="fa fa-envelope"></i> {{ 'application.index.btn_remind'|trans }}
+      </a>
+      <hr>
+    </div>
+  {% endif %}
+{% endif %}

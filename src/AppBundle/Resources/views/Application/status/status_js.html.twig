@@ -1,0 +1,49 @@
+<script>
+  $(function () {
+    // Date Calculation
+    var dateToday = new Date('{{ "now"|date('Y/m/d') }}');
+    var dateFrom = new Date('{{ application.getDateFrom()|date('Y/m/d') }}');
+    var dateCreated = new Date('{{ application.getCreatedAt()|date('Y/m/d') }}');
+    var timeDiff = Math.abs(dateToday.getTime() - dateFrom.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    var timeDiff2 = Math.abs(dateCreated.getTime() - dateToday.getTime());
+    var diffDays2 = Math.ceil(timeDiff2 / (1000 * 3600 * 24));
+
+    // Date field actions
+    {% if legalTimes.isPayTaxesTerm and legalTimes.payTaxesTerm != '' %}
+    $('.taxes_term').text(diffDays - {{ legalTimes.payTaxesTerm }});
+    {% else %}
+    $('.taxes_term').text({{ legalTimes.payTaxesTerm }} -diffDays2);
+    {% endif %}
+
+    {% if legalTimes.isAdditionalRulesTerm and legalTimes.additionalRulesTerm != '' %}
+    $('.additional_rules').text(diffDays - {{ legalTimes.additionalRulesTerm }});
+    {% else %}
+    $('.additional_rules').text({{ legalTimes.additionalRulesTerm }} -diffDays2);
+    {% endif %}
+
+    {% if legalTimes.isAdditionalRulesConfirmationTerm and legalTimes.additionalRulesConfirmationTerm != '' %}
+    $('.additional_rules_confirmation').text(diffDays - {{ legalTimes.additionalRulesConfirmationTerm }});
+    {% else %}
+    $('.additional_rules_confirmation').text({{ legalTimes.additionalRulesConfirmationTerm }} -diffDays2);
+    {% endif %}
+
+    {% if legalTimes.isSafetyPlanTerm and legalTimes.safetyPlanTerm != '' %}
+    $('.safety_plan').text(diffDays - {{ legalTimes.safetyPlanTerm }});
+    {% else %}
+    $('.safety_plan').text({{ legalTimes.safetyPlanTerm }} -diffDays2);
+    {% endif %}
+
+    {% if legalTimes.isContactAdministrationTerm and legalTimes.contactAdministrationTerm != '' %}
+    $('.contact_lasf').text(diffDays - {{ legalTimes.contactAdministrationTerm }});
+    {% else %}
+    $('.contact_lasf').text({{ legalTimes.contactAdministrationTerm }} -diffDays2);
+    {% endif %}
+
+    {% if legalTimes.isTrackActTerm and legalTimes.trackActTerm != '' %}
+    $('.track_acceptance').text(diffDays - {{ legalTimes.trackActTerm }});
+    {% else %}
+    $('.track_acceptance').text({{ legalTimes.trackActTerm }} -diffDays2);
+    {% endif %}
+  });
+</script>

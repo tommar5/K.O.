@@ -1,0 +1,56 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>
+      {{ 'file_uploads.index.title'|trans }}
+    </h1>
+  </div>
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-file"></i> {{ 'file_uploads.index.title'|trans }}</h3>
+    </div>
+    <div class="rows-to-columns table-scrollable">
+      <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ 'file_uploads.label.type'|trans }}</th>
+          <th>{{ 'file_uploads.label.name'|trans }}</th>
+          <th>{{ 'file_uploads.label.user'|trans }}</th>
+          <th>{{ 'file_uploads.label.status'|trans }}</th>
+          <th>{{ 'file_uploads.label.number'|trans }}</th>
+          <th>{{ 'file_uploads.label.valid_until'|trans }}</th>
+        </tr>
+        <tr role="row" class="filter">
+          <td></td>
+          <td>{{ filter_select(files, "t.type", types) }}</td>
+          <td></td>
+          <td>{{ filter_search(files, "t.fullName") }}</td>
+          <td>{{ filter_select(files, "t.status", statuses) }}</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for file in files %}
+          <tr>
+            <td data-title="#" class="col-min">{{ file.id }}</td>
+            <td data-title="{{ 'file_uploads.label.type'|trans }}">{{ ('file_uploads.type.'~file.type)|trans }}</td>
+            <td data-title="{{ 'file_uploads.label.name'|trans }}"><a href="{{ vich_uploader_asset(file, 'file') }}" target="_blank" class="unvisited-blue">{{ file.fileName }}</a></td>
+            <td data-title="{{ 'file_uploads.label.user'|trans }}">{{ file.user.fullName }}</td>
+            <td data-title="{{ 'file_uploads.label.status'|trans }}">{{ ('file_uploads.status.' ~ file.status)|trans }}</td>
+            <td data-title="{{ 'file_uploads.label.number'|trans }}">{{ file.number }}</td>
+            <td data-title="{{ 'file_uploads.label.valid_until'|trans }}">{{ file.validUntil ? file.validUntil|localizeddate('short', 'none') : '-' }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+    </div>
+    <div class="panel-footer">
+      {{ pagination(files) }}
+    </div>
+  </div>
+{% endblock %}

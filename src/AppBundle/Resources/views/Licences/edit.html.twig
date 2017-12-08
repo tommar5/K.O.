@@ -1,0 +1,147 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  <div class="page-header hidden-print">
+    <h1>
+      {{ ('licences.type.'~licence.type)|trans }}
+
+      (<a href="{{ path('app_user_user', {id: licence.user.id}) }}">{{ licence.user.legal ? licence.user.memberName : licence.user.fullName }}</a>)
+
+      {{ back_button('app_licences_index') }}
+    </h1>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+  {% include 'AppBundle:Licences:single_licence.html.twig' with {licence: licence, edit: true} %}
+
+  {% if is_granted('ROLE_ADMIN') %}
+
+    {% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+    {% form_theme notesForm 'AppBundle::forms_vertical.html.twig' %}
+
+    <div class="row">
+      <div class="col-sm-6">
+        {{ form_start(form) }}
+        <div class="panel panel-primary hidden-print">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-envelope"></i> {{ 'licences.edit.enter_details'|trans }}</h3>
+          </div>
+          <div class="panel-body">
+
+            {{ form_row(form.expiresAt) }}
+              {% if form.serialNumber.vars.errors|length %}
+                  {{ form_row(
+                      form.serialNumber,
+                      form.serialNumber.vars|merge({'attr': {'autofocus': null}})
+                  ) }}
+              {% else %}
+                  {{ form_row(form.serialNumber) }}
+              {% endif %}
+            {{ form_row(form.comment) }}
+            {% if form.type is defined %}
+              {{ form_row(form.type) }}
+            {% endif %}
+
+            {% if licence.membershipLicence %}
+              {{ form_row(form.personalCode) }}
+            {% endif %}
+
+          </div>
+          <div class="panel-footer text-center">
+            <button type="submit" class="btn btn-primary">{{ 'button.save'|trans }}</button>
+          </div>
+        </div>
+        {{ form_end(form) }}
+      </div>
+      <div class="col-sm-6">
+        {{ form_start(notesForm) }}
+        <div class="panel panel-primary hidden-print">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-comment-o"></i> {{ 'licences.edit.user_notes'|trans }}</h3>
+          </div>
+          <div class="panel-body">
+            {{ form_rest(notesForm) }}
+          </div>
+          <div class="panel-footer text-center">
+            <button type="submit" class="btn btn-primary">{{ 'button.save'|trans }}</button>
+          </div>
+        </div>
+        {{ form_end(notesForm) }}
+      </div>
+    </div>
+
+    <div class="panel panel-primary hidden-print">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-th-large"></i> {{ 'audit.index.title'|trans }}</h3>
+      </div>
+
+      <table class="table">
+        <tbody>
+        {% for log in logs %}
+          {{ audit(log) }}
+        {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="panel-footer">
+        {{ pagination(logs) }}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block js %}
+
+  {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+            $("#licence_personalCode").on('change', function () {
+                if ($(this).val() === '0') {
+                    $('input[type="file"]').removeAttr('disabled');
+                    $(".document-list").show();
+                } else {
+                    $('input[type="file"]').attr('disabled', 'disabled');
+                    $(".document-list").hide();
+                }
+            });
+
+            text = $(".select2-selection__rendered li").text();
+            if (text.includes('Kita')) {
+                $("#secondary-language").css('display', 'block');
+                $("#licence_info_secondaryLanguage").addClass("toggle-required").removeAttr('disabled');
+            }
+            $("#licence_info_languages").change(function () {
+                text = $(".select2-selection__rendered li").text();
+                if (text.includes('Kita')) {
+                    $("#secondary-language").css('display', 'block');
+                    $("#licence_info_secondaryLanguage").addClass("toggle-required").removeAttr('disabled');
+                } else {
+                    $("#secondary-language").css('display', 'none');
+                    $("#licence_info_secondaryLanguage").removeClass("toggle-required").attr('disabled', 'disabled');
+                }
+            });
+
+            $('#document-type-select').on('change', function () {
+                if ($(this).val()) {
+                    if(!$('.create-new').is(":visible")) {
+                        $('.create-new').toggleClass('hidden');
+                    }
+                    var linkParts = $('.create-new').attr('href').split("/");
+                    linkParts[linkParts.length - 2] = $(this).val();
+                    $('.create-new').attr('href', linkParts.join('/'));
+
+                } else if (!$('#document-type-select').val() && $('.create-new').is(":visible")) {
+                    $('.create-new').toggleClass('hidden');
+                }
+            });
+
+            if ($('#document-type-select').val() && !$('.create-new').is(":visible")) {
+                $('.create-new').toggleClass('hidden');
+            } else if (!$('#document-type-select').val() && $('.create-new').is(":visible")){
+                $('.create-new').toggleClass('hidden');
+            }
+        });
+    </script>
+    {% include 'AppBundle::google_maps.html.twig' with {'element': 'user_city'} %}
+{% endblock %}

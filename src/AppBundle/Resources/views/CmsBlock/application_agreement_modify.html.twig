@@ -1,0 +1,35 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+
+{% block content %}
+    {% if is_granted('agreement-create', app.user) %}
+        <div class="page-header">
+            <h1>{{ 'application_agreement.new.title'|trans }}</h1>
+        </div>
+
+        {% include 'AppBundle::flashes.html.twig' %}
+
+        {{ form_errors(form) }}
+        {{ form_start(form) }}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-file"></i> {{ 'application_agreement.new.enter_details'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{ form_row(form.alias) }}
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.content, {'attr': {'class': 'tinymce', 'rows' : 20}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer text-center">
+                <button type="submit" class="btn btn-primary">{{ 'button.save'|trans }}</button>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+    {% endif %}
+
+    {{ tinymce_init() }}
+{% endblock %}

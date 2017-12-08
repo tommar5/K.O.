@@ -1,0 +1,19 @@
+<span class="span-info">{{document.createdAt|date('Y-m-d H:i') ~ ' ' ~ 'file_uploads.label.upload'|trans ~ ' ' ~ document.user.firstname ~ ' ' ~ document.user.lastname}}</span>
+<span class="span-info approve-block">
+    {% if document.approvals|length %}
+        {% for approval in document.approvals %}
+            <span class="clearfix approve-field">
+                <span class="clearfix approve-text-block">
+                    {% if loop.first %}
+                        <span class="approve-text">
+                            {{ 'application.documents.approved'|trans }}
+                        </span>
+                    {% endif %}
+                    <span class="approve-text">{{ approval.user }}</span>
+                    <span class="approve-text">({{ approval.user.email }})</span>
+                    <span class="approve-text">{{ approval.createdAt|date('Y-m-d H:i') }}</span>
+                </span>
+            </span>
+        {% endfor %}
+    {% endif %}
+</span>

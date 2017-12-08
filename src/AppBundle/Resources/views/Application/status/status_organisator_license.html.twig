@@ -1,0 +1,12 @@
+{% set confirmedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ORGANISATOR_LICENCE') %}
+{% set addedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_ADDED_ORGANISATOR_LICENCE') %}
+<div class="documents {% if documents['organisator_licence'] is defined %}{{ documents['organisator_licence']|statusChange([confirmedKey], [addedKey]) }}{% endif %}">
+  <div class="status-content">
+    <span class="status-text">
+      {{ 'application.documents.organisator_licence_cutted'|trans }}
+    </span>
+  </div>
+  <div class="status-day-counter">
+  </div>
+  <div class="confirmation-message">{{ 'application.documents.messages.issued'|trans }}</div>
+</div>

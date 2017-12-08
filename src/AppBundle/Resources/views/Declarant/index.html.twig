@@ -1,0 +1,54 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>
+      {{ 'declarant.index.title'|trans }}
+    </h1>
+  </div>
+  {% include 'AppBundle::flashes.html.twig' %}
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-th-large"></i> {{ 'declarant.index.title'|trans }}</h3>
+    </div>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ sorter_link(requests, 'dr.racer', 'declarant.label.racer'|trans) }}</th>
+          <th>{{ sorter_link(requests, 'dr.currentDeclarant', 'declarant.label.current'|trans) }}</th>
+          <th>{{ sorter_link(requests, 'dr.newDeclarant', 'declarant.label.new'|trans) }}</th>
+          <th>{{ sorter_link(requests, 'dr.status', 'declarant.label.status'|trans) }}</th>
+          <th>{{ 'declarant.label.comment'|trans }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in requests %}
+          <tr>
+            <td class="col-min">{{ request.id }}</td>
+            <td>{{ request.racer }}</td>
+            <td>{{ request.currentDeclarant ? : '-' }}</td>
+            <td>{{ request.newDeclarant }}</td>
+            <td>{{ ('declarant.status.'~request.status)|trans }}</td>
+            <td>{{ request.comment }}</td>
+            <td class="col-min">
+              {% if request.status == constant('AppBundle\\Entity\\DeclarantRequest::STATUS_WAITING')%}
+                <a href="{{ url('app_declarant_confirm', {id: request.id}) }}" class="btn btn-xs btn-link js-confirm" data-text="{{ 'declarant.change.confirm_submit'|trans }}" data-title="{{ 'button.submit'|trans }}" data-toggle="tooltip">
+                  <i class="fa fa-check-circle"></i>
+                </a>
+                <a href="{{ url('app_declarant_reject', {id: request.id}) }}" class="btn btn-xs btn-link js-confirm" data-text="{{ 'declarant.change.confirm_reject'|trans }}" data-title="{{ 'button.reject'|trans }}" data-toggle="tooltip">
+                  <i class="fa fa-ban"></i>
+                </a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      {{ pagination(requests) }}
+    </div>
+  </div>
+
+{% endblock %}

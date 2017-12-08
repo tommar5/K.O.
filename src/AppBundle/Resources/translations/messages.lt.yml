@@ -1,0 +1,1157 @@
+project_name: "LASF"
+
+"": ""
+
+captcha: 'Žmogaus patvirtinimas'
+loading: 'Kraunasi...'
+
+all: 'Visi'
+back: 'Grįžti atgal'
+
+title:
+  edit: "Redaguoti"
+  show: 'Peržiūrėti'
+  delete: 'Pašalinti'
+
+button:
+  toggle: 'Perjungti'
+  save: 'Išsaugoti'
+  delete: 'Ištrinti'
+  cancel: 'Atšaukti'
+  submit: 'Patvirtinti'
+  decline: 'Atmesti'
+  return: 'Grįžti'
+  next_step: 'Sekantis žingsnis'
+  close: 'Uždaryti'
+  reject: 'Atmesti'
+  confirm_user: 'Išsaugoti ir patvirtinti registraciją'
+  confirm_application: 'Pateikti prašymą pasirašyti sutartį'
+  preview: 'Peržiūrėti'
+  sub_competition: 'Papildomos varžybos'
+  confirm_doc: 'Patvirtinti dokumentą'
+  show_more: 'Skaityti daugiau'
+  show_less: 'Mažiau'
+  remind_upload_doc: 'Siųsti priminimą'
+
+status:
+  waiting: 'Laukiama'
+  confirmed: 'Patvirtinta'
+  rejected: 'Atmesta'
+  confirmed_by_lasf: 'Patvirtino LASF komitetas'
+  confirmed_by_secretary: 'Patvirtino generalinė sekretorė'
+
+audit:
+  index:
+    title: 'Auditas'
+    show_history: 'Rodyti visus'
+    was_associated: 'buvo priskirtas su'
+    was_disassociated: 'buvo atskirtas nuo'
+    was_updated: 'buvo atnaujintas'
+    was_removed: 'buvi pašalintas'
+    was_inserted: 'buvo pridėtas'
+    by_user: 'vartotojo'
+    by_system: 'pagr. vartotojo arba sistemos'
+    diff: 'pakeitimų skirtumas'
+    field: 'Laukas'
+    old: 'Senas'
+    new: 'Naujas'
+  pagination:
+    any_source: 'Viskas'
+    any_user: 'Visi vartotojai'
+    unknown: 'Nežinoma'
+
+mail_template:
+  label:
+    alias: "Sisteminis vardas"
+    subject: "Laiško pavadinimas"
+    content: "Laiško turinys"
+    last_updated: 'Paskutinis atnaujinimas'
+  new:
+    title: 'Naujas laiško šablonas'
+    enter_details: 'Įveskite šablono informaciją'
+  index:
+    title: 'Laiškų šablonai'
+    new: 'Sukurti naują šabloną'
+  edit:
+    title: 'Laiško šablono redagavimas'
+  flash:
+    created: 'Šablonas sėkmingai sukurtas.'
+    updated: 'Šablonas sėkmingai atnaujintas.'
+    removed: 'Šablonas sėkmingai pašalintas.'
+
+cms_block:
+  label:
+    alias: "Sisteminis vardas"
+    name: "Pavadinimas"
+    content: "Turinys"
+    last_update: 'Paskutinis atnaujinimas'
+  new:
+    title: 'TVS bloko kūrimas'
+    enter_details: 'Įveskite bloko informaciją'
+  edit:
+    title: 'Redaguoti TVS bloką'
+  index:
+    title: 'TVS blokai'
+    new: 'Sukurti naują'
+  flash:
+    created: 'TVS blokas sėkmingai sukurtas.'
+    updated: 'TVS blokas sėkmingai atnaujintas.'
+    removed: 'TVS blokas sėkmingai pašalintas.'
+  restore: "Atstatyti"
+
+user:
+  label:
+    email: 'El. paštas'
+    registered_on: 'Registracijos data'
+    firstname: 'Vardas'
+    lastname: 'Pavardė'
+    password: 'Slaptažodis'
+    repeat_password: 'Slaptažodis (kartoti)'
+    roles: 'Rolė'
+    fullname: 'Vardas ir pavardė'
+    terms: 'Sutikta su taisyklėmis'
+    last_login_at: 'Paskutinis prisijungimas'
+    about_me: 'Apie mane'
+    enabled: 'Vartotojas gali prisijungti'
+    parent: 'Juridinio asmens vadovas'
+    lasf_name: 'LASF nario pavadinimas'
+    lasf_email: 'LASF nario el. paštas'
+    phone: 'Telefono nr.'
+    address: 'Adresas'
+    id_code: 'Asmens kodas'
+    birthday: 'Gimimo data'
+    member_name: 'LASF nario pavadinimas'
+    member_code: 'LASF nario (juridinio asmens) kodas'
+    vat_code: 'PVM mokėtojo kodas'
+    bank: "Bankas"
+    bank_account: "Banko sąskaitos numeris"
+    associated: "Nario tipas"
+    legal: "Juridinis asmuo"
+    notes: "Pastabos"
+    receive_notifications: "Noriu gauti priminimus bei kitą svarbią informaciją elektroniniu paštu"
+    image_file: 'Nuotrauka'
+    name: 'Pavadinimas'
+    pref_licence: "Reikalinga kategorija"
+    teams: 'Komandos'
+    language: 'Kalba'
+    other_language: 'Kita kalba'
+    gender: 'Lytis'
+    genders:
+      male: 'Vyras'
+      female: 'Moteris'
+    city: 'Miestas'
+  roles:
+    user: 'Registruotas vartotojas'
+    racer: 'Sportininkas'
+    declarant: 'Pareiškėjas / Sporto klubas'
+    organisator: 'Organizatorius'
+    judge: 'Teisėjas'
+    admin: 'Administratorius'
+    department: 'Departamentas'
+    accountant: 'Buhalteris'
+    spectator: 'LASF stebėtojas'
+    commissioner: 'Varžybų komisaras'
+    lasf_committee: 'LASF komitetas'
+    svo_committee: 'SVO komitetas'
+    competition_chief: 'Varžybų vadovas'
+    chairman: 'Pirmininkas'
+    president: 'LASF prezidentas'
+    secretary: 'Generalinė sekretorė'
+    judge_committee: 'Teisėjų komitetas'
+    skk_head: 'SKK pirmininkas'
+  new:
+    title: 'Naujo vartotojo kūrimas'
+    enter_details: 'Įveskite vartotojo informaciją'
+  index:
+    title: 'Vartotojai'
+    new: 'Sukurti naują vartotoją'
+    filter:
+      natural: 'Fiziniai'
+      legal_all: 'Juridiniai (visi)'
+      legal: 'Juridiniai (tikrieji)'
+      legal_associated: 'Juridiniai (asocijuoti)'
+    delete: 'Ištrinti vartotoją'
+    confirm_delete: 'Ar tikrai norite ištrinti šį vartotoją?'
+  edit:
+    title: 'Vartotojo redagavimas'
+    no_declarant: 'pareiškėjas nepriskirtas'
+    licences: 'Vartotojo licencijos'
+    association_undefined: "tipas nenustatytas"
+    accociated: "Asocijuotas narys"
+    not_accociated: "Tikrasis narys"
+    new_password: 'Išsiųsti prisijungimo informaciją'
+  flash:
+    created: 'Vartotojas sukurtas sėkmingai.'
+    updated: 'Vartotojo redagacija sėkminga.'
+    removed: 'Vartotojas pašalintas sėkmingai.'
+    deleted: 'Vartotojas ištrintas sėkmingai.'
+    error_deleting: 'Nepavyko ištrinti vartotojo.'
+    remind_sent: 'Patvirtinimo laiškas sėkmingai išsiųstas į pašto dėžutę %email%.'
+    password_changed: 'Vartotojo slaptažodis sėkmingai pakeistas.'
+    profile_updated: 'Vartotojo informacija atnaujinta sėkmingai.'
+    terms_agreed: 'Taisyklių patvirtinimas užregistruotas.'
+    please_agree: 'Norintis naudotis sistema, reikalaujama sutikti su naudojimosi taisyklėmis.'
+    generated_password: 'Slaptažodis nebuvo nurodytas, sugeneruotas slaptažodis:'
+    registered: 'Vartotojas sukurtas. Į nurodytą pašto dėžutę išsiųsti prisijungimo duomenys. Prisijungti galėsite kai vartotojas bus patvirtintas administracijos.'
+    info_resent: 'Vartotojui nusiųsta nauja prisijungimo informacija.'
+  confirm:
+    title: "Slaptažodžio pakeitimas"
+    submit: 'Patvirtinti pakeitimą'
+  login:
+    title: "Prisijungimas"
+    username: "El. pašto adresas"
+    password: "Slaptažodis"
+    forgot: "Užmiršote slaptažodį?"
+    submit: "Prisijungti"
+    incorrect_credentials: 'Neteisingas el. pašto adresas arba slaptažodis.'
+    account_disabled: 'Vartotojas užblokuotas.'
+    account_locked: 'Registracija dar nebuvo patvirtinta.'
+  terms:
+    title: 'Naudojimo taisyklės'
+    agree: 'Sutinku su naudojimo taisyklėmis'
+  reset:
+    title: "Slaptažodžio priminimas"
+    submit: 'Išsiųsti priminimą'
+    user_not_found: "Vartotojas su tokiu el. pašto adresu nebuvo rastas"
+  profile:
+    title: 'Profilis'
+    change_password: 'Pakeisti slaptažodį'
+    submit: 'Išsaugoti atliktus pakeitimus'
+    details: 'Vartotojo informacija'
+    image: 'Pakeisti profilio nuotrauką'
+    year: 'Metai'
+    month: 'Mėnesis'
+    day: 'Diena'
+    licence:
+      type: 'Licencijos tipas'
+      expires: 'Galioja iki'
+    additional_info: 'LASF nario informacija'
+  enabled: 'Vartotojas gali prisijungti'
+  disabled: 'Vartotojas užblokotas'
+  public_profile:
+    title: 'Vartotojo profilis'
+    team: "Komanda"
+  my_racers:
+    title: 'Mano sportininkai'
+    new: 'Priskirti sportininką'
+    no_racers: 'Šiuo metu neturite priskirtų sportininkų.'
+    remove: 'Sportininko pašalinimas'
+    remove_text: "Ar tikrai norite pašalinti šį sportininką iš priskirtų sportininkų sąrašo?"
+    flash:
+      removed: 'Vartotojas sėkmingai pašalintas iš sąrašo.'
+      added: 'Vartotojas priskirtas sėkmingai.'
+    add:
+      title: 'Pridėti sportininką'
+  change_password:
+    title: 'Pasikeiskite slaptažodį'
+  register:
+    title: 'Registracija'
+  unconfirmed: 'Vartotojas nepatvirtintas'
+  title:
+    firstname_legal: 'Vadovo vardas'
+    lastname_legal: 'Vadovo pavardė'
+  city_placeholder: 'Įveskite miestą'
+  language_placeholder: 'Įveskite kalbą'
+
+competition_judge:
+  label:
+    user: "Komisarai"
+    role: "Rolė"
+    competition: "Varžybos"
+  add: 'Priskirti teisėją'
+  role:
+    sporto_komisaras: "Sporto komisaras"
+    varzybu_vadovas: "Varžybų vadovas"
+    varzybu_sektorius: "Varžybų sekretorius"
+    laikininkas: "Laikininkas"
+    techninis_komisaras: "Techninės komisijos komisaras"
+    techninis_teisejas: "Techninės komisijos teisėjas"
+    saugumo_virsininkas: "Saugumo ir trasos viršininkas"
+    pitlane_teisejas: "Uždaro parko arba remonto-degalų užpildymo zonos, „Pitlane“, teisėjas"
+    rysininkas: "Teisėjas ryšiams su dalyviais"
+    trasos_teisejas: "Trasos teisėjas"
+    signalizuotojas: "Signalizuotojas"
+    fakto_teisejas: "Fakto teisėjas"
+    linijos_teisejas: "Starto arba finišo linijos teisėjas"
+    handicapper: "Galimybių suvienodinimo teisėjas (handicapper)"
+
+competition:
+  label:
+    name: 'Pavadinimas'
+    date_from: 'Nuo'
+    date_to: 'Iki'
+    location: 'Vieta'
+    description: 'Aprašymas'
+    judges: 'Papildomi komisarai'
+    main_judge: 'Vadovas'
+    watcher: "LASF stebėtojas"
+    safety_watcher: "Saugos stebėtojas"
+    licence: 'Licencija'
+  index:
+    title: 'Varžybos'
+    new: 'Sukurti naujas varžybas'
+    join: 'Pažymėti, jog vyksiu į varžybas'
+    competition_calendar_title: 'Varžybų kalendorius'
+  new:
+    title: 'Naujų varžybų kūrimas'
+    enter_details: 'Įveskite varžybų informaciją'
+    choose_judge: 'pasirinkite varžybų vadovą'
+    choose_licence: 'pasirinkite organizatoriaus licenciją'
+  edit:
+    title: 'Varžybų redagavimas'
+    licences: 'Licencijos'
+    no_users: 'Šiuo metu dalyvių nėra.'
+  show:
+    title: 'Varžybų informacija'
+    enter_details: 'Papildomi varžybų teisėjai (padėjėjai)'
+    remove_judge: "Ar tikrai norite pašalinti šį teisėją?"
+  flash:
+    updated: 'Varžybos atnaujintos sėkmingai.'
+    created: 'Varžybos sukurtos sėkmingai.'
+    removed: 'Varžybos pašalintos sėkmingai.'
+    judge_added: 'Teisėjas varžyboms priskirtas sėkmingai.'
+    judge_removed: 'Teisėjas sėkmingai pašalintas iš varžybų.'
+    joined: 'Apie jūsų prašymą dalyvauti informavome organizatorius.'
+    please_agree: "Norint organizuoti renginį, privaloma sutikti su taisyklėmis."
+    file_removed: 'Failas sėkmingai pašalintas'
+    files_added: 'Failai pateikti sėkmingai.'
+  btn:
+    already_participating: 'Dalyvauju'
+    participate: 'Dalyvausiu'
+  terms:
+    title: 'Varžybų kūrimo taisyklės'
+    agree: "Sutinku su organizavimo taisyklėmis"
+  result:
+    title: 'Varžybų dalyviai ir rezultatai'
+    submit_results: 'Pateikti failus'
+    submit_results_title: "Pateikti rezultatus"
+    delete: 'Ar tikrai norite pašalinti šį failą?'
+    remove_participant: 'Ar tikrai norite pašalinti šį rezultatą?'
+    add_result: 'Pridėti rezultatą'
+
+application:
+  new:
+    title: 'Paraiška'
+    enter_details: 'Paraiška organizatoriaus licencijai gauti'
+    organizer_info: 'Varžybų organizatorius'
+    title: 'Varžybų paraiška'
+    handled_paper_copy: 'Ranka užpildytos popierinės paraiškos kopija (Neprivaloma)'
+    invoice: 'Sąskaita'
+    deliver_info: 'Pristatymo informacija'
+    contract_by_lasf: 'LASF prezidento pasirašyta sutartis'
+    contract_by_organisator: 'Organizatoriaus pasirašyta sutartis'
+    competition_insurance: 'Varžybų draudimas'
+    other_documents: 'Papildomi dokumentai'
+    additional_rules: 'Papildomi varžybų nuostatai'
+    safety_plan: 'Saugos planas'
+    track_acceptance: 'Trasos priėmimo aktas'
+    organisator_licence: 'Organizatoriaus licencija'
+    track_licence: 'Trasos licencija'
+    competition_results: 'Varžybų rezultatai'
+    report: 'Varžybų ataskaita'
+    bulletin: 'Organizatoriaus biuletenis'
+    skk_report: 'SKK pirmininko ataskaita'
+    competition_chief_decisions: 'Varžybų vadovo sprendimai'
+    contract: 'Sutartis'
+    new_sub_competition: 'Pridėti papildomas varžybas'
+    sub_competition: 'Papildomos važybos'
+    show_sub_competitions: 'Išskleisti'
+  label:
+    name: 'Pavadinimas'
+    date_from: 'Nuo'
+    date_from_index: 'Varžybų pradžia'
+    date_to: 'Iki'
+    location: 'Vieta'
+    sport: 'Sporto šaka'
+    competition_chief: 'Varžybų vadovas'
+    safety_chief: 'Varžybų saugos viršininkas'
+    steward: 'Varžybų komisaras'
+    status: 'Statusas'
+    competition_name: 'Varžybų pavadinimas'
+    stage: 'Varžybų etapas'
+    type: 'Varžybų tipas'
+    start_at: 'Varžybų pradžios data'
+    end_at: 'Varžybų pabaigos data'
+    league: 'Lyga'
+    placeholder: 'Draudžiama naudoti žodžius "Tarptautinis", "Pasaulinis", "Europos"'
+    date_start: 'Prašau pasirinkti varžybų pradžios datą'
+    date_end: 'Prašau pasirinkti varžybų pabaigos datą'
+    lasf_name: 'LASF nario pavadinimas'
+    vat_number: 'PVM mokėtojo kodas'
+    member_code: 'Įmonės kodas'
+    lasf_address: 'LASF nario adresas'
+    lasf_email: 'LASF nario el. paštas'
+    phone: 'Telefono Nr.'
+    bank: 'Bankas'
+    skk_head: 'SKK pirmininkas'
+    bank_account: 'Sąskaitos nr.'
+    location_placeholder: 'Įveskite adresą'
+    file: 'Failas'
+    registered_on: 'Pateikimo data'
+    invoice: 'Sąskaita'
+    lasf: 'Atvyksiu atsiimti pats į Federaciją (Savanorių pr. 56, Kaunas)'
+    lp_express: 'Pristatyti į artimiausia LP Express terminalą arba Lietuvos pašto skyrių (Papildomas licencijos pristatymo mokestis - 5 Eur.)'
+    deliver_to: 'Pristatyti į:'
+    signed_application_by_organisator: 'Organizatoriaus pasirašyta varžybų organizavimo sutartis'
+    signed_application_by_lasf: 'LASF prezidento pasirašyta varžybų organizavimo sutartis'
+    organisator: 'Organizatorius'
+    contract_by_lasf_url: 'Nuoroda į pasirašytą sutartį'
+    competition_insurance: 'Varžybų draudimas'
+    competition_chief_confirmed_choice: 'Vadovas dalyvaus varžybose'
+    competition_chief_confirmed: 'Dalyvausiu varžybose'
+    other_documents: 'Papildomi dokumentai'
+    additional_rules: 'Papildomi varžybų nuostatai'
+    safety_plan: 'Saugos planas'
+    track_acceptance: 'Trasos priėmimo aktas'
+    organisator_licence: 'Organizatoriaus licencija'
+    track_licence: 'Trasos licencija'
+    observer: 'LASF stebėtojas'
+    svo_delegate: 'LASF SVO delegatas'
+    technical_delegate: 'LASF techninis delegatas'
+    judges: 'Varžybų teisėjai'
+    deliver_to_address: 'LP Express adresas'
+    competition_results: 'Varžybų rezultatai'
+    report: 'Varžybų ataskaita'
+    bulletin: 'Organizatoriaus biuletenis'
+    skk_report: 'SKK pirmininko ataskaita'
+    competition_chief_decisions: 'Varžybų vadovo sprendimai'
+    not_selected: 'Nepasirinkta'
+    inspection_date: 'Patikros data'
+  sub_competition:
+    application: 'Papildomų varžybų paraiška'
+    sub_competition_modify: 'Išsaugoti'
+    sub_competition_delete: 'Ištrinti'
+  svo_delegate:
+    placeholder: 'Pasirinkite SVO delegatą'
+  technical_delegate:
+    placeholder: 'Vardas, pavardė, el-paštas, telefonas'
+  observer:
+    placeholder: 'Pasirinkite LASF stebėtoją'
+  competition_chief_confirmed_select:
+    placeholder: 'Pasirinkite dalyvavimo būseną'
+  skk_head:
+    title: 'SKK pirmininkas'
+    placeholder: 'Pasirinkite SKK pirmininką'
+  league_select:
+    placeholder: 'Pasirinkite varžybų lygą'
+    a: 'A Lyga'
+    b: 'B Lyga'
+    c: 'C Lyga'
+    other: 'Kita'
+  type_select:
+    placeholder: 'Pasirinkite varžybų tipą'
+    championship: 'Čempionatas'
+    priority: 'Pirmenybės'
+    cup: 'Taurė'
+    other: 'Kita'
+  stage_select:
+    placeholder: 'Pasirinkite varžybų etapą'
+    once: 'Vienkartinės'
+  sport_select:
+    placeholder: 'Pasirinkite sporto šaką'
+    rally: 'Ralis'
+    rally-sprint: 'Ralis-sprintas'
+    cycle: 'Žiedas'
+    cross: 'Krosas'
+    rally-cross: 'Ralio-krosas'
+    drift: 'Driftas'
+    drag: 'Dragas'
+    4x4: '4x4'
+    slalom: 'Slalomas'
+    gskl: 'GSKL'
+    trek: 'Trekas'
+    karting: 'Kartingai'
+    other: 'Kitos sporto šakos'
+  competition_chief_select:
+    placeholder: 'Pasirinkite varžybų vadovą'
+    title: 'Varžybų vadovas'
+  safety_chief_select:
+      placeholder: 'Pasirinkite saugos vadovą'
+      title: 'Varžybų saugumo viršininkas'
+  steward:
+    placeholder: 'Pasirinkite varžybų komisarą'
+    title: 'Varžybų komisaras'
+  judge_select:
+    placeholder: 'Pasirinkite varžybų teisėjus'
+    title: 'Varžybų teisėjai'
+  index:
+    title: 'Varžybos'
+    new: 'Pateikti paraišką'
+    competition_calendar_title: 'Varžybų kalendorius'
+    dates: 'Datų įvedimas'
+    times: 'Terminų nustatymas'
+    modify: 'Peržiūrėti'
+    sub_competition: 'Papildomos varžybos'
+    sub_competition_where: 'Papildomose varžybose'
+    remove_text: 'Ar tikrai norite pašalinti paraišką?'
+    confirm: 'Patvirtinti'
+    confirm_secretary: 'Patvirtina generalinė sekretorė'
+    confirm_lasf: 'Patvirtina komitetas'
+    confirm_text: 'Ar tikrai norite patvirtinti šią paraišką?'
+    confirmation: 'Patvirtinimas'
+    btn_remind: 'Siųsti priminimą'
+    btn_invoice: 'Sąskaita pateikta'
+    remind: 'Priminti apie neapmokėtą sąskaitą'
+    invoice_remove: 'Ar tikrai norite ištrinti šią sąskaitą?'
+    document_remove: 'Ar tikrai norite ištrinti šį dokumentą?'
+    comment: 'Komentuoti'
+    commentator: 'Komentatoriaus ID'
+    edit: 'Redaguoti komentarą'
+    competition_calendar_title: 'Varžybų kalendorius'
+    remind_upload_document: 'Siųsti priminimą'
+  competition_chief_assigned:
+    title: 'Man priskirtos varžybos'
+    state:
+      yes: 'Taip'
+      no: 'Ne'
+    toggle: 'Pakeisti dalyvavimo būseną'
+    flash:
+      toggled: 'Būsena sėkmingai pakeista'
+  safety_chief_list:
+    title: 'Saugos vadovai, darbuotojai'
+  flash:
+    created: 'Paraiška pateikta.'
+    deleted: 'Paraiška ištrinta sėkmingai'
+    please_agree: "Norint organizuoti varžybas, privaloma sutikti su taisyklėmis."
+    updated: 'Paraiškos informacija atnaujinta sėkmingai.'
+    remind_not_paid: 'Pranešimas apie neapmokėtą paraišką išsiųstas sėkmingai.'
+    remind_upload_document: 'Pranešimas apie neįkelta dokumentą išsiųstas sėkmingai.'
+    paid: 'Paraiška pažymėta kaip apmokėta!'
+    not_paid: 'Paraiška pažymėta kaip neapmokėta!'
+    produced: 'Paraiška pažymėta kaip pagaminta/patvirinta'
+    invoice: 'Pažymėta, jog sąskaita išsiųsta.'
+    created: 'Paraiška sukurta ir pateikta peržiūrai.'
+    updated: 'Paraiška atnaujinta ir pateikta pakartotinei peržiūrai.'
+    notes_updated: 'Vartotojo pastabos atnaujintos.'
+    birthday: 'Prašome užpildyti gimimo datos laukelį.'
+    deleted: 'Paraiška sėkmingai ištrinta.'
+    error_deleting: 'Nepavyko ištrinti Paraiška.'
+    declined: 'Paraiška buvo atmesta.'
+    confirmed: 'Paraiška patvirtinta ir sutartis sugeneruota'
+    remind_not_paid: 'Pranešimas apie neapmokėtą paraišką išsiųstas sėkmingai.'
+    invoice_removed: 'Sąskaita ištrinta'
+    document_removed: 'Dokumentas ištrintas'
+    document_not_removed: 'Dokumentas nebuvo ištrintas'
+    document_approve: 'Dokumentas patvirtintas'
+    svo_toggled: 'LASF SVO delegato patvirtinimo statusas pakeistas'
+    info_missing: 'Jūsų vartotojo paskyroje nenurodyta visa reikiama informacija paraiškos teikimui. Prašome užpildyti trūkstamus laukus.'
+    ready_to_pay: 'Prašome apmokėti mokesčius nurodytus sutartyje.'
+    missing_lasf_info: 'Šis organizatorius/pareiškėjas neturi visos privalomos profilio informacijos'
+    missing_lasf_info_add: 'Papildyti'
+    not_owner: 'Jūs negalite peržiūrėti šios paraiškos.'
+    past_application: 'Varžybos pasibaigusios'
+  status:
+    unconfirmed: 'Nepatvirtinta'
+    uploaded: 'Laukia patvirtinimo'
+    confirmed: 'Patvirtinta'
+    paid: 'Apmokėta'
+    not_paid: 'Neapmokėta'
+    waiting_edit: "Laukiama patikslinimo"
+    waiting_confirm: "Patikslinta"
+    extend: "Pratęsimas"
+    cancelled: "Atšaukta"
+    declined: "Atmesta"
+    produced: "Pagaminta"
+    produced_membership: 'Narystė patvirtinta'
+    invoice: "Sąskaita pateikta"
+    payment_pending: 'Laukiama apmokėjimo'
+    signed_application_by_lasf: 'Pateikta sutartis organizatoriui'
+    signed_application_by_organisator: 'Sutartis pasirašyta'
+    contract_by_lasf_deleted: 'Ištrinta LASF įkelta sutartis'
+    contract_by_organisator_deleted: 'Ištrinta organizatoriaus įkelta sutartis'
+    added_additional_competition_rules: 'Pateikti papildomi varžybų reikalavimai'
+    done: 'Varžybos baigėsi'
+  terms:
+    agree: "Sutinku su LASF reglamentu ir tasyklėmis"
+    links: "Nuorodos"
+  file_uploads:
+    type:
+      application_copy: "Ranka užpildytos popierinės paraiškos kopija"
+      invoice: 'Sąskaita'
+      signed_application_by_organisator: 'Organizatoriaus pasirašyta varžybų organizavimo sutartis'
+      signed_application_by_lasf: 'LASF prezidento pasirašyta varžybų organizavimo sutartis'
+      competition_insurance: 'Varžybų draudimo dokumentas'
+      other_documents: 'Papildomas dokumentas'
+      additional_rules: 'Papildomas varžybų nuostato dokumentas'
+      safety_plan: 'Saugos plano dokumentas'
+      track_acceptance: 'Trasos priėmimo aktas'
+      organisator_licence: 'Organizatoriaus licencija'
+      track_licence: 'Trasos licencija'
+      competition_results: 'Varžybų rezultatai'
+      report: 'Varžybų ataskaita'
+      bulletin: 'Organizatoriaus biuletenis'
+      skk_report: 'SKK pirmininko ataskaita'
+      competition_chief_decisions: 'Varžybų vadovo sprendimai'
+  documents:
+    label: 'Dokumentai'
+    additional_rules: 'Papildomi varžybų nuostatai'
+    safety_plan: 'Saugos planas'
+    contact_lasf: 'Trasos licencija'
+    rules_agreement: 'Nuostatų patvirtinimas komitete'
+    final_rules: 'Galutinis nuostatų variantas'
+    track_acceptance: 'Trasos priėmimo aktas'
+    competition_insurance: 'Varžybų draudimas'
+    other_documents: 'Papildomas dokumentas'
+    organisator_licence: 'Organizatoriaus licencija'
+    organisator_licence_cutted: 'Organiza-toriaus licencija'
+    track_licence: 'Trasos licencija'
+    competition_results: 'Varžybų rezultatai'
+    report: 'Varžybų ataskaita'
+    bulletin: 'Organizatoriaus biuletenis'
+    skk_report: 'SKK pirmininko ataskaita'
+    competition_chief_decisions: 'Varžybų vadovo sprendimai'
+    left: 'Liko'
+    days: 'dienų'
+    uploaded: 'Įkelta'
+    approved: 'Patvirtino:'
+    messages:
+      coordinated: 'Suderinti'
+      approved: 'Patvirtintas'
+      issued: 'Išduota'
+      submitted: 'Pateiktas'
+  decline:
+    title: 'Atmesti paraišką'
+    label: 'Paraiškos atmetimo priežastis'
+  svo:
+    toggle: 'Keisti LASF SVO delegato statusą'
+
+competition_chief:
+  index:
+    title: 'Varžybų vadovai'
+    new: 'Pridėti naują vadovą'
+  new:
+    title: 'Pridėti naują vadovą'
+    enter_details: 'Varžybų vadovo duomenys'
+  label:
+    user: 'Vartotojas'
+    sports: 'Sporto šakos'
+    name: 'Vardas'
+  title:
+    delete: 'Ištrinti'
+    remove_text: 'Ar tikrai norite pašalinti varžybų vadovą?'
+  sport_select:
+    placeholder: 'Pasirinkite sporto šaką'
+  user_select:
+    placeholder: 'Pasirinkite vartotoją'
+  flash:
+    created: 'Varžybų vadovas sėkmingai sukurtas.'
+    has_application_cant_delete: 'Negalima ištrinti vadovo, jis priskirtas varžyboms.'
+    deleted: 'Varžybų vadovas sėkmingai ištrintas.'
+    chief_already_exists: 'Varžybų vadovas tokiu vardu jau yra pridėtas.'
+    edited: 'Varžybų vadovas sėkmingai atnaujintas.'
+  edit:
+    title: 'Redaguoti varžybų vadovo informaciją'
+    label: 'Varžybų vadovas'
+    validation-message: 'Būtina įvesti sporto šakas!'
+
+steward:
+  index:
+    title: 'Varžybų komisarai'
+    new: 'Pridėti naują komisarą'
+  new:
+    title: 'Pridėti naują komisarą'
+    enter_details: 'Varžybų komisaro duomenys'
+  title:
+    delete: 'Ištrinti'
+    remove_text: 'Ar tikrai norite pašalinti komisarą?'
+  label:
+    user: 'Vartotojas'
+    sports: 'Sporto šakos'
+    name: 'Vardas'
+  sport_select:
+    placeholder: 'Pasirinkite sporto šaką'
+  user_select:
+    placeholder: 'Pasirinkite vartotoją'
+  flash:
+    created: 'Varžybų komisaras sėkmingai sukurtas.'
+    has_application_cant_delete: 'Negalima ištrinti komisaro, jis priskirtas varžyboms.'
+    deleted: 'Varžybų komisaras sėkmingai ištrintas.'
+    steward_already_exists: 'Varžybų komisaras tokiu vardu jau egzistuoja.'
+    edited: 'Varžybų komisaras sėkmingai atnaujintas.'
+  edit:
+    title: 'Redaguoti varžybų komisaro informaciją'
+    label: 'Varžybų komisaras'
+    validation-message: 'Būtina įvesti sporto šakas!'
+
+application_agreement:
+  modify: 'Peržiūrėti sutartį'
+  create: 'Patvirtinti ir sugeneruoti sutartį'
+  new:
+    title: 'Varžybų organizavimo sutartis'
+    enter_details: 'Varžybų organizavimo sutarties peržiūra ir redagavimas'
+  label:
+    content: 'Sutarties turinys'
+  flash:
+    modified: 'Sutarties pakeitimai išsaugoti'
+    restored: 'Sutarties pakeitimai sugražinti'
+
+file_uploads:
+  label:
+    type: 'Tipas'
+    name: "Pavadinimas"
+    created_at: "Įkėlimo data"
+    user: "Vartotojas"
+    status: 'Būsena'
+    file: 'Failas'
+    actions: 'Veiksmai'
+    number: "Dokumento numeris"
+    valid_until: "Galioja iki"
+    upload: 'Įkėlė'
+    issued: 'Išrašė'
+    use_old: "Naudoti dokumentą iš ankstesnės licencijos"
+    choose_type: 'Pasirinkite pridedamo dokumento tipą'
+  type:
+    driver_licence: "Vairuotojo pažymėjimas"
+    medical_certificate: "Medicinos pažyma"
+    photo: "Nuotrauka"
+    insurance: "Draudimo polisas"
+    school_certificate: "Vairavimo mokyklos sertifikatas"
+    exam: "Teorinių žinių patikrinimo rezultatai"
+    parent_agreement: "Notaro patvirtintas tėvų sutikimas (iki 18m)"
+    previous_licence: "Ankstesniais metais turėta kategorija"
+    safety_plan: "Saugos planas"
+    acceptance_act: "Trasos priėmimo aktas"
+    organisator_licence: 'Organizatoriaus licencija'
+    track_licence: 'Trasos licencija'
+    other: "Papildomi dokumentai"
+    competition_result: "Varžybų rezultatai"
+    judge_certificate: "Atestacijos pažymėjimas"
+    membership_recommendation: "Esamo tikrojo nario rekomendacija"
+    membership_registry: "Registro išrasas"
+    activity_desc: "Veiklos aprašymas"
+    statute_copy: "Įstatų kopija"
+    rally_participant: "LARČ dalyvio paraiška"
+    application_copy: "Ranka užpildytos popierinės paraiškos kopija"
+    signed_application_by_lasf: "LASF prezidento pasirašyta varžybų organizavimo sutartis"
+    signed_application_by_organisator: "Organizatoriaus pasirašyta varžybų organizavimo sutartis"
+    invoice: "Sąskaita"
+    competition_insurance: "Varžybų draudimas"
+    other_documents: "Papildomas dokumentas"
+    additional_rules: "Papildomi varžybų nuostatai"
+    track_acceptance: "Trasos priėmimo aktas"
+    competition_results: "Varžybų rezultatai"
+    report: "Varžybų ataskaita"
+    bulletin: "Organizatoriaus biuletenis"
+  status:
+    new: 'Pateiktas peržiūrai'
+    processed: 'Peržiūrimas'
+    approved: 'Patvirtintas'
+    rejected: 'Atšauktas'
+    revoked: 'Anuliuotas'
+    added_additional_competition_rules: 'Pateiktas'
+    commented_additional_competition_rules: 'Pakomentuotas'
+    confirmed_additional_competition_rules_by_last: 'Patvirtino LASF komitetas'
+    confirmed_additional_competition_rules_by_secretary: 'Patvirtino generalinė sekretorė'
+    confirmed_additional_competition_rules: 'Patvirtintas'
+    added_safety_plan: 'Pateiktas'
+    commented_safety_plan: 'Pakomentuotas'
+    confirmed_safety_plan: 'Patvirtintas'
+    added_track_acceptance: 'Pateiktas'
+    confirmed_track_acceptance: 'Patvirtintas'
+    added_track_licence: 'Pateiktas'
+    confirmed_track_licence: 'Patvirtintas'
+    added_competition_insurance: 'Pateiktas'
+    confirmed_competition_insurance: 'Patvirtintas'
+    added_other_documents: 'Pateiktas'
+  index:
+    title: 'Įkelti failai'
+  flash:
+    approved: 'Failas patvirtintas.'
+    rejected: 'Failas pažymėtas kaip atmestas.'
+    edited: 'Failo informacija atnaujinta.'
+    commented: 'Dokumento komentaras pateiktas'
+  reject:
+    title: 'Failo atšaukimas'
+  reason:
+    title: 'Priežastis'
+    heading: 'Atšaukimo priežastis'
+    view: 'Žiūrėti priežastį'
+    updated: 'Atnaujinta'
+  edit:
+    title: 'Redaguoti failo informaciją'
+  comment:
+    label: 'Dokumento komentaras'
+    title: 'Komentaras'
+
+licences:
+  label:
+    type: 'Licencija'
+    status: 'Būsena'
+    created_at: 'Sukūrimo data'
+    expires_at: 'Licencija galioja iki'
+    documents: 'Pateikti dokumentai'
+    user: 'Vartotojas'
+    comment: 'Komentaras'
+    licence: "Komanda"
+    serial_code: "Numeris"
+    serial_number: "Serijos numeris"
+    sports: 'Sporto šakos'
+    city: 'Miestas'
+    gender: 'Lytis'
+    licence_csv: 'Licencijų CSV'
+    genders:
+      male: 'Vyrai'
+      female: 'Moterys'
+    driver_type: 'Vairuotojo tipas'
+    driver:
+      first_driver: 'Pirmas vairuotojas'
+      second_driver: 'Antras vairuotojas'
+      identity_code: 'Asmens kodas'
+    language: 'Kalba'
+    declarant:
+      lasf_name: "LASF nario pavadinimas"
+      team_name: "Komandos pavadinimas"
+      personal_code: "LASF nario (juridinio asmens) kodas"
+      vat_number: "PVM mokėtojo kodas"
+      lasf_address: "LASF nario adresas"
+      mobile_number: "Mobilaus telefono Nr."
+      email: "El. pašto adresas"
+      manager_full_name: "LASF nario vadovo Vardas, Pavardė"
+    organisator:
+      lasf_address: "Adresas"
+      phone: "Telefonas/faksas"
+      bank: "Bankas"
+      bank_account: "Sąskaitos nr."
+      mobile_number: "Varžybų vadovo tel. nr."
+      email: "Vadovo el. paštas"
+      name: "Varžybų pavadinimas"
+      date: "Varžybų data"
+    judge:
+      declarant: "Pareiškėjo pavadinimas"
+      name: "Vardas, Pavardė"
+      date: "Gimimo data"
+      lasf_address: "Adresas"
+      mobile_number: "Telefonas"
+      email: "El. paštas"
+      sports: 'Sporto šakos'
+    full_serial: 'Licencijos numeris'
+    deliver_to: 'Licencijos atsiėmimas'
+    representatives: 'Pareiškėjo komandos atstovai'
+    users: "Sportininkai"
+    insurance:
+      title: 'Draudimo polisas'
+      have: "Turiu reikalingą draudimą"
+      need: "Įsigyti draudimą per LASF"
+      code: "Asmens kodas"
+      agree: "Sutinku su draudimo sąlygomis"
+    urgency: 'Licencijos išdavimo terminas'
+    user_phone: 'Licencijos pareiškejo telefono Nr.'
+    phone_in_licence: 'Telefono Nr. registruotas licencijoje'
+    id: 'ID'
+    no_data: 'Nėra duomenų'
+  status:
+    uploaded: 'Laukia patvirtinimo'
+    paid: 'Apmokėta'
+    not_paid: 'Neapmokėta'
+    waiting_edit: "Laukiama patikslinimo"
+    waiting_confirm: "Patikslinta"
+    extend: "Pratęsimas"
+    cancelled: "Atšaukta"
+    declined: "Atmesta"
+    produced: "Pagaminta"
+    produced_membership: 'Narystė patvirtinta'
+    invoice: "Sąskaita pateikta"
+  index:
+    title: 'Licencijos'
+    reject: "Atmesti"
+    approve: 'Patvirtinti'
+    confirm_licence: 'Ar tikrai visi licencijos duomenys teisingi?'
+    remove_text: "Ar tikrai norite pašalinti licenciją?"
+    decline_text: "Ar tikrai norite atmesti licenciją?"
+    remind: 'Išsiųsti priminimą apie neapmokėtą licenciją'
+    btn_remind: 'Siųsti priminimą'
+    unconfirmed: 'Failas dar nepatvirtintas'
+    rejected: 'Failas buvo atmestas'
+    confirm_produced_licence: 'Pažymėti licenciją kaip pagamintą?'
+    produced: 'Pagaminta'
+    btn_paid: 'Apmokėta'
+    btn_invoice: 'Sąskaita pateikta'
+    legal_person: 'LASF narys'
+    produced_membership: 'Narystė pavirtinta'
+    confirm_produced_membership: 'Pažymėti, jog narystė patvirtinta?'
+  decline:
+    licence: 'Licencijos atmetimas'
+    reason: 'Licencijos atmetimo priežastis'
+  my:
+    title: 'Mano licencijos'
+    new: 'Pateikti licencijos prašymą'
+    upload_new: 'Įkelti naują'
+    document_rejected: 'Failas netinkamas, įkelkite naują'
+    document_accepted: 'Failas tinkamas'
+    extend: 'Pratęsti licenciją'
+    no_licences: 'Jūsų vartotojas neturi aktyvių licencijų. Norėdami sukurti naują licenciją, spauskite žalią mygtuką viršuje.'
+    edit: 'Keisti pateiktą informaciją'
+    cannot_extend: 'Licencija negali būti pratęsta'
+    extend_team_licence: 'Komandos licencija negalioja'
+  new:
+    title: 'Licencijos išdavimo prašymas'
+  edit:
+    enter_details: 'Įveskite licencijos informaciją'
+    mark_as_paid: 'pažymėti kaip apmokėtą'
+    submit: 'Patvirtinti'
+    comment: 'Komentaras'
+    mark_as_produced: 'licencija pagaminta'
+    mark_as_not_paid: 'licencija neapmokėta/sąskaita nepateikta'
+    user_notes: 'Pastabos, priskirtos vartotojui'
+    choose_membership_type: 'Pasirinkite narystės tipą'
+    conditions:
+      declarant: 'Aš Patvirtinu, kad Paraiškoje pateikti duomenys yra teisingi. Esu atsakingas už visus šioje Paraiškoje esančių asmenų bei už jų mechanikų ir/ar keleivių veiksmus. Pasižadu laikytis FIA ir Lietuvos automobilių Sporto Kodekso, Lietuvos automobilių sporto varžybų organizavimo ir vykdymo taisyklių, varžybų taisyklių ir papildomų nuostatų. Pasižadu, jog Pareiškėjo komanda nedalyvaus Draudžiamosiose varžybose. Patvirtinu, kad pripažįstu LASF Apeliacinį teismą kaip aukščiausią organą sprendžiantį ginčus automobilių sporte.'
+      driver: 'Teikdamas šią paraišką aš patvirtinu kad: 1. Visi paraiškoje pateikti duomenys yra teisingi; 2. Įsipareigoju laikytis LR Kūno Kultūros ir sporto įstatymo reikalavimų, Lietuvos automobilių sporto kodekso, atitinkamų LASF Reglamentų, varžybų taisyklių, techninių reikalavimų, varžybų papildomų nuostatų; 3. Nenaudosiu jokių Antidopingo konvencijoje ir jos papildymuose nurodytų draudžiamų preparatų ir metodų 5. Sutinku, kad varžybų metu įvykus nelaimingam atsitikimui man būtų suteikta medicininė ir kita neatidėliotina pagalba; 6. Pats esu atsakingas už savo sveikatos būklę 7. Mano elgesys varžybų metu neprieštaraus sportinei etikai; 8. Nedalyvausiu Draudžiamosiose varžybose. 8. Pripažįstu LASF, kaip vienintelį automobilių sporto valdžios organą Lietuvos Respublikos teritorijoje. 9. Pripažįstu LASF Apeliacinį teismą, kaip galutinę instanciją sprendžiančią ginčus automobilių sporte. Neprieštarauju, kad mano asmens duomenys ir informacija apie mane būtų kaupiama LASF-e bei perduodama KKSD'
+      judge: 'Asmuo gaunantis LASF teisėjo licenciją įsipareigoja: būti sąžiningu ir nešališku bei laikytis LR Kūno Kultūros ir sporto įstatymo reikalavimų, Lietuvos automobilių sporto kodekso, visų LASF Reglamentų, varžybų taisyklių ir techninių reikalavimų, o taip pat ir jų papildomų nuostatų. Įsipareigoja naudoti visas turimas galimybes propaguoti LASF ir automobilių sportą. Sutinka, kad varžybų metu įvykus nelaimingam atsitikimui jam būtų suteikta medicininė ir kita neatidėliotina pagalba. Pasižada, jog jo elgesys, pareigų atlikimo metu, neprieštaraus sportinei etikai. Pasižada nedalyvauti Draudžiamosiose varžybose. Pripažįsta LASF kaip vienintelį automobilių sporto valdžios organą Lietuvos Respublikos teritorijoje. Pripažįsta LASF Apeliacinį teismą kaip galutinę instanciją sprendžiančią ginčus automobilių sporte. Neprieštarauja, kad jo asmens duomenys ir informacija apie jį būtų kaupiama LASF-e bei perduodama KKSD'
+  extend:
+    submit: "Pateikti pratesimo prašymą"
+  info:
+    submit_licence_request: 'Pateikti prašymą išduoti licenciją'
+    select_team: 'pasirinkite norimą komandą'
+    modify_licence_request: 'Pateikti atnaujintą informaciją'
+    add_representative: 'Pridėti atstovą'
+    add_racer: 'Pridėti sportininką'
+    template: 'Šablonas'
+    rally_participant_note: 'Šią paraišką turi pildyti tik dalyvausiantys Lietuvos Ralio čempionate'
+  deliver:
+    lasf: "Atvyksiu atsiimti pats į Federaciją (%address%)"
+    custom: "Pristatyti į artimiausia LP Express terminalą arba Lietuvos pašto skyrių (%cost%)"
+  type:
+    membership: 'LASF narystė'
+    driver: "Vairuotojo licencija"
+    driver_licence:
+      m: "Vairuotojo, Nacionalinė, M licencija"
+      e: "Vairuotojo, Nacionalinė, E licencija"
+      jre: "Vairuotojo, Nacionalinė, E Junior licencija"
+      jrd: "Vairuotojo, Nacionalinė, D Junior licencija"
+      d: "Vairuotojo, Nacionalinė, D licencija"
+      d2: "Vairuotojo, Nacionalinė, D2 licencija"
+      b: "Vairuotojo, Tarptautinė, B licencija"
+      c: "Vairuotojo, Tarptautinė, C licencija"
+      r: "Vairuotojo, Tarptautinė, R licencija"
+    judge: "Teisėjo licencija"
+    judge_licence:
+      first: "Teisėjo, Pirma kategorija"
+      second: "Teisėjo, Antra kategorija"
+      third: "Teisėjo, Trečia kategorija"
+      national: "Teisėjo, Nacionalinė kategorija"
+      international: "Teisėjo, Tarptautinė kategorija"
+      trainee: "Teisėjo, Stažuotojo kategorija"
+    declarant: 'Pareiškėjo licencija'
+    declarant_licence_a: "Pareiškėjo, A licencija"
+    declarant_licence_b: "Pareiškėjo, B ir žemesnė licencija"
+    declarant_licence_k: "Pareiškėjo, A (kroso) licencija"
+    declarant_licence.a: "Pareiškėjo, A licencija"
+    declarant_licence.b: "Pareiškėjo, B ir žemesnė licencija"
+    declarant_licence.k: "Pareiškėjo, A (kroso) licencija"
+    declarant_licence:
+      a: "Pareiškėjo, A licencija"
+      b: "Pareiškėjo, B ir žemesnė licencija"
+      k: "Pareiškėjo, A (kroso) licencija"
+    organisator_licence: "Organizatoriaus licencija"
+    track_licence: "Trasos licencija"
+    safety_licence: "Automobilių saugos rėmų gamintojo (montuotojo) licencija"
+  flash:
+    upload_info: 'Prašome pateikti licencijai reikalingą informaciją.'
+    updated: 'Licencijos informacija atnaujinta sėkmingai.'
+    remind_not_paid: 'Pranešimas apie neapmokėtą licenciją išsiųstas sėkmingai.'
+    extend_submitted: 'Prašymas pratęsti licenciją sėkmingai priimtas.'
+    paid: 'Licencija pažymėta kaip apmokėta!'
+    not_paid: 'Licencija pažymėta kaip neapmokėta!'
+    produced: 'Licencija pažymėta kaip pagaminta/patvirinta'
+    invoice: 'Pažymėta, jog sąskaita išsiųsta.'
+    created: 'Licencija sukurta ir pateikta peržiūrai.'
+    updated: 'Licencija atnaujinta ir pateikta pakartotinei peržiūrai.'
+    notes_updated: 'Vartotojo pastabos atnaujintos.'
+    birthday: 'Prašome užpildyti gimimo datos laukelį.'
+    deleted: 'Licencija sėkmingai ištrinta.'
+    error_deleting: 'Nepavyko ištrinti Licencijos.'
+    error_deleting_relation_exists: 'Nepavyko ištrinti licencijos, nes ji turi ryšį su kita licencija, kurios numeris #'
+    declined: 'Licencija buvo atmesta.'
+    already_in_team: 'Jūs jau turite licenciją šioje komandoje.'
+    document_removed: 'Dokumentas ištrintas'
+    document_not_removed: 'Dokumentas nebuvo ištrintas'
+    waiting_confirm: "Patikslinta"
+    waiting_edit: 'Laukiama patikslinimo'
+  user:
+    title: 'Vartotojo licencijos'
+    new: 'Pateikti licencijos prašymą'
+  produced_or_membership: "Pagaminta (narystė patvirinta)"
+  insurance:
+    title: 'Draudimo informacija ir sąlygos'
+
+declarant:
+  index:
+    title: 'Prašymai pakeisti pareiškėją'
+  change:
+    title: 'Keisti pareiškėją'
+    enter_details: 'Pasirinkite pareiškėją'
+    already_sent: 'Jūs jau užpildėte prašymo formą. Ją redaguokite, jei norite pakeisti pateiktą informaciją.'
+    confirm_submit: "Ar tikrai norite pakeisti vartotojo pareiškėją?"
+    confirm_reject: "Ar tikrai norite atmesti vartotojo pareiškėjo keitimą?"
+  show:
+    title: 'Prašymas pakeisti pareiškėją'
+  status:
+    waiting: "Laukia patvirtinimo"
+    rejected: "Atmestas"
+    confirmed: "Patvirtintas"
+  label:
+    current: 'Esamas pareiškėjas'
+    new: 'Norimas pareiškėjas'
+    comment: 'Komentaras'
+    racer: 'Sportininkas'
+    status: 'Statusas'
+  flash:
+    request_sent: 'Prašymas išsiųstas sėkmingai'
+    confirmed: 'Prašymas patvirtintas sėkmingai'
+    rejected: 'Prašymas atmestas sėkmingai'
+
+department:
+  roles:
+    title: 'Rolės'
+  licences:
+    title: 'Licencijos'
+
+dashboard:
+  driver_title: 'Sportininkai ir jų licencijos'
+  judge_title: 'Teisėjai ir jų licencijos'
+  title_assoc: 'LASF asocijuotieji nariai'
+  title_not_assoc: 'LASF tikrieji nariai'
+  help:
+    title: 'Pagalba'
+    contact: 'Susisiekimo informacija'
+  index:
+    no_licences: 'Šiuo metu sportininkų su aktyviomis licencijomis nėra.'
+    search: 'Įveskite sportininko vardą ar pavardę.'
+    search_judge: 'Įveskite teisėjo vardą ar pavardę.'
+    no_results: 'Rezultatų pagal jūsų paiešką neradome.'
+  terms:
+    title: 'Taisyklės'
+  privacy:
+    title: 'Privatumo politika'
+  documentation:
+    title: 'Dokumentacijos'
+    application: 'Paraiškos'
+
+competition_participant:
+  label:
+    points: 'Taškų kiekis'
+  flash:
+    participant_removed: 'Vartotojas pašalintas iš varžybų rezultatų lentelės.'
+    results_saved: 'Nurodyti rezultatai išsaugoti.'
+  add:
+    title: 'Pridėti varžybų rezultatus'
+    select_user: "pasirinkite vartotoją"
+
+team_representative:
+  label:
+    full_name: "Atstovo vardas ir pavardė"
+
+validators:
+  does_not_expire:
+    too_soon: "Privalo galioti bent iki metų pabaigos."
+  expired: "Galiojimas yra pasibaigęs."
+  too_big_file: "Failas per didelis."
+  too_big_all_files: "Failai per dideli."
+  required: 'Privaloma užpildyti.'
+  enter_valid_email: 'Įveskite tinkamą El. paštą.'
+  enter_valid_date: 'Įveskite tinkamą datą.'
+
+print:
+  name_lastname: "vardas pavardė"
+  date: "data"
+  signature: "parašas"
+  accepted: "Patvirtinta:"
+  lasf_committee: "LASF Tiesėjų"
+  chairman: "komiteto pirminiko"
+  date_input: '20........___________mėn.____d.'
+  licence_receiver: 'Licencijos gavėjo:'
+  signature_placeholder: '(vardas, pavardė, paštas)'
+  signature_placeholder_lasf: '(LASF darbuotojo išdavusio licenciją parašas)'
+  declarant: 'Pareiškėjo'
+  separator_text: 'Arba patiekiamas Pareiškėjų narių, norinčių gauti LASF teisėjo licenciją sąrašas.'
+  lasf_licence_field: 'LASF Teisėjų komiteto suteikta LASF Teisėjo _____________________ kategorija'
+  lasf_licence_field_two: '(I-a arba nacionalinė)'
+  date_licence_field: 'Licenciją Nr. __________ išduota  data:...................'
+  lasf_field: 'Pildo Lasf:'
+  driver_category_field: 'SUTEIKTA ........................... KATEGORIJOS LICENCIJA KURIOS NR.: ..........'
+  licence_giver_signature: 'Licenciją išdavusio asmens parašas:..............................'
+  date_field: 'Data: ............................'
+  lasf_theory_block: 'LASF  teorinių žinių egzaminas:'
+  result: 'Rezultatas......................................................................'
+  accepted_exam: 'Egzaminą priėmė:'
+
+date_restriction:
+  index:
+    table_title: 'Datos'
+    title: 'Datų įvedimas'
+    add: 'Pridėti'
+    remove_text: 'Ar tikrai norite pašalinti šią datą?'
+  label:
+    date: 'Leistina data:'
+    placeholder: 'Įveskite datą, kada galima rengti varžybas.'
+  flash:
+    created: 'Data pridėta.'
+    deleted: 'Data ištrinta sėkmingai.'
+    already_exists: 'Tokia data jau egzistuoja'
+
+time_restriction:
+    index:
+      title: 'Terminų nustatymas'
+      add: 'Pridėti'
+    label:
+      date: 'Leistini terminai:'
+      placeholder: 'Įveskite datą, kada galima rengti varžybas.'
+      purpose: 'Paskirtis'
+      date_to_competition: 'Data iki varžybų'
+      time_in_days: 'Laikas kalendorinėmis dienomis'
+      pay_taxes_term: 'Sumokėti mokesčius nurodytus Varžybų organizavimo sutartyje'
+      additional_rules_term: 'Varžybų Papildomų nuostatų projekto (LT ar EN kalba) pateikimas'
+      additional_rules_confirmation_term: 'Varžybų papildomų nuostatų suderinimas sporto šakos komitete, pasirašant komiteto pirmininkui'
+      additional_rules_agreement_term: 'Saugos plano pateikimas'
+      final_rules_term: 'Varžybų Papildomų nuostatų galutinis variantas su programa'
+      contact_administrator_term: 'Kreiptis į LASF administraciją dėl licencijos trasos išdavimo'
+      track_term: 'Trasos priėmimo aktas'
+    flash:
+      modified: 'Laikai pakeisti.'
+
+safety_chief:
+  index:
+    table_title: 'SVO saugos vadų sąrašas'
+    title: 'Saugos vadų įvedimas'
+    add: 'Pridėti'
+    remove_text: 'Ar tikrai norite pašalinti šį saugos viršininką?'
+  label:
+    date: 'Saugos viršininkas:'
+  flash:
+    created: 'Saugos viršininkas pridėtas.'
+    deleted: 'Saugos viršininkas ištrintas sėkmingai.'
+    has_a_relation: 'Šis saugos viršininkas jau yra priskirtas prie paraiškos, todėl jo ištrinti negalima. Paraiškos numeris #'
+
+comment:
+  index:
+    remove_text: 'Ar tikrai norite pašalinti komentarą?'
+  flash:
+    deleted: 'Komentaras pašalintas'
+
+languages:
+  LT: 'Lietuvių'
+  EN: 'Anglų'
+  RU: 'Rusų'
+  FR: 'Prancūzų'
+  Other: 'Kita'
+
+sport:
+  index:
+    title: 'Sporto šakos'
+    new: 'Sukurti naują'
+  label:
+    alias: 'Alternatyvus pavadinimas'
+    name: 'Šakos'
+    sport: 'Šaką'
+  new:
+    title: 'Naujos sporto šakos kūrimas'
+    enter_details: 'Įveskite šakos informaciją'
+  edit:
+      title: 'Redaguoti sporto šaką'
+  flash:
+    created: 'Sporto šaka sėkmingai sukurta.'
+    updated: 'Sporto šaka sėkmingai atnaujinta.'
+    removed: 'Sporto šaka sėkmingai pašalinta.'
+    cant_remove: 'Sporto šaka negali būti pašalinta, nes yra naudojama sistemoje.'
+    are_you_sure: 'Ar tikrai nori ištrinti sporto šaką?'

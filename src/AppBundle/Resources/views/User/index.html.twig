@@ -1,0 +1,139 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>
+      {{ 'user.index.title'|trans }}
+      <a href="{{ url('app_user_new') }}" class="btn btn-success pull-right create-user"><i class="fa fa-plus"></i> {{ 'user.index.new'|trans }}</a>
+      {% if is_granted('ROLE_ADMIN') %}
+          <a href="{{ path('generate-users-csv') }}" class="btn btn-info pull-right generate_csv"><i class="fa fa-file"></i> CSV</a>
+          <a href="{{ url('app_competitionchief_index') }}" class="btn btn-info pull-right generate_csv"><i class="fa fa-info-circle"></i> {{ 'competition_chief.index.title'|trans }}</a>
+      {% endif %}
+      {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_JUDGE_COMMITTEE') %}
+          <a href="{{ url('app_steward_index') }}" class="btn btn-info pull-right generate_csv"><i class="fa fa-info-circle"></i> {{ 'steward.index.title'|trans }}</a>
+      {% endif %}
+    </h1>
+    <div class="clearfix"></div>
+  </div>
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <ul class="list-inline">
+        <li><h3 class="panel-title"><i class="fa fa-users"></i> {{ 'user.index.title'|trans }}</h3></li>
+        <li class="pull-right"><a id="filters_button" href="#" style="color: #ffffff; font-weight: 500; text-decoration: none;">Papildomi filtrai<span class="caret"></span></a></li>
+      </ul>
+      <div id="additional_filters" class="pull-right col-md-5" style="display: none;">
+        <table style="margin-top: 20px;">
+          <thead>
+            <tr>
+              <th>{{ sorter_link(users, 'u.city', 'licences.label.city'|trans) }}</th>
+              <th>{{ sorter_link(users, 'u.language', 'licences.label.language'|trans) }}</th>
+              <th>{{ sorter_link(users, 'u.secondaryLanguage', 'user.label.other_language'|trans) }}</th>
+              <th><a href="#">{{ 'user.label.gender'|trans }}</a></th>
+              <th></th>
+            </tr>
+            <tr role="row" class="filter">
+              <td>{{ filter_search(users, "u.city") }}</td>
+              <td>{{ filter_select(users, "u.language", languageTypes) }}</td>
+              <td>{{ filter_search(users, "u.secondaryLanguage") }}</td>
+              <td>{{ filter_select(users, "u.gender", genderTypes) }}</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div class="rows-to-columns">
+      <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>{{ sorter_link(users, 'u.email', 'user.label.email'|trans) }}</th>
+          <th>{{ 'user.label.name'|trans }}</th>
+          <th>
+            {{ sorter_link(users, 'u.createdAt', 'user.label.registered_on'|trans) }}<br>
+            {{ sorter_link(users, 'u.lastLoginAt', 'user.label.last_login_at'|trans) }}
+          </th>
+          {% if not is_granted('ROLE_DECLARANT') or is_granted('ROLE_ADMIN') %}
+            <th>{{ 'user.roles.declarant'|trans }}</th>
+          {% endif %}
+          <th>{{ 'user.label.teams'|trans }}</th>
+          <th></th>
+        </tr>
+        <tr role="row" class="filter">
+          <td>{{ filter_search(users, "u.email") }}</td>
+          <td>{{ filter_search(users, "name") }}</td>
+          <td>{{ filter_select(users, "u.legal", legalTypes) }}</td>
+          {% if not is_granted('ROLE_DECLARANT') or is_granted('ROLE_ADMIN') %}
+            <td>{{ filter_search(users, "declarant") }}</td>
+          {% endif %}
+          <td>{{ filter_search(users, "team") }}</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td data-title="{{ 'user.label.email'|trans }}">
+              {% if not user.confirmed %}
+                <i class="fa fa-exclamation-triangle text-danger"  data-title="{{ 'user.unconfirmed'|trans }}" data-toggle="tooltip"></i>
+              {% elseif user.enabled %}
+                <i class="fa fa-check text-success" data-title="{{ 'user.enabled'|trans }}" data-toggle="tooltip"></i>
+              {% else %}
+                <i class="fa fa-times text-danger"  data-title="{{ 'user.disabled'|trans }}" data-toggle="tooltip"></i>
+              {% endif %}
+
+              <a class="text-break" href="{{ url('app_user_edit', {id: user.id}) }}" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
+                {{ user.email }}
+              </a>
+            </td>
+            <td data-title="{{ 'user.label.name'|trans }}">{{ user.legal ? user.memberName : user.fullName }}</td>
+            <td data-title="{{ 'user.label.registered_on'|trans }} / {{ 'user.label.last_login_at'|trans }}">{{ user.createdAt|localizeddate('short', 'none') }}<br>{{ user.lastLoginAt ? user.lastLoginAt|localizeddate('short', 'short') : '-' }}</td>
+            {% if not is_granted('ROLE_DECLARANT') or is_granted('ROLE_ADMIN') %}
+              <td data-title="{{ 'user.roles.declarant'|trans }}">
+                {% if user.parent and user.parent.legal %}
+                  {{ user.parent.memberName }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+            {% endif %}
+            <td data-title="{{ 'user.label.teams'|trans }}">
+              {% set has = false %}
+              {% for licence in user.licences %}
+                {% if licence.completed and licence.driverLicence %}
+                  {% set has = true %}
+                  {{ licence.licence.teamName }}<br>
+                {% endif %}
+              {% endfor %}
+              {{ not has ? '-' }}
+            </td>
+            <td class="col-min text-right">
+              {% if is_granted('ROLE_DECLARANT') and user.isParent(app.user) %}
+                <a href="{{ url('app_licences_user', {id: user.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'user.edit.licences'|trans }}" data-toggle="tooltip">
+                  <i class="fa fa-sticky-note-o"></i>
+                </a>
+              {% endif %}
+              {% if is_granted('ROLE_ADMIN') and not user.isEnabled %}
+                <a href="{{ url('app_user_delete', {id: user.id}) }}" class="btn btn-xs btn-link js-confirm" data-text="{{ 'user.index.confirm_delete'|trans }}" data-title="{{ 'user.index.delete'|trans }}" data-toggle="tooltip">
+                  <i class="fa fa-times"></i>
+                </a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+    </div>
+    <div class="panel-footer">
+      {{ pagination(users) }}
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script>
+    $(document).on('click', '#filters_button', function() {
+      $('#additional_filters').toggle();
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% if is_granted('document-remove', app.user) or document.user == app.user %}
+
+    {% set url = url('app_application_removedocument', {'id': application.id, 'document': document.id}) %}
+    {% if app.request.attributes.get("_route") == 'app_sub_competition_modify' %}
+      {% set url = url('app_sub_competition_remove_document', {'id': competition.id, 'document': document.id}) %}
+    {% endif %}
+
+    <a href="{{ url }}" class="btn btn-xs btn-default js-confirm js-no-ajax" data-text="{{ 'application.index.document_remove'|trans }}" data-title="{{ 'button.delete'|trans }}" data-toggle="tooltip">
+        <i class="fa fa-times"></i>
+    </a>
+{% endif %}

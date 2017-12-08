@@ -1,0 +1,46 @@
+{% if documents['track_acceptance'] is defined %}
+  {% set confirmedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_TRACK_ACCEPTANCE') %}
+  {% set addedKey = constant('AppBundle\\Entity\\FileUpload::STATUS_ADDED_TRACK_ACCEPTANCE') %}
+  <div class="documents {{ documents['track_acceptance']|statusChange([confirmedKey], [addedKey]) }}">
+    <div class="status-content">
+      <span class="status-text">
+        {{ 'application.documents.track_acceptance'|trans }}
+      </span>
+    </div>
+    {% if documents['track_acceptance'][0].status != confirmedKey %}
+      {% if legalTimes.trackActTerm %}
+        <div class="status-day-counter">
+          <div class="days">
+            {{ 'application.documents.left'|trans }}
+            <span class="track_acceptance"></span>
+            {{ 'application.documents.days'|trans }}
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+    <div class="confirmation-message">
+      {{ 'application.documents.messages.submitted'|trans }}
+      {% if legalTimes.trackActTerm %}
+        ({{ calculate_terms(application, documents['track_acceptance']|last, 'TrackActTerm') }})
+      {% endif %}
+    </div>
+  </div>
+{% else %}
+  <div class="documents">
+    <div class="status-content">
+      <span class="status-text">
+        {{ 'application.documents.track_acceptance'|trans }}
+      </span>
+    </div>
+    {% if legalTimes.trackActTerm %}
+      <div class="status-day-counter">
+        <div class="days">
+          {{ 'application.documents.left'|trans }}
+          <span class="track_acceptance"></span>
+          {{ 'application.documents.days'|trans }}
+        </div>
+      </div>
+    {% endif %}
+    <div class="confirmation-message">{{ 'application.documents.messages.submitted'|trans }}</div>
+  </div>
+{% endif %}

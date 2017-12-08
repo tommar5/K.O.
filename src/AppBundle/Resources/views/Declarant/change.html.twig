@@ -1,0 +1,40 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{ 'declarant.change.title'|trans }}</h1>
+    </div>
+
+    {% include 'AppBundle::flashes.html.twig' %}
+
+    {% if request.id %}
+        <div class="alert alert-info">
+            {{ 'declarant.change.already_sent'|trans }}
+        </div>
+    {% endif %}
+
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-envelope"></i> {{ 'declarant.change.enter_details'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="current">{{ 'declarant.label.current'|trans }}</label>
+                <div class="col-sm-10">
+                    <input id="current" type="text" readonly value="{{ app.user.parent|default('-') }}" class="form-control">
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+        </div>
+        <div class="panel-footer text-center">
+            <button type="submit" class="btn btn-primary">{{ 'button.save'|trans }}</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

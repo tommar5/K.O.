@@ -1,0 +1,52 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  {% if is_granted('ROLE_ADMIN') %}
+
+    <div class="page-header">
+      <h1>
+        {{ 'competition_chief.index.title'|trans }}
+        {{ back_button('app_user_index') }}
+          <a href="{{ url('app_competitionchief_new') }}" class="btn btn-success pull-right with_margin"><i class="fa fa-plus"></i> {{ 'competition_chief.index.new'|trans }}</a>
+      </h1>
+      <div class="clearfix"></div>
+    </div>
+
+    {% include 'AppBundle::flashes.html.twig' %}
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-th-large"></i> {{ 'competition_chief.index.title'|trans }}</h3>
+      </div>
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>{{ sorter_link(competitionChiefs, 't.user.fullName', 'competition_chief.label.name'|trans) }}</th>
+            <th>{{ 'competition_chief.label.sports'|trans }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for chief in competitionChiefs %}
+            <tr>
+              <td>{{ chief.user.fullName }}</td>
+              <td>{% for sport in chief.sports %}{% if loop.first %}{{ sport.name }}{% else %}, {{ sport.name }}{% endif %}{% endfor %}</td>
+              <td class="col-min">
+                <a href="{{ url('app_competitionchief_edit', {id: chief.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
+                  <i class="fa fa-edit"></i>
+                </a>
+                <a href="{{ url('app_competitionchief_delete', {id: chief.id}) }}" class="btn btn-xs btn-link js-confirm js-no-ajax" data-text="{{ 'competition_chief.title.remove_text'|trans }}" data-title="{{ 'competition_chief.title.delete'|trans }}" data-toggle="tooltip">
+                  <i class="fa fa-times"></i>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="panel-footer">
+        {{ pagination(competitionChiefs) }}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+

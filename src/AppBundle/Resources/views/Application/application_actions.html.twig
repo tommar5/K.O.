@@ -1,0 +1,29 @@
+{% if is_granted('application-decline', app.user) %}
+    {% if application.isUnconfirmed %}
+        <a href="{{ url('app_application_decline', {id: application.id}) }}"
+           class="btn btn-xs btn-default js-modal hidden-print" data-text="{{ 'application.index.decline_text'|trans }}"
+           data-title="{{ 'button.decline'|trans }}" data-toggle="tooltip">
+            <i class="fa fa-minus-circle"></i> {{ 'button.decline'|trans }}
+        </a><br>
+    {% endif %}
+{% endif %}
+{% if is_granted('application-delete', app.user) %}
+    <a href="{{ url('app_application_delete', {id: application.id}) }}"
+       class="btn btn-xs btn-default js-confirm js-no-ajax" data-text="{{ 'application.index.remove_text'|trans }}"
+       data-title="{{ 'button.delete'|trans }}">
+        <i class="fa fa-times-circle"></i> {{ 'button.delete'|trans }}
+    </a>
+    <br>
+{% endif %}
+
+{% if is_granted('invoice-confirm', app.user) %}
+    {% if application.isNotPaid %}
+        <a href="{{ url('app_application_markaspaid', {id: application.id }) }}" class="btn btn-xs btn-default">
+            <i class="fa fa-file-text-o"></i> {{ 'application.status.paid'|trans }}
+        </a><br>
+        <a href="{{ url('app_application_remind', {id: application.id }) }}" class="btn btn-xs btn-default"
+           data-title="{{ 'application.index.remind'|trans }}" data-toggle="tooltip">
+            <i class="fa fa-envelope"></i> {{ 'application.index.btn_remind'|trans }}
+        </a><br>
+    {% endif %}
+{% endif %}

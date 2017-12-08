@@ -1,0 +1,9 @@
+coresphere_console:
+    headline:
+        index: "Konsolė"
+    working_directory: 'Dabartinis katalogas'
+    environment: 'Aplinka'
+    welcome_message: 'Parašykite %command% kad gauti komandų sąrašą.'
+    loading: 'Kraunasi...'
+    suggestion_head: 'Ar turėjote omenyje:'
+    empty_response: 'Baigta!'

@@ -1,0 +1,7 @@
+{% set url = url('app_application_approvedocument', {id: document.id, applicationId: application.id}) %}
+{% if app.request.attributes.get("_route") == 'app_sub_competition_modify' %}
+    {% set url = url('sub_competition_approve_document', {'id': competition.id, 'document': document.id}) %}
+{% endif %}
+<a href="{{ url }}" class="btn btn-xs btn-success hidden-print pull-right ajax-submit with_margin" data-title="{{ 'button.confirm_doc'|trans }}" data-toggle="tooltip">
+    <i class="fa fa-check-circle"></i> {{ 'application.index.confirm'|trans }}
+</a>

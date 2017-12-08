@@ -1,0 +1,145 @@
+{#Additional Rules document Block#}
+{% if is_granted('additional-rules-view', app.user) %}
+    {% if date(application.dateFrom) > date() %}
+        {% include 'AppBundle:Application:files/remind_upload_document.html.twig' with {applicationId : application.id, documentType: 'additional_rules'} %}
+    {% endif %}
+    {% if documents['additional_rules'] is defined %}
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.additional_rules'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% if is_granted('additional-regulations-upload', app.user) %}
+                    {% if application.hasAgreementStatus %}
+                        <li class="list-group-item">
+                            {{ form_row(form.additional_rules) }}
+                        </li>
+                    {% endif %}
+                {% endif %}
+                {% for document in documents['additional_rules'] %}
+                    {% if document.type == 'additional_rules' %}
+                        <li class="list-group-item">
+                            <i class="fa fa-file alert-info"></i>
+                            <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank" class="unvisited-blue hidden-print">
+                                {{ ('application.file_uploads.type.'~document.type)|trans }} ({{ document.fileName }})
+                            </a>
+                            {% if document.status == constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES') %}
+                                - {{ 'status.confirmed_by_secretary'|trans }}  <i class="fa fa-check-circle"></i>
+                                - {{ 'status.confirmed_by_lasf'|trans }} <i class="fa fa-check-circle"></i>
+                            {% endif %}
+                            {% if document.status == constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES_BY_SECRETARY')  %}
+                                - {{ 'status.confirmed_by_secretary'|trans }}  <i class="fa fa-check-circle"></i>
+                            {% else %}
+                                {% if is_granted('regulations-confirm-secretary', app.user) %}
+                                    {% if document.status != constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES') %}
+                                        {% include 'AppBundle:Application:files/confirm_document_button.html.twig' %}
+                                        <span class="confirmed-file hidden"> - {{ 'status.confirmed_by_secretary'|trans }}  <i class="fa fa-check-circle"></i></span>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if document.status == constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES_BY_LASF') %}
+                                - {{ 'status.confirmed_by_lasf'|trans }} <i class="fa fa-check-circle"></i>
+                            {% else %}
+                                {% if is_granted('regulations-confirm-lasf', app.user) %}
+                                    {% if document.status != constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES') %}
+                                        {% include 'AppBundle:Application:files/confirm_document_button.html.twig' %}
+                                        <span class="confirmed-file hidden"> - {{ 'status.confirmed_by_lasf'|trans }} <i class="fa fa-check-circle"></i></span>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                            {% include 'AppBundle:Application:files/remove_document_button.html.twig' %}
+                            {% include 'AppBundle:Application:files/show_who_upload.html.twig' %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if is_granted('regulations-comments', app.user) %}
+                    <li class="list-group-item">
+                        {% set param = { applicationId: application.id, type:constant('AppBundle\\Entity\\Comment::TYPE_ADDITIONAL_RULES') } %}
+                        {% if app.request.attributes.get("_route") == 'app_sub_competition_modify' %}
+                            {% set param = param|merge({ competition_id: competition.id }) %}
+                        {% endif %}
+                        <a href="{{ path('app_comment_comment', param) }}"
+                            class="btn btn-xs btn-primary js-modal hidden-print pull-left">
+                            <i class="fa fa-edit"></i> {{ 'application.index.comment'|trans }}
+                        </a>
+                        <div class="clearfix"></div>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% else %}
+        {% if is_granted('additional-regulations-upload', app.user)%}
+            {% if application.hasAgreementStatus %}
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.additional_rules'|trans }}</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            {{ form_row(form.additional_rules) }}
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% if is_granted('regulations-show-comments', app.user) %}
+        <ul class="list-group additional-rule comment-area">
+            {% if comments %}
+                {% for comment in comments %}
+                    {% if comment.getType == constant('AppBundle\\Entity\\Comment::TYPE_ADDITIONAL_RULES') %}
+                        <li class="list-group-item comment">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-10 doc-comment">{{ comment.getComment }}
+                                        <div>
+                                            <small class="text-nowrap">
+                                                <i class="fa fa-user"></i>
+                                                {{ comment.getUser.getFullName }}
+                                                <i>
+                                                    <a class="text-break" target="_blank"
+                                                       href="{{ url('app_user_user', {id: comment.getUser.id}) }}"
+                                                       data-title="{{ 'title.show'|trans }}"
+                                                       data-toggle="tooltip">
+                                                        ({{ comment.getUser.getEmail }})
+                                                    </a>
+                                                </i>
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <small>
+                                                <i class="fa fa-calendar"></i>
+                                                {{ comment.getCreatedAt|date('Y-m-d H:i:s') }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-right text-primary">
+                                        {% if is_granted('comment-delete', app.user) %}
+                                            <a href="{{ url('app_comment_delete', {comment: comment.id}) }}"
+                                               class="btn btn-xs btn-danger js-confirm js-no-ajax"
+                                               data-text="{{ 'comment.index.remove_text'|trans }}"
+                                               data-title="{{ 'button.delete'|trans }}">
+                                                <i class="fa fa-times-circle"></i> {{ 'button.delete'|trans }}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <li class="list-group-item show-more-less additional-rule-toggle-area">
+                <a class="additional-rule-toggle show-more btn btn-xs btn-info">
+                    {{ 'button.show_more'|trans }} <i class="fa fa-plus"></i>
+                </a>
+                <a class="additional-rule-toggle show-less btn btn-xs btn-info">
+                    {{ 'button.show_less'|trans }} <i class="fa fa-minus"></i>
+                </a>
+            </li>
+        </ul>
+    {% endif %}
+
+{% endif %}

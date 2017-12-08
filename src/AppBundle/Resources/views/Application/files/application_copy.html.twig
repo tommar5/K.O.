@@ -1,0 +1,40 @@
+{#Application Copy Block#}
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.handled_paper_copy'|trans }}</h3>
+</div>
+<div class="panel-body">
+    <ul class="list-group">
+    {% if documents['application_copy'] is defined %}
+        {% set read_only = true %}
+        {% if is_granted('application-copy-view', app.user)%}
+            {% set read_only = false %}
+        {% endif %}
+        {% for document in documents['application_copy'] %}
+            {% if document.type == constant('AppBundle\\Entity\\Application::APPLICATION_COPY') %}
+                <li class="list-group-item">
+                    <i class="fa fa-file alert-info"></i>
+                    {% if read_only %}
+                        <span class="unvisited-blue hidden-print">
+                            {{ ('application.file_uploads.type.'~document.type)|trans }} ({{ document.fileName }})
+                        </span>
+                    {% else %}
+                        <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank" class="unvisited-blue hidden-print">
+                            {{ ('application.file_uploads.type.'~document.type)|trans }} ({{ document.fileName }})
+                        </a>
+                        {% include 'AppBundle:Application:files/remove_document_button.html.twig' %}
+                        {% include 'AppBundle:Application:files/show_who_upload.html.twig' %}
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+        <div class="col-md-6">
+            <br>
+            <div id="uploads-area">
+                <div id="uploads-area">
+                    {{ form_row(form.application_copy) }}
+                </div>
+            </div>
+        </div>
+    </ul>
+</div>

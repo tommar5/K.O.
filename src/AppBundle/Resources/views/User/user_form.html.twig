@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col-sm-6">
+    {{ form_row(form.email) }}
+
+    {% if is_granted('ROLE_ADMIN') %}
+      {{ form_row(form.legal) }}
+      {{ form_row(form.enabled) }}
+      {{ form_row(form.termsConfirmed) }}
+      {{ form_row(form.imageFile) }}
+    {% endif %}
+
+    <div class="natural-member">
+      {{ form_row(form.ROLE_RACER) }}
+      {{ form_row(form.ROLE_JUDGE) }}
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+      <div class="legal-member hidden">
+        {{ form_row(form.ROLE_DECLARANT) }}
+        {{ form_row(form.ROLE_ORGANISATOR) }}
+      </div>
+
+      {{ form_row(form.ROLE_ADMIN) }}
+      {{ form_row(form.ROLE_DEPARTMENT) }}
+      {{ form_row(form.ROLE_ACCOUNTANT) }}
+      <hr>
+      {{ form_row(form.ROLE_CHAIRMAN) }}
+      {{ form_row(form.ROLE_SPECTATOR) }}
+      {{ form_row(form.ROLE_LASF_COMMITTEE) }}
+        {% if form.sports is defined %}
+          <div id="committe-sports">
+              {{ form_row(form.sports, {attr: {class: 'select2'}}) }}
+          </div>
+        {% endif %}
+      {{ form_row(form.ROLE_SVO_COMMITTEE) }}
+      {{ form_row(form.ROLE_COMPETITION_CHIEF) }}
+      {{ form_row(form.ROLE_PRESIDENT) }}
+      {{ form_row(form.ROLE_SECRETARY) }}
+      {{ form_row(form.ROLE_JUDGE_COMMITTEE) }}
+      {{ form_row(form.ROLE_SKK_HEAD) }}
+
+
+      {{ form_row(form.notes) }}
+      {{ form_row(form.parent) }}
+    {% endif %}
+  </div>
+  <div class="col-sm-6">
+    {% if is_granted('ROLE_ADMIN') %}
+      <div class="legal-member hidden">
+        {{ form_row(form.associated) }}
+        {{ form_row(form.memberName) }}
+        {{ form_row(form.memberCode) }}
+        {{ form_row(form.vatCode) }}
+        {{ form_row(form.bank) }}
+        {{ form_row(form.bankAccount) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.address) }}
+      </div>
+    {% endif %}
+
+    {{ form_row(form.firstname, {attr: {'data-legal': 'user.title.firstname_legal'|trans, 'data-natural': 'user.label.firstname'|trans}}) }}
+    {{ form_row(form.lastname, {attr: {'data-legal': 'user.title.lastname_legal'|trans, 'data-natural': 'user.label.lastname'|trans}}) }}
+    <div id="city-field">
+      {{ form_row(form.city) }}
+    </div>
+    <div class="row">
+    <div class="col-md-8" id="languages-field">
+      {{ form_row(form.languages, {attr: {class: 'select2'}}) }}
+      <div id="secondary-language">
+        {{ form_row(form.secondaryLanguage) }}
+      </div>
+    </div>
+    <div class="col-md-4" id="gender-field">
+      {{ form_row(form.gender) }}
+    </div>
+    </div>
+    <div class="natural-member">
+      {{ form_row(form.birthday) }}
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+      {{ form_row(form.aboutMe) }}
+      {{ form_row(form.plainPassword) }}
+    {% endif %}
+  </div>
+</div>
+
+{{ form_rest(form) }}

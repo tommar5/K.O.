@@ -1,0 +1,5 @@
+<select class="form-control form-filter input-sm" onchange="document.location.href=this.value;">
+  {% for val, title in options %}
+    {% include 'DataDogPagerBundle:filters:singleSelect.html.twig' with {'val': val, 'title': title, 'pagination': pagination} %}
+  {% endfor %}
+</select>

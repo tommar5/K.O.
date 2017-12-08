@@ -1,0 +1,18 @@
+services:
+  app.password_encoder:
+    class: Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder
+    arguments: [12] # cost
+
+  validator.user_is_natural:
+    class: AppBundle\Validator\Constraints\UserIsNaturalValidator
+    arguments:
+      - @em
+    tags:
+      - { name: validator.constraint_validator, alias: natural_validator }
+
+  security.access.action_voter:
+    class: AppBundle\Security\Authorization\Voter\ActionVoter
+    arguments: [ @doctrine.orm.entity_manager ]
+    public: false
+    tags:
+      - { name: security.voter }

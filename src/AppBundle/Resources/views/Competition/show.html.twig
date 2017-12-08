@@ -1,0 +1,177 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>{{ 'competition.show.title'|trans }}: {{ comp.name }}</h1>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
+      <div class="row">
+        <div class="col-sm-6">
+          <table class="table table-borderless">
+            <tr>
+              <th>{{ 'competition.label.date_from'|trans }}</th>
+              <td>{{ comp.dateFrom|localizeddate('short') }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'competition.label.date_to'|trans }}</th>
+              <td>{{ comp.dateTo|localizeddate('short') }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'competition.label.location'|trans }}</th>
+              <td>{{ comp.location }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'competition.label.description'|trans }}</th>
+              <td>{{ comp.description }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'competition.label.main_judge'|trans }}</th>
+              <td>{{ comp.mainJudge }}</td>
+            </tr>
+            <tr>
+              <th>{{ 'competition.label.judges'|trans }}</th>
+              <td>
+                {% for judge in comp.judges %}
+                  {{ judge.user.fullName }}: {{ ('competition_judge.role.'~judge.role)|trans }}
+
+                  {% if canEdit %}
+                    <a href="{{ url('app_competition_removejudge', {id: judge.id}) }}" class="btn btn-xs btn-link js-confirm js-no-ajax" data-text="{{ 'competition.show.remove_judge'|trans }}" data-title="{{ 'title.delete'|trans }}" data-toggle="tooltip">
+                      <i class="fa fa-times"></i>
+                    </a>
+                  {% endif %}
+
+                  <br>
+                {% else %}
+                  -
+                {% endfor %}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-6">
+          {% for doc in comp.documents %}
+            <div class="col-sm-6">
+              <div class="panel panel-default text-center">
+                <div class="panel-body">
+                  {% if canSubmitResults %}
+                    <a href="{{ path('app_competition_removeresult', {id: comp.id, fileId: doc.id}) }}" class="close js-confirm js-no-ajax" data-text="{{ 'competition.result.delete'|trans }}" data-title="{{ 'title.delete'|trans }}" data-toggle="tooltip">
+                      <span aria-hidden="true">&times;</span>
+                    </a>
+                  {% endif %}
+
+                  <a href="{{ vich_uploader_asset(doc, 'file') }}" target="_blank">
+                    <strong>{{ ('file_uploads.type.'~doc.type)|trans }}:</strong>
+                    <i class="fa fa-file"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+
+  {% if canEdit %}
+    {% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+    {{ form_start(form) }}
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ 'competition.show.enter_details'|trans }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-6">
+            {{ form_row(form.user) }}
+          </div>
+          <div class="col-sm-6">
+            {{ form_row(form.role) }}
+          </div>
+        </div>
+        {{ form_rest(form) }}
+      </div>
+      <div class="panel-footer text-center">
+        <button type="submit" class="btn btn-primary">{{ 'competition_judge.add'|trans }}</button>
+      </div>
+    </div>
+    {{ form_end(form) }}
+
+    {% if canSubmitResults %}
+      {% form_theme resultForm 'AppBundle::forms_vertical.html.twig' %}
+
+      {{ form_start(resultForm, {action: path('app_competition_show', {id: comp.id})}) }}
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ 'competition.result.submit_results_title'|trans }}</h3>
+          </div>
+          <div class="panel-body">
+            {% if resultForm.offsetExists('documents') %}
+              <div class="row">
+                {% for doc in resultForm.documents %}
+                  <div class="col-sm-4">
+                    <strong>{{ ('file_uploads.type.'~doc.vars.data.type)|trans }}</strong>
+                    <hr>
+                    {{ form_widget(doc) }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+            {{ form_rest(resultForm) }}
+          </div>
+          <div class="panel-footer text-center">
+            <button type="submit" class="btn btn-primary">{{ 'competition.result.submit_results'|trans }}</button>
+          </div>
+        </div>
+      {{ form_end(resultForm) }}
+    {% endif %}
+  {% endif %}
+
+  <div class="page-header" id="results">
+    <h1>
+      {{ 'competition.result.title'|trans }}
+
+      {% if canSubmitResults %}
+        <a href="#results" data-url="{{ path('app_competition_addresult', {id: comp.id}) }}" class="btn btn-warning pull-right js-modal">
+          <i class="fa fa-flash"></i> {{ 'competition.result.add_result'|trans }}
+        </a>
+      {% endif %}
+    </h1>
+  </div>
+
+  <table class="table table-hover table-striped">
+    <thead>
+    <tr>
+      <th>{{ 'user.label.fullname'|trans }}</th>
+      <th>{{ 'competition.edit.licences'|trans }}</th>
+      <th>{{ 'competition_participant.label.points'|trans }}</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in results %}
+      <tr>
+        <td><a href="{{ path('app_user_user', {id: item.user.id}) }}">{{ item.user.fullName }}</a></td>
+        <td>
+          {% for licence in item.user.licences %}
+            {% if licence.completed %}
+              {{ ('licences.type.'~licence.type)|trans }}<br>
+            {% endif %}
+          {% endfor %}
+        </td>
+        <td>{{ item.points ?: '-' }}</td>
+        <td>
+          {% if canSubmitResults %}
+            <a href="{{ path('app_competition_removeparticipant', {id: comp.id, partId: item.id}) }}" class="close js-confirm js-no-ajax" data-text="{{ 'competition.result.remove_participant'|trans }}" data-title="{{ 'title.delete'|trans }}" data-toggle="tooltip">
+              <span aria-hidden="true">&times;</span>
+            </a>
+          {% endif %}
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="4">{{ 'competition.edit.no_users'|trans }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

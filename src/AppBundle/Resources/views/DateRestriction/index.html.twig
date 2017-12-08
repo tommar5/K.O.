@@ -1,0 +1,81 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>
+      {{ 'date_restriction.index.title'|trans }}
+      {{ back_button('app_application_index') }}
+    </h1>
+    <div class="clearfix"></div>
+  </div>
+  {% include 'AppBundle::flashes.html.twig' %}
+  <div class="row">
+    <div class="col-xs-4 dates-container">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-calendar"></i> {{ 'date_restriction.index.table_title'|trans }}</h3>
+        </div>
+        <table class="table table-hover table-striped">
+          <tbody>
+          {% for date in dates %}
+            <tr>
+              <td>
+                {{ date.date|localizeddate('short', 'none') }}
+              </td>
+              <td>
+                <a href="{{ url('app_daterestriction_delete', {id: date.id}) }}"
+                   class="btn btn-primary pull-right btn-default js-confirm js-no-ajax"
+                   data-text="{{ 'date_restriction.index.remove_text'|trans }}"
+                   data-title="{{ 'button.delete'|trans }}">
+                  <i class="fa fa-remove"></i>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <div class="panel-footer">
+          {{ pagination(dates) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Button trigger modal -->
+  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#dateInsert">
+    {{ 'date_restriction.index.add'|trans }}
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="dateInsert" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <button type="button" class="close"
+                  data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          {{ form_start(form) }}
+          {{ form_widget(form) }}
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans }}</button>
+          <button type="button" class="btn btn-default"
+                  data-dismiss="modal">
+            {{ 'button.cancel'|trans }}
+          </button>
+          {{ form_end(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

@@ -1,0 +1,44 @@
+{#Invoice Block#}
+
+{% if documents['invoice'] is defined %}
+    {% if is_granted('show-invoice', app.user)%}
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.invoice'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% for document in documents['invoice'] %}
+                    {% if document.type == 'invoice' %}
+                        <li class="list-group-item">
+                            <i class="fa fa-file alert-info"></i>
+                            <a href="{{ vich_uploader_asset(document, 'file') }}" target="_blank" class="unvisited-blue hidden-print">
+                                {{ ('application.file_uploads.type.'~document.type)|trans }} ({{ document.fileName }})
+                            </a>
+                            {% if is_granted('invoice-delete', app.user) %}
+                                <a href="{{ url('app_application_removeinvoice', {id: application.id}) }}" class="btn btn-xs btn-default js-confirm js-no-ajax" data-text="{{ 'application.index.invoice_remove'|trans }}" data-title="{{ 'button.delete'|trans }}" data-toggle="tooltip">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            {% endif %}
+                            <span class="span-info">{{document.createdAt|date('Y-m-d H:m') ~ ' ' ~ 'file_uploads.label.issued'|trans ~ ' ' ~ document.user.firstname ~ ' ' ~ document.user.lastname}}</span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% else %}
+    {% if is_granted('invoice-upload', app.user)%}
+        {% if application.isOrganisatorUploadedContract or application.isNotPaid %}
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.invoice'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{ form_row(form.invoice) }}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endif %}

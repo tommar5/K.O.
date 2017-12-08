@@ -1,0 +1,52 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>
+      {{ 'user.my_racers.title'|trans }}
+      <a href="#" data-url="{{ url('app_user_addracer') }}" class="btn btn-success pull-right js-modal">
+        <i class="fa fa-plus"></i> {{ 'user.my_racers.new'|trans }}
+      </a>
+    </h1>
+    <div class="clearfix"></div>
+  </div>
+
+  {% include 'AppBundle::flashes.html.twig' %}
+
+  <div class="row">
+    {% for racer in racers %}
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <a href="{{ path('app_user_user', {id: racer.id}) }}">
+                  <img class="img-responsive" id="image" src="{{ thumb(racer, 'imageFile', 'profile_small') }}">
+                </a>
+              </div>
+              <div class="col-sm-9">
+                <a href="{{ path('app_user_removeracer', {id: racer.id}) }}" class="close js-confirm js-no-ajax btn-xs btn-danger pull-right" data-title="{{ 'user.my_racers.remove'|trans }}" data-text="{{ 'user.my_racers.remove_text'|trans }}">
+                  <span aria-hidden="true">&times;</span>
+                </a>
+                <a href="{{ path('app_user_user', {id: racer.id}) }}">
+                  <h4>{{ racer.fullName }}</h4>
+                </a>
+                {% for licence in racer.licences %}
+                  {% if licence.completed and licence.driverLicence and licence.licence.user.id == app.user.id %}
+                    {{ ('licences.type.'~licence.type)|trans }}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-sm-12">
+        {{ 'user.my_racers.no_racers'|trans }}
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}
+

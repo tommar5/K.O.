@@ -1,0 +1,41 @@
+{% form_theme form 'AppBundle::forms_vertical.html.twig' %}
+
+<script>
+    $('textarea#comment_comment').keyup(function (e) {
+        var tval = $(this).val(),
+                tlength = tval.length,
+                charLimit = 1000,
+                remain = parseInt(charLimit - tlength);
+        $('.remain').text(remain);
+        if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
+            $(this).val((tval).substring(0, tlength - 1))
+        }
+    });
+</script>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'button.close'|trans }}">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">{{ 'file_uploads.comment.label'|trans }}</h4>
+</div>
+    {% set parameters = { applicationId: application.id,
+        type: commentType,
+        competition_id: competition ? competition.id : null } %}
+
+{{ form_start(form, {attr: {class: 'js-form'}, action: path('app_comment_comment', parameters) }) }}
+
+<div class="modal-body">
+    {% include 'AppBundle::flashes.html.twig' %}
+    {{ form_errors(form) }}
+    {{ form_rest(form) }}
+    <small><div class="remain text-center">1000</div></small>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'button.close'|trans }}</button>
+    <button type="submit" class="btn btn-primary">{{ 'button.save'|trans }}</button>
+</div>
+
+
+{{ form_end(form) }}
