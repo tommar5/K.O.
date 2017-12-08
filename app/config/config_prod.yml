@@ -1,27 +1,29 @@
 imports:
-    - { resource: config.yml }
-
-#framework:
-#    validation:
-#        cache: validator.mapping.cache.apc
-#    serializer:
-#        cache: serializer.mapping.cache.apc
-
-#doctrine:
-#    orm:
-#        metadata_cache_driver: apc
-#        result_cache_driver: apc
-#        query_cache_driver: apc
+  - { resource: config.yml }
 
 monolog:
-    handlers:
-        main:
-            type: fingers_crossed
-            action_level: error
-            handler: nested
-        nested:
-            type: stream
-            path: '%kernel.logs_dir%/%kernel.environment%.log'
-            level: debug
-        console:
-            type: console
+  handlers:
+    main:
+      type: fingers_crossed
+      action_level: error
+      handler: all
+
+    sentry:
+      type: raven
+      dsn: %sentry_dsn%
+      level: notice
+
+    all:
+      type: group
+      members:
+        - nested
+        - console
+        - sentry
+
+    nested:
+      type: stream
+      path: "%kernel.logs_dir%/%kernel.environment%.log"
+      level: error
+
+    console:
+      type: console

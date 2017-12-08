@@ -1,16 +1,55 @@
 imports:
-    - { resource: config_dev.yml }
+  - { resource: config_prod.yml }
+
+parameters:
+  swiftmailer.spool.memory.class: AppBundle\Behat\Swiftmailer\MemorySpool
+
+services:
+  test.client:
+    class: %test.client.class%
+    scope: prototype
+    arguments: [@kernel, %test.client.parameters%, @test.client.history, @test.client.cookiejar]
+    calls:
+      - [ disableReboot, [] ] # does not reboot kernel
 
 framework:
-    test: ~
-    session:
-        storage_id: session.storage.mock_file
-    profiler:
-        collect: false
+  test: ~
+  profiler: { only_exceptions: false }
+  router:
+    resource: "%kernel.root_dir%/config/routing_dev.yml"
+  session:
+    cookie_domain: ""
+    cookie_secure: false # allow insecure cookies http://
+    cookie_httponly: false # it may need to access cookies inside behat context
+
+doctrine:
+  dbal:
+    dbname: "%database_name%_test"
 
 web_profiler:
-    toolbar: false
-    intercept_redirects: false
+  toolbar: %kernel.debug% # enable debug in web/app_test,php to see toolbar
+  intercept_redirects: false
+
+monolog:
+  handlers:
+    main:
+      type: fingers_crossed
+      action_level: error
+      handler: all
+
+    all:
+      type: group
+      members:
+        - nested
+        - console
+
+    nested:
+      type: stream
+      path: "%kernel.logs_dir%/%kernel.environment%.log"
+      level: error
+
+    console:
+      type: console
 
 swiftmailer:
-    disable_delivery: true
+  spool: { type: memory }

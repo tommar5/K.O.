@@ -1,24 +1,63 @@
-# To get started with security, check out the documentation:
-# https://symfony.com/doc/current/security.html
 security:
+  encoders:
+    AppBundle\Entity\User:
+      id: app.password_encoder
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-    providers:
-        in_memory:
-            memory: ~
+  role_hierarchy:
+    ROLE_USER: []
+    ROLE_RACER: [ROLE_USER]
+    ROLE_DECLARANT: [ROLE_USER]
+    ROLE_ORGANISATOR: [ROLE_USER]
+    ROLE_JUDGE: [ROLE_USER]
+    ROLE_ADMIN: [ROLE_USER]
+    ROLE_SPECTATOR: [ROLE_USER]
+    ROLE_COMMISSIONER: [ROLE_USER]
+    ROLE_DEPARTMENT: [ROLE_USER]
+    ROLE_LASF_COMMITTEE: [ROLE_USER]
+    ROLE_SVO_COMMITTEE: [ROLE_USER]
+    ROLE_COMPETITION_CHIEF: [ROLE_USER]
+    ROLE_ACCOUNTANT: [ROLE_USER]
+    ROLE_CHAIRMAN: [ROLE_USER]
+    ROLE_PRESIDENT: [ROLE_USER]
+    ROLE_SECRETARY: [ROLE_USER]
 
-    firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+  providers:
+    app_users:
+      entity:
+        class: AppBundle:User
+        property: email
 
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
+  access_decision_manager:
+    strategy: unanimous
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+      security: false
 
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+    main:
+      anonymous: true
+      pattern: ^/
+      form_login:
+        login_path: app_auth_login
+        check_path: app_auth_check
+        default_target_path: app_dashboard_help
+        intention: _app_auth_login
+      logout:
+        path: app_auth_logout
+        target: app_auth_login
+
+  access_control:
+    # anonymous access
+    - { path: ^/(login|reset|register)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/confirm/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/profile/[0-9]+$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/media/cache, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/terms, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/privacy-policy, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(judges)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    # requires role
+    - { path: ^/, role: ROLE_USER }
+    - { path: ^/_console, role: ROLE_ADMIN }
+

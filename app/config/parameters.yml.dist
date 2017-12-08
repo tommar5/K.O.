@@ -1,19 +1,33 @@
-# This file is a "template" of what your parameters.yml file should look like
-# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
-# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+# vi: set ft=yaml ts=2 sw=2 sts=2 :
 parameters:
-    database_host: 127.0.0.1
-    database_port: ~
-    database_name: symfony
-    database_user: root
-    database_password: ~
-    # You should uncomment this if you want to use pdo_sqlite
-    #database_path: "%kernel.root_dir%/data.db3"
+  asset_version: ~
 
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: ~
-    mailer_password: ~
+  database_driver: pdo_mysql
+  database_host: 127.0.0.1
+  database_port: ~
+  database_name: symfony2
+  database_user: root
+  database_password: mysecretpw
 
-    # A secret key that's used to generate certain security-related tokens
-    secret: ThisTokenIsNotSoSecretChangeIt
+  locale: lt
+  locale_timezone: Europe/Vilnius
+  secret: ThisTokenIsNotSoSecretChangeItOnProduction
+  cache_namespace: lasf # should be unique per release on production
+
+  mailer_transport: smtp
+  mailer_host: mailtrap.io
+  mailer_user: 48cd702689b5ff
+  mailer_password: 5e17be17ab05c9
+  mailer_sender: { noreply@lasf.lt: "Stage LASF Sistema" }
+  mailer_auth_mode: cram-md5
+  mailer_port: 2525
+
+  recaptcha_public_key: "pub-key"
+  recaptcha_private_key: "priv-key"
+  recaptcha_locate_key: %kernel.default_locale%
+
+  sentry_dsn: ""
+
+  google_places_key: AIzaSyApaqrQ5LK2u5Wn6wWQE7D4fGtxnh_pG2Q
+
+  lp_express_key: 'http://api.balticpost.lt/download/terminallist/?key=HB4BLIUPZ6B7'
