@@ -10,7 +10,6 @@
 /vendor/
 /httpdocs/bundles
 /httpdocs/media/
-/docker-compose.yml
 /app/session
 /build.tar.gz
 /build
@@ -18,3 +17,4 @@ httpdocs/build
 /.idea
 /database
 /assets/bundles/
+/bower_components/
