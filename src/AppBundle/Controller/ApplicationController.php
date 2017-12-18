@@ -292,6 +292,12 @@ class ApplicationController extends Controller
         );
 
         $timeRestrictions = $this->getDoctrine()->getRepository('AppBundle:TimeRestriction')->findAll()[0];
+        /*dump([
+            'template' => $cmsBlock->getContent(),
+            'application' => $application,
+            'timeRestrictions' => $timeRestrictions,
+        ]);
+        die();*/
         $evaluatedBlock = $this->get('twig')->render(
             'AppBundle:ApplicationAgreement:agreement_eval.html.twig',
             [

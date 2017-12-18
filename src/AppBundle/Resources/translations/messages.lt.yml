@@ -114,13 +114,13 @@ user:
     about_me: 'Apie mane'
     enabled: 'Vartotojas gali prisijungti'
     parent: 'Juridinio asmens vadovas'
-    lasf_name: 'LASF nario pavadinimas'
-    lasf_email: 'LASF nario el. paštas'
+    lasf_name: 'Koncertų organizavimo nario pavadinimas'
+    lasf_email: 'Koncertų organizavimo nario el. paštas'
     phone: 'Telefono nr.'
     address: 'Adresas'
     id_code: 'Asmens kodas'
     birthday: 'Gimimo data'
-    member_name: 'LASF nario pavadinimas'
+    member_name: 'Koncertų organizavimo nario pavadinimas'
     member_code: 'LASF nario (juridinio asmens) kodas'
     vat_code: 'PVM mokėtojo kodas'
     bank: "Bankas"
@@ -149,16 +149,16 @@ user:
     admin: 'Administratorius'
     department: 'Departamentas'
     accountant: 'Buhalteris'
-    spectator: 'LASF stebėtojas'
+    spectator: 'Koncerto stebėtojas'
     commissioner: 'Varžybų komisaras'
     lasf_committee: 'LASF komitetas'
     svo_committee: 'SVO komitetas'
-    competition_chief: 'Varžybų vadovas'
+    competition_chief: 'Koncerto vadovas'
     chairman: 'Pirmininkas'
     president: 'LASF prezidentas'
     secretary: 'Generalinė sekretorė'
     judge_committee: 'Teisėjų komitetas'
-    skk_head: 'SKK pirmininkas'
+    skk_head: 'Atsakingas scenos dekoratorius'
   new:
     title: 'Naujo vartotojo kūrimas'
     enter_details: 'Įveskite vartotojo informaciją'
@@ -257,11 +257,11 @@ competition_judge:
   label:
     user: "Komisarai"
     role: "Rolė"
-    competition: "Varžybos"
+    competition: "Koncertai"
   add: 'Priskirti teisėją'
   role:
     sporto_komisaras: "Sporto komisaras"
-    varzybu_vadovas: "Varžybų vadovas"
+    varzybu_vadovas: "Koncerto vadovas"
     varzybu_sektorius: "Varžybų sekretorius"
     laikininkas: "Laikininkas"
     techninis_komisaras: "Techninės komisijos komisaras"
@@ -284,18 +284,18 @@ competition:
     description: 'Aprašymas'
     judges: 'Papildomi komisarai'
     main_judge: 'Vadovas'
-    watcher: "LASF stebėtojas"
+    watcher: "Koncerto stebėtojas"
     safety_watcher: "Saugos stebėtojas"
     licence: 'Licencija'
   index:
-    title: 'Varžybos'
+    title: 'Koncertai'
     new: 'Sukurti naujas varžybas'
     join: 'Pažymėti, jog vyksiu į varžybas'
     competition_calendar_title: 'Varžybų kalendorius'
   new:
     title: 'Naujų varžybų kūrimas'
     enter_details: 'Įveskite varžybų informaciją'
-    choose_judge: 'pasirinkite varžybų vadovą'
+    choose_judge: 'pasirinkite koncerto vadovą'
     choose_licence: 'pasirinkite organizatoriaus licenciją'
   edit:
     title: 'Varžybų redagavimas'
@@ -332,21 +332,21 @@ competition:
 application:
   new:
     title: 'Paraiška'
-    enter_details: 'Paraiška organizatoriaus licencijai gauti'
-    organizer_info: 'Varžybų organizatorius'
+    enter_details: 'Informacija apie organizuojamą koncertą'
+    organizer_info: 'Koncerto organizatorius'
     title: 'Varžybų paraiška'
     handled_paper_copy: 'Ranka užpildytos popierinės paraiškos kopija (Neprivaloma)'
     invoice: 'Sąskaita'
     deliver_info: 'Pristatymo informacija'
     contract_by_lasf: 'LASF prezidento pasirašyta sutartis'
     contract_by_organisator: 'Organizatoriaus pasirašyta sutartis'
-    competition_insurance: 'Varžybų draudimas'
+    competition_insurance: 'Koncerto draudimas'
     other_documents: 'Papildomi dokumentai'
-    additional_rules: 'Papildomi varžybų nuostatai'
+    additional_rules: 'Papildomi koncerto nuostatai'
     safety_plan: 'Saugos planas'
-    track_acceptance: 'Trasos priėmimo aktas'
+    track_acceptance: 'Scenos priėmimo aktas'
     organisator_licence: 'Organizatoriaus licencija'
-    track_licence: 'Trasos licencija'
+    track_licence: 'Scenos licencija'
     competition_results: 'Varžybų rezultatai'
     report: 'Varžybų ataskaita'
     bulletin: 'Organizatoriaus biuletenis'
@@ -359,12 +359,12 @@ application:
   label:
     name: 'Pavadinimas'
     date_from: 'Nuo'
-    date_from_index: 'Varžybų pradžia'
+    date_from_index: 'Koncerto pradžia'
     date_to: 'Iki'
     location: 'Vieta'
-    sport: 'Sporto šaka'
-    competition_chief: 'Varžybų vadovas'
-    safety_chief: 'Varžybų saugos viršininkas'
+    sport: 'Muzikos stilius'
+    competition_chief: 'Koncerto vadovas'
+    safety_chief: 'Koncerto saugos viršininkas'
     steward: 'Varžybų komisaras'
     status: 'Statusas'
     competition_name: 'Varžybų pavadinimas'
@@ -376,14 +376,14 @@ application:
     placeholder: 'Draudžiama naudoti žodžius "Tarptautinis", "Pasaulinis", "Europos"'
     date_start: 'Prašau pasirinkti varžybų pradžios datą'
     date_end: 'Prašau pasirinkti varžybų pabaigos datą'
-    lasf_name: 'LASF nario pavadinimas'
+    lasf_name: 'Koncertų organizavimo nario pavadinimas'
     vat_number: 'PVM mokėtojo kodas'
     member_code: 'Įmonės kodas'
-    lasf_address: 'LASF nario adresas'
-    lasf_email: 'LASF nario el. paštas'
+    lasf_address: 'Koncertų organizavimo nario adresas'
+    lasf_email: 'Koncertų organizavimo nario el. paštas'
     phone: 'Telefono Nr.'
     bank: 'Bankas'
-    skk_head: 'SKK pirmininkas'
+    skk_head: 'Atsakingas scenos dekoratorius'
     bank_account: 'Sąskaitos nr.'
     location_placeholder: 'Įveskite adresą'
     file: 'Failas'
@@ -393,21 +393,21 @@ application:
     lp_express: 'Pristatyti į artimiausia LP Express terminalą arba Lietuvos pašto skyrių (Papildomas licencijos pristatymo mokestis - 5 Eur.)'
     deliver_to: 'Pristatyti į:'
     signed_application_by_organisator: 'Organizatoriaus pasirašyta varžybų organizavimo sutartis'
-    signed_application_by_lasf: 'LASF prezidento pasirašyta varžybų organizavimo sutartis'
+    signed_application_by_lasf: 'Administratoriaus pasirašyta koncerto organizavimo sutartis'
     organisator: 'Organizatorius'
     contract_by_lasf_url: 'Nuoroda į pasirašytą sutartį'
-    competition_insurance: 'Varžybų draudimas'
-    competition_chief_confirmed_choice: 'Vadovas dalyvaus varžybose'
-    competition_chief_confirmed: 'Dalyvausiu varžybose'
+    competition_insurance: 'Koncerto draudimas'
+    competition_chief_confirmed_choice: 'Vadovas dalyvaus koncerte'
+    competition_chief_confirmed: 'Dalyvausiu koncerte'
     other_documents: 'Papildomi dokumentai'
-    additional_rules: 'Papildomi varžybų nuostatai'
+    additional_rules: 'Papildomi koncerto nuostatai'
     safety_plan: 'Saugos planas'
-    track_acceptance: 'Trasos priėmimo aktas'
+    track_acceptance: 'Scenos priėmimo aktas'
     organisator_licence: 'Organizatoriaus licencija'
-    track_licence: 'Trasos licencija'
-    observer: 'LASF stebėtojas'
-    svo_delegate: 'LASF SVO delegatas'
-    technical_delegate: 'LASF techninis delegatas'
+    track_licence: 'Scenos licencija'
+    observer: 'Koncerto stebėtojas'
+    svo_delegate: 'Koncerto dizaineris'
+    technical_delegate: 'Koncerto techninis delegatas'
     judges: 'Varžybų teisėjai'
     deliver_to_address: 'LP Express adresas'
     competition_results: 'Varžybų rezultatai'
@@ -422,16 +422,16 @@ application:
     sub_competition_modify: 'Išsaugoti'
     sub_competition_delete: 'Ištrinti'
   svo_delegate:
-    placeholder: 'Pasirinkite SVO delegatą'
+    placeholder: 'Pasirinkite koncerto dizainerį'
   technical_delegate:
     placeholder: 'Vardas, pavardė, el-paštas, telefonas'
   observer:
-    placeholder: 'Pasirinkite LASF stebėtoją'
+    placeholder: 'Pasirinkite koncerto stebėtoją'
   competition_chief_confirmed_select:
     placeholder: 'Pasirinkite dalyvavimo būseną'
   skk_head:
-    title: 'SKK pirmininkas'
-    placeholder: 'Pasirinkite SKK pirmininką'
+    title: 'Atsakingas scenos dekoratorius'
+    placeholder: 'Pasirinkite atsakingą scenos dekoratorių'
   league_select:
     placeholder: 'Pasirinkite varžybų lygą'
     a: 'A Lyga'
@@ -463,11 +463,11 @@ application:
     karting: 'Kartingai'
     other: 'Kitos sporto šakos'
   competition_chief_select:
-    placeholder: 'Pasirinkite varžybų vadovą'
-    title: 'Varžybų vadovas'
+    placeholder: 'Pasirinkite koncerto vadovą'
+    title: 'Koncerto vadovas'
   safety_chief_select:
       placeholder: 'Pasirinkite saugos vadovą'
-      title: 'Varžybų saugumo viršininkas'
+      title: 'Koncerto saugumo viršininkas'
   steward:
     placeholder: 'Pasirinkite varžybų komisarą'
     title: 'Varžybų komisaras'
@@ -475,7 +475,7 @@ application:
     placeholder: 'Pasirinkite varžybų teisėjus'
     title: 'Varžybų teisėjai'
   index:
-    title: 'Varžybos'
+    title: 'Koncertai'
     new: 'Pateikti paraišką'
     competition_calendar_title: 'Varžybų kalendorius'
     dates: 'Datų įvedimas'
@@ -500,7 +500,7 @@ application:
     competition_calendar_title: 'Varžybų kalendorius'
     remind_upload_document: 'Siųsti priminimą'
   competition_chief_assigned:
-    title: 'Man priskirtos varžybos'
+    title: 'Man priskirti koncertai'
     state:
       yes: 'Taip'
       no: 'Ne'
@@ -569,14 +569,14 @@ application:
       application_copy: "Ranka užpildytos popierinės paraiškos kopija"
       invoice: 'Sąskaita'
       signed_application_by_organisator: 'Organizatoriaus pasirašyta varžybų organizavimo sutartis'
-      signed_application_by_lasf: 'LASF prezidento pasirašyta varžybų organizavimo sutartis'
+      signed_application_by_lasf: 'Administratoriaus pasirašyta koncerto organizavimo sutartis'
       competition_insurance: 'Varžybų draudimo dokumentas'
       other_documents: 'Papildomas dokumentas'
-      additional_rules: 'Papildomas varžybų nuostato dokumentas'
-      safety_plan: 'Saugos plano dokumentas'
-      track_acceptance: 'Trasos priėmimo aktas'
+      additional_rules: 'Papildomas koncerto nuostato dokumentas'
+      safety_plan: 'Koncerto saugumo planas'
+      track_acceptance: 'Scenos priėmimo aktas'
       organisator_licence: 'Organizatoriaus licencija'
-      track_licence: 'Trasos licencija'
+      track_licence: 'Scenos licencija'
       competition_results: 'Varžybų rezultatai'
       report: 'Varžybų ataskaita'
       bulletin: 'Organizatoriaus biuletenis'
@@ -584,17 +584,17 @@ application:
       competition_chief_decisions: 'Varžybų vadovo sprendimai'
   documents:
     label: 'Dokumentai'
-    additional_rules: 'Papildomi varžybų nuostatai'
+    additional_rules: 'Papildomi koncerto nuostatai'
     safety_plan: 'Saugos planas'
-    contact_lasf: 'Trasos licencija'
+    contact_lasf: 'Scenos licencija'
     rules_agreement: 'Nuostatų patvirtinimas komitete'
     final_rules: 'Galutinis nuostatų variantas'
-    track_acceptance: 'Trasos priėmimo aktas'
-    competition_insurance: 'Varžybų draudimas'
+    track_acceptance: 'Scenos priėmimo aktas'
+    competition_insurance: 'Koncerto draudimas'
     other_documents: 'Papildomas dokumentas'
     organisator_licence: 'Organizatoriaus licencija'
     organisator_licence_cutted: 'Organiza-toriaus licencija'
-    track_licence: 'Trasos licencija'
+    track_licence: 'Scenos licencija'
     competition_results: 'Varžybų rezultatai'
     report: 'Varžybų ataskaita'
     bulletin: 'Organizatoriaus biuletenis'
@@ -641,7 +641,7 @@ competition_chief:
     edited: 'Varžybų vadovas sėkmingai atnaujintas.'
   edit:
     title: 'Redaguoti varžybų vadovo informaciją'
-    label: 'Varžybų vadovas'
+    label: 'Koncerto vadovas'
     validation-message: 'Būtina įvesti sporto šakas!'
 
 steward:
@@ -710,9 +710,9 @@ file_uploads:
     parent_agreement: "Notaro patvirtintas tėvų sutikimas (iki 18m)"
     previous_licence: "Ankstesniais metais turėta kategorija"
     safety_plan: "Saugos planas"
-    acceptance_act: "Trasos priėmimo aktas"
+    acceptance_act: "Scenos priėmimo aktas"
     organisator_licence: 'Organizatoriaus licencija'
-    track_licence: 'Trasos licencija'
+    track_licence: 'Scenos licencija'
     other: "Papildomi dokumentai"
     competition_result: "Varžybų rezultatai"
     judge_certificate: "Atestacijos pažymėjimas"
@@ -725,10 +725,10 @@ file_uploads:
     signed_application_by_lasf: "LASF prezidento pasirašyta varžybų organizavimo sutartis"
     signed_application_by_organisator: "Organizatoriaus pasirašyta varžybų organizavimo sutartis"
     invoice: "Sąskaita"
-    competition_insurance: "Varžybų draudimas"
+    competition_insurance: "Koncerto draudimas"
     other_documents: "Papildomas dokumentas"
-    additional_rules: "Papildomi varžybų nuostatai"
-    track_acceptance: "Trasos priėmimo aktas"
+    additional_rules: "Papildomi koncerto nuostatai"
+    track_acceptance: "Scenos priėmimo aktas"
     competition_results: "Varžybų rezultatai"
     report: "Varžybų ataskaita"
     bulletin: "Organizatoriaus biuletenis"
@@ -799,11 +799,11 @@ licences:
       identity_code: 'Asmens kodas'
     language: 'Kalba'
     declarant:
-      lasf_name: "LASF nario pavadinimas"
+      lasf_name: "Koncertų organizavimo nario pavadinimas"
       team_name: "Komandos pavadinimas"
       personal_code: "LASF nario (juridinio asmens) kodas"
       vat_number: "PVM mokėtojo kodas"
-      lasf_address: "LASF nario adresas"
+      lasf_address: "Koncertų organizavimo nario adresas"
       mobile_number: "Mobilaus telefono Nr."
       email: "El. pašto adresas"
       manager_full_name: "LASF nario vadovo Vardas, Pavardė"
@@ -944,7 +944,7 @@ licences:
       b: "Pareiškėjo, B ir žemesnė licencija"
       k: "Pareiškėjo, A (kroso) licencija"
     organisator_licence: "Organizatoriaus licencija"
-    track_licence: "Trasos licencija"
+    track_licence: "Scenos licencija"
     safety_licence: "Automobilių saugos rėmų gamintojo (montuotojo) licencija"
   flash:
     upload_info: 'Prašome pateikti licencijai reikalingą informaciją.'
@@ -1106,13 +1106,13 @@ time_restriction:
       additional_rules_agreement_term: 'Saugos plano pateikimas'
       final_rules_term: 'Varžybų Papildomų nuostatų galutinis variantas su programa'
       contact_administrator_term: 'Kreiptis į LASF administraciją dėl licencijos trasos išdavimo'
-      track_term: 'Trasos priėmimo aktas'
+      track_term: 'Scenos priėmimo aktas'
     flash:
       modified: 'Laikai pakeisti.'
 
 safety_chief:
   index:
-    table_title: 'SVO saugos vadų sąrašas'
+    table_title: 'Koncertų saugos vadų sąrašas'
     title: 'Saugos vadų įvedimas'
     add: 'Pridėti'
     remove_text: 'Ar tikrai norite pašalinti šį saugos viršininką?'
