@@ -14,7 +14,7 @@
 /build.tar.gz
 /build
 httpdocs/build
-/.idea
+.idea
 /database
 /assets/bundles/
 /bower_components/
