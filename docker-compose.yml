@@ -6,14 +6,14 @@ php:
 web:
   image: datadoglt/nginx-sf
   volumes: [".:/var/www"]
-  ports: [80]
+  ports: ["80:80"]
   links: [php]
-  environment: { VIRTUAL_HOST: lasf.dev, PUB_DIR: "httpdocs" }
+  environment: { VIRTUAL_HOST: ko.dev, PUB_DIR: "httpdocs" }
 
 mysql:
   image: mysql
   hostname: mysql
-  ports: ["3306"]
+  ports: ["3307:3306"]
   volumes: [".:/var/www"]
   environment:
     MYSQL_DATABASE: symfony2
