@@ -51,6 +51,8 @@ security:
     # anonymous access
     - { path: ^/(login|reset|register)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/confirm/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/music/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/article/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/profile/[0-9]+$, role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/media/cache, role: IS_AUTHENTICATED_ANONYMOUSLY }

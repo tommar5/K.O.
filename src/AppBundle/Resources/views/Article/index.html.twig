@@ -1,0 +1,92 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+
+{% include 'AppBundle::flashes.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="jumbotron col-sm-12">
+            <div class="col-sm-12">
+                <div class="page-header">
+                    <a href="{{ path('articles') }}">
+                        <h1>STRAIPSNIAI</h1>
+                    </a>
+                </div>
+                <div>
+                    <ul>
+                        <li>
+                            <a href="{{ path('article', {'article': "AC_DC - \'Back In Black\'"}) }}">
+                              <span>
+                                AC_DC - 'Back In Black'
+                              </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                              <span>
+                                Animals - 'House of the Rising Sun'
+                              </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                              <span>
+                                Avenged Sevenfold - 'Hail to the King Ragnar'
+                              </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                              <span>
+                                Creedence Clearwater Revival - 'Fortunate Son'
+                              </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                              <span>
+                                Lynyrd Skynyrd - 'Sweet Home Alabama'
+                              </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                              <span>
+                                Pearl Jam - 'Grammie Out Of Control'
+                              </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                              <span>
+                                Survivor - 'Eye Of The Tiger'
+                              </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                              <span>
+                                The Doors - 'Riders On The Storm'
+                              </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                              <span>
+                                The Rolling Stones - 'Sympathy For The Devil'
+                              </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                              <span>
+                                The White Stripes - 'Seven Nation Army'
+                              </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

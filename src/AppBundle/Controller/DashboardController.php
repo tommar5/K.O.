@@ -45,37 +45,6 @@ class DashboardController extends Controller implements VerifyTermsInterface, Ch
     }
 
     /**
-     * @Route("/judges")
-     * @Template("AppBundle:Dashboard:index.html.twig")
-     * @param Request $request
-     * @return array
-     */
-    public function judgesAction(Request $request)
-    {
-        $form = $this->createForm(new UserSearchType(), ['judges' => true]);
-        $form->handleRequest($request);
-
-        $licencesRepo = $this->get('em')->getRepository(Licence::class);
-        $licences = $licencesRepo->getValidLicences(Licence::$judgeTypes);
-
-        if ($form->isValid()) {
-            $licences = $licencesRepo->filterLicencesByName($licences, trim($form->getData()['q']));
-        }
-
-        $licences->orderBy('u.lastname');
-
-        $lasfMembers = $licencesRepo->getValidLicences(Licence::TYPE_MEMBERSHIP)
-            ->getQuery()
-            ->getResult();
-
-        return [
-            'licences' => new Pagination($licences, $request),
-            'lasfMembers' => $lasfMembers,
-            'form' => $form->createView(),
-        ];
-    }
-
-    /**
      * @Route("/help")
      * @Template
      */
