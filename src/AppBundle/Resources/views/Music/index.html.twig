@@ -8,12 +8,23 @@
         <div class="jumbotron col-sm-12">
             <div class="col-sm-12">
                 <div class="page-header">
-                    <a href="{{ path('music') }}">
                         <h1>DAINOS</h1>
                     </a>
                 </div>
                 <div>
                     <ul>
+                        {% set x = 0 %}
+                        {% for i in 0..10 %}
+                            <li>
+                                <a href="{{ path('song', {'song': ""~songs[i]->getName()~""} ) }}">
+                              <span>
+                                {{ songs.Name }}
+                              </span>
+                                </a>
+                            </li>
+                                {% set x = x + 1 %}
+                        {% endfor %}
+
                         <li>
                             <a href="{{ path('song', {'song': "AC_DC - \'Back In Black\'"}) }}">
                               <span>
