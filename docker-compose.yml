@@ -25,8 +25,3 @@ webtools:
   image: datadoglt/webtools
   volumes: [".:/var/www"]
   environment: { GRUNT_TASK: "default" }
-
-pma:
-  image: phpmyadmin/phpmyadmin
-  ports: ["18080"]
-  links: [mysql]

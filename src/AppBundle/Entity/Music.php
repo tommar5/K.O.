@@ -79,21 +79,12 @@ class Music
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-
-        return $this;
     }
 
-    /**
-     * @param \DateTime $updatedAt
-     * @return Music
-     */
-    public function setUpdatedAt($updatedAt)
+    public function getCreatedAt()
     {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
+        return $this->createdAt;
     }
-
 
     /**
      * @return string
@@ -157,13 +148,5 @@ class Music
     public function setTime($time)
     {
         $this->time = $time;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getName();
     }
 }

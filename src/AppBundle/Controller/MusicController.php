@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\FileUpload;
+use AppBundle\Entity\Music;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -14,19 +15,18 @@ class MusicController extends Controller
      * @Route("/music")
      * @Method("GET")
      * @Template
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(){
 
-        $songs = $this->get('em')->getRepository('AppBundle:Music')->createQueryBuilder('m')->
-        orderBy('m.createdAt', 'ASC')->getQuery();
+        $songs = $this->get('em')->getRepository(Music::class)->findAll();
 
-        return  [ 'songs' => $songs->execute()];
+        return  [
+            'songs' => $songs
+        ];
     }
 
     /**
-     * @Route("/music/song/{song}", name="song")
+     * @Route("/music/{song}", name="song")
      * @Method("GET")
      * @Template
      */
