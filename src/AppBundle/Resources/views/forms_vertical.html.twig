@@ -51,8 +51,8 @@
         <div class="panel-body">
             <ul class="col-md-6 list-unstyled">
                 <li>{{ form_row(form.sport) }}</li>
-                <li>{{ form_row(form.name, {attr: {class: 'subCompetition-name'}}) }}</li>
-                <li>{{ form_row(form.league) }}</li>
+                {#<li>{{ form_row(form.name, {attr: {class: 'subCompetition-name'}}) }}</li>#}
+                {#<li>{{ form_row(form.league) }}</li>#}
                 <li>{{ form_row(form.dateFrom, {attr: {class: 'date subCompetition-dateFrom'}}) }}</li>
                 <li>
                     <a class="btn btn-primary collapse-button">{{ 'application.sub_competition.sub_competition_modify'|trans }}</a>
@@ -61,8 +61,8 @@
             </ul>
             <ul class="col-md-6 list-unstyled">
                 <li>{{ form_row(form.location, {attr: {class: 'subCompetition-location'}}) }}</li>
-                <li>{{ form_row(form.stage) }}</li>
-                <li>{{ form_row(form.type) }}</li>
+                {#<li>{{ form_row(form.stage) }}</li>#}
+                {#<li>{{ form_row(form.type) }}</li>#}
                 <li>{{ form_row(form.dateTo, {attr: {class: 'date subCompetition-dateTo'}}) }}</li>
             </ul>
         </div>

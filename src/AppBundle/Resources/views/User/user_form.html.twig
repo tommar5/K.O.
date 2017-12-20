@@ -11,7 +11,7 @@
 
     <div class="natural-member">
       {{ form_row(form.ROLE_RACER) }}
-      {{ form_row(form.ROLE_JUDGE) }}
+      {#{{ form_row(form.ROLE_JUDGE) }}#}
     </div>
 
     {% if is_granted('ROLE_ADMIN') %}
@@ -26,17 +26,17 @@
       <hr>
       {{ form_row(form.ROLE_CHAIRMAN) }}
       {{ form_row(form.ROLE_SPECTATOR) }}
-      {{ form_row(form.ROLE_LASF_COMMITTEE) }}
-        {% if form.sports is defined %}
-          <div id="committe-sports">
-              {{ form_row(form.sports, {attr: {class: 'select2'}}) }}
-          </div>
-        {% endif %}
-      {{ form_row(form.ROLE_SVO_COMMITTEE) }}
+      {#{{ form_row(form.ROLE_LASF_COMMITTEE) }}#}
+        {#{% if form.sports is defined %}#}
+          {#<div id="committe-sports">#}
+              {#{{ form_row(form.sports, {attr: {class: 'select2'}}) }}#}
+          {#</div>#}
+        {#{% endif %}#}
+      {#{{ form_row(form.ROLE_SVO_COMMITTEE) }}#}
       {{ form_row(form.ROLE_COMPETITION_CHIEF) }}
-      {{ form_row(form.ROLE_PRESIDENT) }}
+      {#{{ form_row(form.ROLE_PRESIDENT) }}#}
       {{ form_row(form.ROLE_SECRETARY) }}
-      {{ form_row(form.ROLE_JUDGE_COMMITTEE) }}
+      {#{{ form_row(form.ROLE_JUDGE_COMMITTEE) }}#}
       {{ form_row(form.ROLE_SKK_HEAD) }}
 
 

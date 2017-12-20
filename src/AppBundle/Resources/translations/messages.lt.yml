@@ -142,6 +142,7 @@ user:
     city: 'Miestas'
   roles:
     user: 'Registruotas vartotojas'
+    simple_user: 'Vartotojas'
     racer: 'Sportininkas'
     declarant: 'Pareiškėjas / Sporto klubas'
     organisator: 'Organizatorius'
@@ -448,7 +449,7 @@ application:
     placeholder: 'Pasirinkite varžybų etapą'
     once: 'Vienkartinės'
   sport_select:
-    placeholder: 'Pasirinkite sporto šaką'
+    placeholder: 'Pasirinkite muzikos stilių'
     rally: 'Ralis'
     rally-sprint: 'Ralis-sprintas'
     cycle: 'Žiedas'
@@ -1138,20 +1139,20 @@ languages:
 
 sport:
   index:
-    title: 'Sporto šakos'
+    title: 'Muzikos stiliai'
     new: 'Sukurti naują'
   label:
     alias: 'Alternatyvus pavadinimas'
-    name: 'Šakos'
-    sport: 'Šaką'
+    name: 'Stiliai'
+    sport: 'Stilius'
   new:
-    title: 'Naujos sporto šakos kūrimas'
-    enter_details: 'Įveskite šakos informaciją'
+    title: 'Naujo stiliaus kūrimas'
+    enter_details: 'Įveskite stiliaus informaciją'
   edit:
-      title: 'Redaguoti sporto šaką'
+      title: 'Redaguoti muzikos stilių'
   flash:
-    created: 'Sporto šaka sėkmingai sukurta.'
-    updated: 'Sporto šaka sėkmingai atnaujinta.'
-    removed: 'Sporto šaka sėkmingai pašalinta.'
-    cant_remove: 'Sporto šaka negali būti pašalinta, nes yra naudojama sistemoje.'
-    are_you_sure: 'Ar tikrai nori ištrinti sporto šaką?'
+    created: 'Muzikos stilius sėkmingai sukurtas.'
+    updated: 'Muzikos stilius sėkmingai atnaujintas.'
+    removed: 'Muzikos stilius sėkmingai pašalintas.'
+    cant_remove: 'Muzikos stilius negali būti pašalintas, nes yra naudojama sistemoje.'
+    are_you_sure: 'Ar tikrai nori ištrinti stilių?'

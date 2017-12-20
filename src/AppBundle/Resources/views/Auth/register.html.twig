@@ -19,17 +19,17 @@
 
           {{ form_row(form.email) }}
 
-          {{ form_row(form.legal) }}
+          {#{{ form_row(form.legal) }}#}
 
-          <div class="natural-member">
-            {{ form_row(form.ROLE_RACER) }}
-            {{ form_row(form.ROLE_JUDGE) }}
-          </div>
+          {#<div class="natural-member">#}
+            {#{{ form_row(form.ROLE_RACER) }}#}
+            {#{{ form_row(form.ROLE_JUDGE) }}#}
+          {#</div>#}
 
-          <div class="legal-member hidden">
-            {{ form_row(form.ROLE_DECLARANT) }}
-            {{ form_row(form.ROLE_ORGANISATOR) }}
-          </div>
+          {#<div class="legal-member hidden">#}
+            {#{{ form_row(form.ROLE_DECLARANT) }}#}
+            {#{{ form_row(form.ROLE_ORGANISATOR) }}#}
+          {#</div>#}
 
           {{ form_row(form.firstname, {attr: {'data-legal': 'user.title.firstname_legal'|trans, 'data-natural': 'user.label.firstname'|trans}}) }}
           {{ form_row(form.lastname, {attr: {'data-legal': 'user.title.lastname_legal'|trans, 'data-natural': 'user.label.lastname'|trans}}) }}
@@ -51,7 +51,7 @@
               {{ form_row(form.secondaryLanguage) }}
           </div>
 
-          {{ form_rest(form) }}
+          {#{{ form_rest(form) }}#}
 
           <button type="submit" name="_submit" class="btn btn-primary">{{ 'button.submit'|trans }}</button>
 
@@ -66,7 +66,7 @@
 {% block js %}
   {{ parent() }}
 
-  {% include 'AppBundle:User:form_js.html.twig' %}
+  {#{% include 'AppBundle:User:form_js.html.twig' %}#}
   {% include 'AppBundle::driver_judge_form_js.html.twig' with {
       'secondaryLanguage': 'user_secondaryLanguage',
       'languages' : 'user_languages'
