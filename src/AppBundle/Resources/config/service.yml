@@ -1,3 +1,7 @@
+parameters:
+
+    app.file.twig.extension.class: AppBundle\Twig\ImageExtention
+
 services:
   app.registrator:
     class: AppBundle\Lasf\Registrator
@@ -66,3 +70,10 @@ services:
       - @app.licence_repository
       - @app.filter_licences.service
 
+
+
+
+  app.file.twig.extension:
+      class: %app.file.twig.extension.class%
+      tags:
+          - { name: twig.extension }

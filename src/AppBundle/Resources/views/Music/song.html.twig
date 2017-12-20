@@ -144,39 +144,58 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div class="jumbotron">
-        <div class="text-center">
-            <h2>{{ song }}</h2>
-        </div>
-        <div class="example">
-
-            <div class="player">
-                <div class="pl"></div>
-                <div class="title"></div>
-                <div class="artist"></div>
-                <div class="cover"></div>
-                <div class="controls">
-                    <div class="play"></div>
-                    <div class="pause"></div>
-                    <div class="rew"></div>
-                    <div class="fwd"></div>
-                </div>
-                <div class="volume">
-                </div>
-                <div class="tracker"></div>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="text-center">
+                <h2>{{ song }}</h2>
             </div>
-            <ul class="playlist hidden">
-                <li audiourl="../../../../httpdocs/uplouds/{{ song }}.mp3" artist="AC_DC">AC_DC - 'Back In Black'.mp3</li>
-            </ul>
+            <div class="example">
 
+                <div class="player">
+                    <div class="pl"></div>
+                    <div class="title"></div>
+                    <div class="artist"></div>
+                    <div class="cover"></div>
+                    <div class="controls">
+                        <div class="play"></div>
+                        <div class="pause"></div>
+                        <div class="rew"></div>
+                        <div class="fwd"></div>
+                    </div>
+                    <div class="volume">
+                    </div>
+                    <div class="tracker"></div>
+                </div>
+                <ul class="playlist hidden">
+                    <li audiourl="../../../../httpdocs/uplouds/{{ song }}.mp3" artist="AC_DC">AC_DC - 'Back In Black'.mp3</li>
+                </ul>
+            </div>
+            <div class="text-center page-header">
+                <h1>Žodžiai</h1>
+            </div>
         </div>
-
-
-        <div class="text-center page-header">
-            <h1>Žodžiai</h1>
+        <div class="text-center">
+            {% set x = 0 %}
+            {% for i in 0..10 %}
+                {% if file_exists('uploads/'~song~'_l'~x~'.png') %}
+                    <img style="width: 100%;" src="{{ asset('uploads/'~song~'_l'~x~'.png') }}">
+                    {% set x = x + 1 %}
+                {% endif %}
+            {% endfor %}
         </div>
-        <div>
-            <img src="../../../../httpdocs/{{ song }}_t0.png">
+        <div class="jumbotron">
+            <div class="text-center page-header">
+                <h1>Gitaros natos</h1>
+            </div>
+        </div>
+        <div class="text-center">
+            {% set x = 0 %}
+            {% for i in 0..10 %}
+                {% if file_exists('uploads/'~song~'_t'~x~'.png') %}
+                    <img style="width: 110%;" src="{{ asset('uploads/'~song~'_t'~x~'.png') }}">
+                    {% set x = x + 1 %}
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
