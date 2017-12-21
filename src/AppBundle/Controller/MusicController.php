@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class MusicController extends Controller
 {
     /**
-     * @Route("/music")
+     * @Route("/music", name="music")
      * @Method("GET")
      * @Template
      */

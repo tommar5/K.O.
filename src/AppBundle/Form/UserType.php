@@ -159,21 +159,21 @@ class UserType extends AbstractType
                     'required' => false,
                 ]);
             $roles = [
-                'ROLE_RACER' => 'user.roles.racer',
+                'ROLE_RACER' => 'user.roles.simple_user',
                 'ROLE_DECLARANT' => 'user.roles.declarant' ,
                 'ROLE_ORGANISATOR' => 'user.roles.organisator',
-                'ROLE_JUDGE' => 'user.roles.judge',
+//                'ROLE_JUDGE' => 'user.roles.judge',
                 'ROLE_ADMIN' => 'user.roles.admin',
                 'ROLE_DEPARTMENT' => 'user.roles.department',
                 'ROLE_ACCOUNTANT' => 'user.roles.accountant',
                 'ROLE_CHAIRMAN' => 'user.roles.chairman',
                 'ROLE_SPECTATOR' => 'user.roles.spectator',
-                'ROLE_LASF_COMMITTEE' => 'user.roles.lasf_committee',
-                'ROLE_SVO_COMMITTEE' => 'user.roles.svo_committee',
+//                'ROLE_LASF_COMMITTEE' => 'user.roles.lasf_committee',
+//                'ROLE_SVO_COMMITTEE' => 'user.roles.svo_committee',
                 'ROLE_COMPETITION_CHIEF' => 'user.roles.competition_chief',
-                'ROLE_PRESIDENT' => 'user.roles.president',
+//                'ROLE_PRESIDENT' => 'user.roles.president',
                 'ROLE_SECRETARY' => 'user.roles.secretary',
-                'ROLE_JUDGE_COMMITTEE' => 'user.roles.judge_committee',
+//                'ROLE_JUDGE_COMMITTEE' => 'user.roles.judge_committee',
                 'ROLE_SKK_HEAD' => 'user.roles.skk_head'
             ];
         } else {

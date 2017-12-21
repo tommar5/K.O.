@@ -15,7 +15,7 @@ class SportController extends Controller implements VerifyTermsInterface
     use DoctrineController;
 
     /**
-     * @Route("/sport")
+     * @Route("/music")
      * @Method("GET")
      * @Template
      * @Security("has_role('ROLE_ADMIN')")
