@@ -5,13 +5,13 @@
     <h1>
       {{ 'user.index.title'|trans }}
       <a href="{{ url('app_user_new') }}" class="btn btn-success pull-right create-user"><i class="fa fa-plus"></i> {{ 'user.index.new'|trans }}</a>
-      {% if is_granted('ROLE_ADMIN') %}
-          <a href="{{ path('generate-users-csv') }}" class="btn btn-info pull-right generate_csv"><i class="fa fa-file"></i> CSV</a>
-          <a href="{{ url('app_competitionchief_index') }}" class="btn btn-info pull-right generate_csv"><i class="fa fa-info-circle"></i> {{ 'competition_chief.index.title'|trans }}</a>
-      {% endif %}
-      {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_JUDGE_COMMITTEE') %}
-          <a href="{{ url('app_steward_index') }}" class="btn btn-info pull-right generate_csv"><i class="fa fa-info-circle"></i> {{ 'steward.index.title'|trans }}</a>
-      {% endif %}
+      {#{% if is_granted('ROLE_ADMIN') %}#}
+          {#<a href="{{ path('generate-users-csv') }}" class="btn btn-info pull-right generate_csv"><i class="fa fa-file"></i> CSV</a>#}
+          {#<a href="{{ url('app_competitionchief_index') }}" class="btn btn-info pull-right generate_csv"><i class="fa fa-info-circle"></i> {{ 'competition_chief.index.title'|trans }}</a>#}
+      {#{% endif %}#}
+      {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_JUDGE_COMMITTEE') %}#}
+          {#<a href="{{ url('app_steward_index') }}" class="btn btn-info pull-right generate_csv"><i class="fa fa-info-circle"></i> {{ 'steward.index.title'|trans }}</a>#}
+      {#{% endif %}#}
     </h1>
     <div class="clearfix"></div>
   </div>
@@ -53,20 +53,20 @@
             {{ sorter_link(users, 'u.createdAt', 'user.label.registered_on'|trans) }}<br>
             {{ sorter_link(users, 'u.lastLoginAt', 'user.label.last_login_at'|trans) }}
           </th>
-          {% if not is_granted('ROLE_DECLARANT') or is_granted('ROLE_ADMIN') %}
-            <th>{{ 'user.roles.declarant'|trans }}</th>
-          {% endif %}
-          <th>{{ 'user.label.teams'|trans }}</th>
+          {#{% if not is_granted('ROLE_DECLARANT') or is_granted('ROLE_ADMIN') %}#}
+            {#<th>{{ 'user.roles.declarant'|trans }}</th>#}
+          {#{% endif %}#}
+          {#<th>{{ 'user.label.teams'|trans }}</th>#}
           <th></th>
         </tr>
         <tr role="row" class="filter">
           <td>{{ filter_search(users, "u.email") }}</td>
           <td>{{ filter_search(users, "name") }}</td>
           <td>{{ filter_select(users, "u.legal", legalTypes) }}</td>
-          {% if not is_granted('ROLE_DECLARANT') or is_granted('ROLE_ADMIN') %}
-            <td>{{ filter_search(users, "declarant") }}</td>
-          {% endif %}
-          <td>{{ filter_search(users, "team") }}</td>
+          {#{% if not is_granted('ROLE_DECLARANT') or is_granted('ROLE_ADMIN') %}#}
+            {#<td>{{ filter_search(users, "declarant") }}</td>#}
+          {#{% endif %}#}
+          {#<td>{{ filter_search(users, "team") }}</td>#}
           <td></td>
         </tr>
       </thead>
@@ -88,37 +88,37 @@
             </td>
             <td data-title="{{ 'user.label.name'|trans }}">{{ user.legal ? user.memberName : user.fullName }}</td>
             <td data-title="{{ 'user.label.registered_on'|trans }} / {{ 'user.label.last_login_at'|trans }}">{{ user.createdAt|localizeddate('short', 'none') }}<br>{{ user.lastLoginAt ? user.lastLoginAt|localizeddate('short', 'short') : '-' }}</td>
-            {% if not is_granted('ROLE_DECLARANT') or is_granted('ROLE_ADMIN') %}
-              <td data-title="{{ 'user.roles.declarant'|trans }}">
-                {% if user.parent and user.parent.legal %}
-                  {{ user.parent.memberName }}
-                {% else %}
-                  -
-                {% endif %}
-              </td>
-            {% endif %}
-            <td data-title="{{ 'user.label.teams'|trans }}">
-              {% set has = false %}
-              {% for licence in user.licences %}
-                {% if licence.completed and licence.driverLicence %}
-                  {% set has = true %}
-                  {{ licence.licence.teamName }}<br>
-                {% endif %}
-              {% endfor %}
-              {{ not has ? '-' }}
-            </td>
-            <td class="col-min text-right">
-              {% if is_granted('ROLE_DECLARANT') and user.isParent(app.user) %}
-                <a href="{{ url('app_licences_user', {id: user.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'user.edit.licences'|trans }}" data-toggle="tooltip">
-                  <i class="fa fa-sticky-note-o"></i>
-                </a>
-              {% endif %}
-              {% if is_granted('ROLE_ADMIN') and not user.isEnabled %}
-                <a href="{{ url('app_user_delete', {id: user.id}) }}" class="btn btn-xs btn-link js-confirm" data-text="{{ 'user.index.confirm_delete'|trans }}" data-title="{{ 'user.index.delete'|trans }}" data-toggle="tooltip">
-                  <i class="fa fa-times"></i>
-                </a>
-              {% endif %}
-            </td>
+            {#{% if not is_granted('ROLE_DECLARANT') or is_granted('ROLE_ADMIN') %}#}
+              {#<td data-title="{{ 'user.roles.declarant'|trans }}">#}
+                {#{% if user.parent and user.parent.legal %}#}
+                  {#{{ user.parent.memberName }}#}
+                {#{% else %}#}
+                  {#-#}
+                {#{% endif %}#}
+              {#</td>#}
+            {#{% endif %}#}
+            {#<td data-title="{{ 'user.label.teams'|trans }}">#}
+              {#{% set has = false %}#}
+              {#{% for licence in user.licences %}#}
+                {#{% if licence.completed and licence.driverLicence %}#}
+                  {#{% set has = true %}#}
+                  {#{{ licence.licence.teamName }}<br>#}
+                {#{% endif %}#}
+              {#{% endfor %}#}
+              {#{{ not has ? '-' }}#}
+            {#</td>#}
+            {#<td class="col-min text-right">#}
+              {#{% if is_granted('ROLE_DECLARANT') and user.isParent(app.user) %}#}
+                {#<a href="{{ url('app_licences_user', {id: user.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'user.edit.licences'|trans }}" data-toggle="tooltip">#}
+                  {#<i class="fa fa-sticky-note-o"></i>#}
+                {#</a>#}
+              {#{% endif %}#}
+              {#{% if is_granted('ROLE_ADMIN') and not user.isEnabled %}#}
+                {#<a href="{{ url('app_user_delete', {id: user.id}) }}" class="btn btn-xs btn-link js-confirm" data-text="{{ 'user.index.confirm_delete'|trans }}" data-title="{{ 'user.index.delete'|trans }}" data-toggle="tooltip">#}
+                  {#<i class="fa fa-times"></i>#}
+                {#</a>#}
+              {#{% endif %}#}
+            {#</td>#}
           </tr>
         {% endfor %}
       </tbody>

@@ -40,9 +40,9 @@ class MenuBuilder extends ContainerAware
             $child('users', 'app_user_index');
         }
 
-        if ($user->hasRole('ROLE_ADMIN') || $user->hasRole('ROLE_ACCOUNTANT')) {
-            $child('licences', 'app_licences_index');
-        }
+//        if ($user->hasRole('ROLE_ADMIN') || $user->hasRole('ROLE_ACCOUNTANT')) {
+//            $child('licences', 'app_licences_index');
+//        }
 
         if ($this->userHasAnyOfRoles($user, ["ROLE_ORGANISATOR", "ROLE_DECLARANT", "ROLE_ADMIN", "ROLE_SECRETARY", "ROLE_ACCOUNTANT", "ROLE_LASF_COMMITTEE", "ROLE_SPECTATOR", "ROLE_SVO_COMMITTEE", "ROLE_COMPETITION_CHIEF", "ROLE_JUDGE_COMMITTEE", "ROLE_SKK_HEAD"])) {
             $child('applications', 'app_application_index');

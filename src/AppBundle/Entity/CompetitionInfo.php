@@ -31,7 +31,7 @@ abstract class CompetitionInfo
      * @AppAssert\ContainsLegalName
      * @Assert\NotBlank()
      */
-    protected $name;
+    protected $name = "";
 
     /**
      * @var string
@@ -63,7 +63,7 @@ abstract class CompetitionInfo
      * @Assert\NotBlank(message="application.stage")
      * @Assert\Length(max=255)
      */
-    protected $stage;
+    protected $stage = "";
 
     /**
      * @var string
@@ -71,7 +71,7 @@ abstract class CompetitionInfo
      * @Assert\NotBlank(message="application.league")
      * @Assert\Length(max=255)
      */
-    protected $league;
+    protected $league = "";
 
     /**
      * @var string
@@ -79,7 +79,7 @@ abstract class CompetitionInfo
      * @Assert\NotBlank(message="application.type")
      * @Assert\Length(max=255)
      */
-    protected $type;
+    protected $type = "";
 
     /**
      * @var string
