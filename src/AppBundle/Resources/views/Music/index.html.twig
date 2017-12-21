@@ -15,7 +15,7 @@
                     <ul>
                         {% for song in songs %}
                             <li>
-                                <a href="{{ path('song', {'song': {{ song.name }}} ) }}">
+                                <a href="{{ path('song', {'song': song.name } ) }}">
                               <span>
                                 {{ song.name }}
                               </span>

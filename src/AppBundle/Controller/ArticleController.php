@@ -10,24 +10,23 @@ use Symfony\Component\HttpFoundation\Request;
 class ArticleController extends Controller
 {
     /**
-     * @Route("/article", name="articles")
+     * @Route("/articles")
      * @Method("GET")
      * @Template
      */
     public function indexAction(){
-
-        return [];
+        return [
+            'articles' => []
+        ];
     }
 
     /**
-     * @Route("/article/article/{article}", name="article")
+     * @Route("/articles/{id}", name="article")
      * @Method("GET")
      * @Template
      */
-    public function articleAction($article){
+    public function articleAction(){
 
-        return [
-            'article' => $article
-        ];
+        return [];
     }
 }

@@ -137,6 +137,20 @@ class MenuBuilder extends ContainerAware
 
     protected function addGuestMenus(ItemInterface $menu)
     {
+        $menu->addChild($this->trans('article'), [
+            'route' => 'app_article_index',
+            'attributes' => [
+                'role' => 'presentation',
+            ]
+        ]);
+
+        $menu->addChild($this->trans('music'), [
+            'route' => 'app_music_index',
+            'attributes' => [
+                'role' => 'presentation',
+            ]
+        ]);
+
         $menu->addChild($this->trans('login'), [
             'route' => 'app_auth_login',
             'attributes' => [

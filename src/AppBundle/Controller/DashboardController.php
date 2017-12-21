@@ -1,6 +1,7 @@
 <?php namespace AppBundle\Controller;
 
 use AppBundle\Entity\Licence;
+use AppBundle\Entity\Music;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserSearchType;
 use DataDog\PagerBundle\Pagination;
@@ -21,27 +22,7 @@ class DashboardController extends Controller implements VerifyTermsInterface, Ch
      */
     public function indexAction(Request $request)
     {
-        $form = $this->createForm(new UserSearchType());
-        $form->handleRequest($request);
-
-        $licencesRepo = $this->get('em')->getRepository(Licence::class);
-        $licences = $licencesRepo->getValidLicences(Licence::$driverTypes);
-
-        if ($form->isValid()) {
-            $licences = $licencesRepo->filterLicencesByName($licences, trim($form->getData()['q']));
-        }
-
-        $licences->orderBy('u.lastname');
-
-        $lasfMembers = $licencesRepo->getValidLicences(Licence::TYPE_MEMBERSHIP)
-            ->getQuery()
-            ->getResult();
-
-        return [
-            'licences' => new Pagination($licences, $request),
-            'lasfMembers' => $lasfMembers,
-            'form' => $form->createView(),
-        ];
+        return  [];
     }
 
     /**
