@@ -20,13 +20,13 @@ class ResetType extends AbstractType
                     new NotBlank(),
                     new Email(),
                 ],
+            ])
+            ->add('captcha', 'ewz_recaptcha', [
+                'label' => 'captcha',
+                'constraints' => [
+                    new RecaptchaTrue(['message' => 'user.reset.invalid_captcha']),
+                ],
             ]);
-//            ->add('captcha', 'ewz_recaptcha', [
-//                'label' => 'captcha',
-//                'constraints' => [
-//                    new RecaptchaTrue(['message' => 'user.reset.invalid_captcha']),
-//                ],
-//            ]);
     }
 
     /**

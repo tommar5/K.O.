@@ -45,13 +45,13 @@ abstract class ApplicationBaseType extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'read_only' => $disabled,
             ])
-//            ->add('name', 'text', [
-//                'label' => 'application.label.competition_name',
-//                'required' => true,
-//                'attr' => [
-//                    'placeholder' => 'application.label.placeholder',
-//                ],
-//            ])
+            ->add('name', 'text', [
+                'label' => 'application.label.competition_name',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'application.label.placeholder',
+                ],
+            ])
             ->add('sport', 'entity', [
                 'class' => 'AppBundle:Sport',
                 'label' => 'application.label.sport',
@@ -59,48 +59,49 @@ abstract class ApplicationBaseType extends AbstractType
                 'placeholder' => 'application.sport_select.placeholder',
                 'choice_label' => 'name',
             ])
-//            ->add('stage', 'choice', [
-//                'label' => 'application.label.stage',
-//                'required' => true,
-//                'placeholder' => 'application.stage_select.placeholder',
-//                'choices' => [
-//                    '1' => '1',
-//                    '2' => '2',
-//                    '3' => '3',
-//                    '4' => '4',
-//                    '5' => '5',
-//                    '6' => '6',
-//                    '7' => '7',
-//                    '8' => '8',
-//                    '9' => '9',
-//                    '10' => '10',
-//                    'once' => 'application.stage_select.once',
-//                ],
-//            ])
+            ->add('stage', 'choice', [
+                'label' => 'application.label.stage',
+                'required' => true,
+                'placeholder' => 'application.stage_select.placeholder',
+                'choices' => [
+                    '1' => '1',
+                    '2' => '2',
+                    '3' => '3',
+                    '4' => '4',
+                    '5' => '5',
+                    '6' => '6',
+                    '7' => '7',
+                    '8' => '8',
+                    '9' => '9',
+                    '10' => '10',
+                    'once' => 'application.stage_select.once',
+                ],
+            ])
             ->add('location', 'text', [
                 'label' => 'application.label.location',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'application.label.location_placeholder',
                 ],
+            ])
+            ->add('type', 'choice', [
+                'label' => 'application.label.type',
+                'placeholder' => 'application.type_select.placeholder',
+                'required' => true,
+                'choices' => [
+                    'championship' => 'application.type_select.championship',
+                    'priority' => 'application.type_select.priority',
+                ],
+            ])
+            ->add('league', 'choice', [
+                'label' => 'application.label.league',
+                'required' => true,
+                'placeholder' => 'application.league_select.placeholder',
+                'choices' => [
+                    'exist' => 'Yra',
+                    'none' => 'Nėra',
+                ],
             ]);
-//            ->add('type', 'choice', [
-//                'label' => 'application.label.type',
-//                'placeholder' => 'application.type_select.placeholder',
-//                'required' => true,
-//                'choices' => [
-//                    'championship' => 'application.type_select.championship',
-//                    'priority' => 'application.type_select.priority',
-//                    'cup' => 'application.type_select.cup',
-//                    'other' => 'application.type_select.other',
-//                ],
-//            ]);
-//            ->add('league', 'choice', [
-//                'label' => 'application.label.league',
-//                'required' => true,
-//                'placeholder' => 'application.league_select.placeholder',
-//                'choices' => $this->getLeagueChoices($user),
-//            ]);
     }
 
     /**

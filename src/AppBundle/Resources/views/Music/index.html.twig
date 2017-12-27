@@ -15,7 +15,8 @@
                     <ul>
                         {% for song in songs %}
                             <li>
-                                <a href="{{ path('song', {'song': song.name } ) }}">
+                                {% set x = song.artist~" - "~song.name %}
+                                <a href="{{ path('song', {'song': x } ) }}">
                               <span>
                                 {{ song.name }}
                               </span>

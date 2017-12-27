@@ -1,12 +1,12 @@
 <div class="col-sm-6">
     {{ form_row(form.sport) }}
-    {#{{ form_row(form.name, {attr: {class: 'subCompetition-name'}}) }}#}
-    {#{{ form_row(form.league) }}#}
+    {{ form_row(form.name, {attr: {class: 'subCompetition-name'}}) }}
+    {{ form_row(form.league) }}
     {{ form_row(form.dateFrom, {attr: {class: 'date subCompetition-dateFrom'}}) }}
     {{ form_row(form.dateTo, {attr: {class: 'date subCompetition-dateTo'}}) }}
 </div>
 <div class="col-sm-6">
     {{ form_row(form.location, {attr: {class: 'subCompetition-location'}}) }}
-    {#{{ form_row(form.stage) }}#}
-    {#{{ form_row(form.type) }}#}
+    {{ form_row(form.stage) }}
+    {{ form_row(form.type) }}
 </div>

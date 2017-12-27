@@ -368,12 +368,12 @@ application:
     safety_chief: 'Koncerto saugos viršininkas'
     steward: 'Varžybų komisaras'
     status: 'Statusas'
-    competition_name: 'Varžybų pavadinimas'
-    stage: 'Varžybų etapas'
-    type: 'Varžybų tipas'
+    competition_name: 'Koncerto pavadinimas'
+    stage: 'Koncerto trukmė'
+    type: 'Pertrauka'
     start_at: 'Varžybų pradžios data'
     end_at: 'Varžybų pabaigos data'
-    league: 'Lyga'
+    league: 'Cenzūra'
     placeholder: 'Draudžiama naudoti žodžius "Tarptautinis", "Pasaulinis", "Europos"'
     date_start: 'Prašau pasirinkti varžybų pradžios datą'
     date_end: 'Prašau pasirinkti varžybų pabaigos datą'
@@ -434,21 +434,22 @@ application:
     title: 'Atsakingas scenos dekoratorius'
     placeholder: 'Pasirinkite atsakingą scenos dekoratorių'
   league_select:
-    placeholder: 'Pasirinkite varžybų lygą'
+    placeholder: 'Pasirinkite cenzūrą'
     a: 'A Lyga'
     b: 'B Lyga'
     c: 'C Lyga'
     other: 'Kita'
   type_select:
     placeholder: 'Pasirinkite varžybų tipą'
-    championship: 'Čempionatas'
-    priority: 'Pirmenybės'
+    championship: 'Yra'
+    priority: 'Nėra'
     cup: 'Taurė'
     other: 'Kita'
   stage_select:
     placeholder: 'Pasirinkite varžybų etapą'
     once: 'Vienkartinės'
   sport_select:
+    rock: 'Rokas'
     placeholder: 'Pasirinkite muzikos stilių'
     rally: 'Ralis'
     rally-sprint: 'Ralis-sprintas'
@@ -815,7 +816,7 @@ licences:
       bank_account: "Sąskaitos nr."
       mobile_number: "Varžybų vadovo tel. nr."
       email: "Vadovo el. paštas"
-      name: "Varžybų pavadinimas"
+      name: "Koncerto pavadinimas"
       date: "Varžybų data"
     judge:
       declarant: "Pareiškėjo pavadinimas"

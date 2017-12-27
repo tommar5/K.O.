@@ -23,10 +23,10 @@ class SignupType extends AbstractType
             ->add('lastname', 'text', [
                 'label' => 'user.label.lastname',
             ])
-//            ->add('legal', 'checkbox', [
-//                'label' => 'user.label.legal',
-//                'required' => false,
-//            ])
+            ->add('legal', 'checkbox', [
+                'label' => 'user.label.legal',
+                'required' => false,
+            ])
             ->add('memberName', 'text', [
                 'label' => 'user.label.member_name',
             ])
@@ -64,14 +64,14 @@ class SignupType extends AbstractType
 //                    new RecaptchaTrue(['message' => 'user.reset.invalid_captcha']),
 //                ],
 //            ]);
-
+//
 //        $roles = [
-//            'ROLE_RACER' => 'user.roles.simple_user',
-////            'ROLE_DECLARANT' => 'user.roles.declarant' ,
-////            'ROLE_ORGANISATOR' => 'user.roles.organisator',
-////            'ROLE_JUDGE' => 'user.roles.judge',
+//            'ROLE_RACER' => 'user.roles.racer',
+//            'ROLE_DECLARANT' => 'user.roles.declarant' ,
+//            'ROLE_ORGANISATOR' => 'user.roles.organisator',
+//            'ROLE_JUDGE' => 'user.roles.judge',
 //        ];
-
+//
 //        foreach ($roles as $key => $role) {
 //            $builder->add($key, 'checkbox', [
 //                'label' => $role,

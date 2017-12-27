@@ -75,7 +75,7 @@ class ApplicationController extends Controller
     {
         $application = new Application();
 
-        $lpExpressList = $this->get('app.lasf.lp_express.service')->getLpExpressList();
+        $lpExpressList = [];
 
         $form = $this->createForm($this->get('app.form.type.application'), $application, ['allow_extra_fields' => $lpExpressList]);
         $form->handleRequest($request);
@@ -162,7 +162,7 @@ class ApplicationController extends Controller
 
         $user = $application->getUser();
 
-        $lpExpressList = $this->get('app.lasf.lp_express.service')->getLpExpressList();
+        $lpExpressList = [];
 
         $form = $this->createForm($this->get('app.form.type.application'), $application, ['allow_extra_fields' => $lpExpressList]);
         $form->handleRequest($request);

@@ -36,7 +36,7 @@ class MenuBuilder extends ContainerAware
             $menu->addChild($this->container->get('translator')->trans($label, [], 'menu'), compact('route', 'attributes'));
         };
 
-        if ($this->userHasAnyOfRoles($user, ['ROLE_ADMIN', 'ROLE_DECLARANT'])) {
+        if ($this->userHasAnyOfRoles($user, ['ROLE_ADMIN'])) {
             $child('users', 'app_user_index');
         }
 
@@ -52,13 +52,13 @@ class MenuBuilder extends ContainerAware
             $child('department', 'app_department_index');
         }
 
-        if ($user->hasRole('ROLE_DECLARANT')) {
-            $child('my_racers', 'app_user_racers');
-        }
+//        if ($user->hasRole('ROLE_DECLARANT')) {
+//            $child('my_racers', 'app_user_racers');
+//        }
 
-        if ($this->userHasAnyOfRoles($user, ["ROLE_RACER", "ROLE_DECLARANT", "ROLE_ORGANISATOR", "ROLE_JUDGE"])) {
-            $child('my_licences', 'app_licences_my');
-        }
+//        if ($this->userHasAnyOfRoles($user, ["ROLE_RACER", "ROLE_DECLARANT", "ROLE_ORGANISATOR", "ROLE_JUDGE"])) {
+//            $child('my_licences', 'app_licences_my');
+//        }
 
         if ($user->hasRole('ROLE_ADMIN')) {
             // dropdown
@@ -82,7 +82,7 @@ class MenuBuilder extends ContainerAware
 
             $dropdown->addChild($this->trans('sport'), [
                 'route' => 'app_sport_index',
-                'attributes' => ['icon' => 'fa fa-car']
+                'attributes' => ['icon' => 'fa fa-music']
             ]);
 
             $dropdown->addChild($this->trans('audit'), [

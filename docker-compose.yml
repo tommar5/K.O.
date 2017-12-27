@@ -8,7 +8,7 @@ web:
   volumes: [".:/var/www"]
   ports: ["80:80"]
   links: [php]
-  environment: { VIRTUAL_HOST: ko.dev, PUB_DIR: "httpdocs" }
+  environment: { VIRTUAL_HOST: koncertas.dev, PUB_DIR: "httpdocs" }
 
 mysql:
   image: mysql

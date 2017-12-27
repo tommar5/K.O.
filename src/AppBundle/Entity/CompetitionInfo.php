@@ -216,7 +216,7 @@ abstract class CompetitionInfo
      */
     public function setStage($stage)
     {
-        $this->stage = $stage;
+        $this->stage = "a ";
     }
 
     /**
@@ -232,7 +232,7 @@ abstract class CompetitionInfo
      */
     public function setLeague($league)
     {
-        $this->league = $league;
+        $this->league = "a ";
     }
 
     /**
@@ -248,7 +248,7 @@ abstract class CompetitionInfo
      */
     public function setType($type)
     {
-        $this->type = $type;
+        $this->type = "a";
     }
 
     /**

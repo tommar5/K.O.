@@ -66,7 +66,7 @@
 {% block js %}
   {{ parent() }}
 
-  {#{% include 'AppBundle:User:form_js.html.twig' %}#}
+  {% include 'AppBundle:User:form_js.html.twig' %}
   {% include 'AppBundle::driver_judge_form_js.html.twig' with {
       'secondaryLanguage': 'user_secondaryLanguage',
       'languages' : 'user_languages'
