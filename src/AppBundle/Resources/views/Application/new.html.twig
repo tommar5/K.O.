@@ -16,6 +16,7 @@
         {% include 'AppBundle::flashes.html.twig' %}
 
         {{ form_errors(form) }}
+        {{ dump(form) }}
         {{ form_start(form) }}
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -160,32 +161,31 @@
             postal_code: 'short_name'
         };
 
-        function initAutocomplete() {
-            $(document).on('click', '.subCompetition-location', function() {
-                autocomplete = new google.maps.places.Autocomplete(
-                    (document.getElementById($(this).attr('id'))),
-                    {types: ['geocode']});
-                autocomplete.addListener('place_changed', fillInAddress);
-            });
-        }
+//        function initAutocomplete() {
+//            $(document).on('click', '.subCompetition-location', function() {
+//                autocomplete = new google.maps.places.Autocomplete(
+//                    (document.getElementById($(this).attr('id'))),
+//                    {types: ['geocode']});
+//                autocomplete.addListener('place_changed', fillInAddress);
+//            });
+//        }
 
-        function fillInAddress() {
-            // Get the place details from the autocomplete object.
-            var place = autocomplete.getPlace();
-
-            for (var component in componentForm) {
-                document.getElementById(component).value = '';
-                document.getElementById(component).disabled = false;
-            }
-
-            for (var i = 0; i < place.address_components.length; i++) {
-                var addressType = place.address_components[i].types[0];
-                if (componentForm[addressType]) {
-                    var val = place.address_components[i][componentForm[addressType]];
-                    document.getElementById(addressType).value = val;
-                }
-            }
-        }
+//        function fillInAddress() {
+//            // Get the place details from the autocomplete object.
+//            var place = autocomplete.getPlace();
+//
+//            for (var component in componentForm) {
+//                document.getElementById(component).value = '';
+//                document.getElementById(component).disabled = false;
+//            }
+//
+//            for (var i = 0; i < place.address_components.length; i++) {
+//                var addressType = place.address_components[i].types[0];
+//                if (componentForm[addressType]) {
+//                    var val = place.address_components[i][componentForm[addressType]];
+//                    document.getElementById(addressType).value = val;
+//                }
+//            }
+//        }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places&callback=initAutocomplete"></script>
 {% endblock %}

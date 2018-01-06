@@ -87,6 +87,8 @@ class ApplicationController extends Controller
         }
 
         if ($form->isValid()) {
+            dump($form);
+            die();
             if ($form->get('application_copy')->getData()) {
                 foreach ($form->get('application_copy')->getData() as $item) {
                     if ($item) {

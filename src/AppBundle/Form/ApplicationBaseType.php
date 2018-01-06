@@ -89,17 +89,16 @@ abstract class ApplicationBaseType extends AbstractType
                 'placeholder' => 'application.type_select.placeholder',
                 'required' => true,
                 'choices' => [
-                    'championship' => 'application.type_select.championship',
-                    'priority' => 'application.type_select.priority',
+                    'A' => 'application.type_select.championship',
+                    'B' => 'application.type_select.priority',
                 ],
             ])
             ->add('league', 'choice', [
                 'label' => 'application.label.league',
                 'required' => true,
-                'placeholder' => 'application.league_select.placeholder',
                 'choices' => [
-                    'exist' => 'Yra',
-                    'none' => 'Nėra',
+                    '1' => 'Yra',
+                    '2' => 'Nėra',
                 ],
             ]);
     }
