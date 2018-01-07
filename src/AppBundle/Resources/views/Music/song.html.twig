@@ -10,40 +10,39 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        <div class="jumbotron">
+        <div class="jumbotron" style="padding-bottom: 28px;">
             <div class="text-center">
-                <h2>{{ song }}</h2>
+                <h2 class="songTitle">{{ song }}</h2>
             </div>
             <div class="container-fluid audioCenter">
                 <audio controls>
-                    <source src="/uploads/{{ song }}.mp3" type="audio/mpeg">
+                    {% if file_exists('uploads/'~song~'.mp3') %}
+                        <source src="{{ '/uploads/'~song~'.mp3' }}" type="audio/mpeg">
+                    {% endif %}
                     Your browser does not support the audio element.
                 </audio>
             </div>
-            <div class="text-center page-header" style="margin-bottom: -0px;">
-                <h1>Žodžiai</h1>
+            <div class="text-center songSection">
+                <h2>Dainos žodžiai:</h2>
             </div>
         </div>
-        <div class="text-center" style="margin-top: -50px;">
-            {% set x = 0 %}
+        <div class="text-center jumbotron lyricsSection">
             {% for i in 0..10 %}
-                {% if file_exists('uploads/'~song~'_l'~x~'.png') %}
-                    <img style="width: 100%;" src="{{ asset('uploads/'~song~'_l'~x~'.png') }}">
-                    {% set x = x + 1 %}
+                {% if file_exists('uploads/'~song~'_l'~loop.index~'.png') %}
+                    <img style="width: 100%;" src="{{ asset('uploads/'~song~'_l'~loop.index~'.png') }}">
                 {% endif %}
             {% endfor %}
         </div>
-        <div class="jumbotron">
-            <div class="text-center page-header">
-                <h1>Gitaros natos</h1>
+        <div class="jumbotron tabSectionTitle">
+            <div class="text-center songSection">
+                <h2>Tablatūra gitarai</h2>
             </div>
         </div>
-        <div class="text-center">
-            {% set x = 0 %}
+        <div class="jumbotron tabSection">
             {% for i in 0..10 %}
-                {% if file_exists('uploads/'~song~'_t'~x~'.png') %}
-                    <img style="width: 110%;" src="{{ asset('uploads/'~song~'_t'~x~'.png') }}">
-                    {% set x = x + 1 %}
+                {#{{ dump('uploads/'~song~'_t'~loop.index~'.png') }}#}
+                {% if file_exists('uploads/'~song~'_t'~loop.index~'.png')%}
+                    <img style="width: 100%;" src="{{ asset('uploads/'~song~'_t'~loop.index~'.png') }}">
                 {% endif %}
             {% endfor %}
         </div>
