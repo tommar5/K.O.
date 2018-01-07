@@ -74,7 +74,6 @@ abstract class ApplicationBaseType extends AbstractType
                     '8' => '8',
                     '9' => '9',
                     '10' => '10',
-                    'once' => 'application.stage_select.once',
                 ],
             ])
             ->add('location', 'text', [
@@ -89,17 +88,17 @@ abstract class ApplicationBaseType extends AbstractType
                 'placeholder' => 'application.type_select.placeholder',
                 'required' => true,
                 'choices' => [
-                    'championship' => 'application.type_select.championship',
-                    'priority' => 'application.type_select.priority',
+                    'is' => 'application.type_select.yes',
+                    'no' => 'application.type_select.no',
                 ],
             ])
             ->add('league', 'choice', [
-                'label' => 'application.label.league',
+                'label' => 'application.label.cenzur',
                 'required' => true,
-                'placeholder' => 'application.league_select.placeholder',
+                'placeholder' => 'application.cenzur_select.placeholder',
                 'choices' => [
-                    'exist' => 'Yra',
-                    'none' => 'Nėra',
+                    'is' => 'application.cenzur_select.is',
+                    'no' => 'application.cenzur_select.no',
                 ],
             ]);
     }

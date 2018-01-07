@@ -16,7 +16,7 @@
             </div>
             <div class="container-fluid audioCenter">
                 <audio controls>
-                    <source src="/uploads/{{ song }}.mp3" type="audio/mpeg">
+                    <source src="{{ '/uploads/'~song~'.mp3' }}" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
             </div>
@@ -25,11 +25,9 @@
             </div>
         </div>
         <div class="text-center" style="margin-top: -50px;">
-            {% set x = 0 %}
             {% for i in 0..10 %}
-                {% if file_exists('uploads/'~song~'_l'~x~'.png') %}
-                    <img style="width: 100%;" src="{{ asset('uploads/'~song~'_l'~x~'.png') }}">
-                    {% set x = x + 1 %}
+                {% if file_exists('uploads/'~song~'_l'~loop.index~'.png') %}
+                    <img style="width: 100%;" src="{{ asset('uploads/'~song~'_l'~loop.index~'.png') }}">
                 {% endif %}
             {% endfor %}
         </div>
@@ -39,11 +37,9 @@
             </div>
         </div>
         <div class="text-center">
-            {% set x = 0 %}
             {% for i in 0..10 %}
-                {% if file_exists('uploads/'~song~'_t'~x~'.png') %}
-                    <img style="width: 110%;" src="{{ asset('uploads/'~song~'_t'~x~'.png') }}">
-                    {% set x = x + 1 %}
+                {% if file_exists('uploads/'~song~'_t'~loop.index~'.png') %}
+                    <img style="width: 110%;" src="{{ asset('uploads/'~song~'_t'~loop.index~'.png') }}">
                 {% endif %}
             {% endfor %}
         </div>

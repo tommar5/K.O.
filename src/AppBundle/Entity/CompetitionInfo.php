@@ -63,7 +63,7 @@ abstract class CompetitionInfo
      * @Assert\NotBlank(message="application.stage")
      * @Assert\Length(max=255)
      */
-    protected $stage = "";
+    protected $stage;
 
     /**
      * @var string
@@ -71,7 +71,7 @@ abstract class CompetitionInfo
      * @Assert\NotBlank(message="application.league")
      * @Assert\Length(max=255)
      */
-    protected $league = "";
+    protected $league;
 
     /**
      * @var string
@@ -79,7 +79,7 @@ abstract class CompetitionInfo
      * @Assert\NotBlank(message="application.type")
      * @Assert\Length(max=255)
      */
-    protected $type = "";
+    protected $type;
 
     /**
      * @var string
@@ -216,7 +216,7 @@ abstract class CompetitionInfo
      */
     public function setStage($stage)
     {
-        $this->stage = "a ";
+        $this->stage = $stage;
     }
 
     /**
@@ -232,7 +232,7 @@ abstract class CompetitionInfo
      */
     public function setLeague($league)
     {
-        $this->league = "a ";
+        $this->league = $league;
     }
 
     /**
@@ -248,7 +248,7 @@ abstract class CompetitionInfo
      */
     public function setType($type)
     {
-        $this->type = "a";
+        $this->type = $type;
     }
 
     /**

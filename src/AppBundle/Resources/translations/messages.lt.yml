@@ -373,7 +373,7 @@ application:
     type: 'Pertrauka'
     start_at: 'Varžybų pradžios data'
     end_at: 'Varžybų pabaigos data'
-    league: 'Cenzūra'
+    cenzur: 'Cenzūra'
     placeholder: 'Draudžiama naudoti žodžius "Tarptautinis", "Pasaulinis", "Europos"'
     date_start: 'Prašau pasirinkti varžybų pradžios datą'
     date_end: 'Prašau pasirinkti varžybų pabaigos datą'
@@ -433,21 +433,16 @@ application:
   skk_head:
     title: 'Atsakingas scenos dekoratorius'
     placeholder: 'Pasirinkite atsakingą scenos dekoratorių'
-  league_select:
+  cenzur_select:
     placeholder: 'Pasirinkite cenzūrą'
-    a: 'A Lyga'
-    b: 'B Lyga'
-    c: 'C Lyga'
-    other: 'Kita'
+    is: 'Yra'
+    no: 'Nėra'
   type_select:
-    placeholder: 'Pasirinkite varžybų tipą'
-    championship: 'Yra'
-    priority: 'Nėra'
-    cup: 'Taurė'
-    other: 'Kita'
+    placeholder: 'Pasirinkite pertrauką'
+    yes: 'Yra'
+    no: 'Nėra'
   stage_select:
-    placeholder: 'Pasirinkite varžybų etapą'
-    once: 'Vienkartinės'
+    placeholder: 'Pasirinkite koncerto trukmė'
   sport_select:
     rock: 'Rokas'
     placeholder: 'Pasirinkite muzikos stilių'
