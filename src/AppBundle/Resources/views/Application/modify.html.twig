@@ -71,16 +71,6 @@
                     </div>
                 </div>
             </div>
-            {% if not application.subCompetitions.empty %}
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.sub_competition'|trans }}</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        {% include 'AppBundle:SubCompetition:sub_competitions.html.twig' %}
-                    </div>
-                </div>
-            {% endif %}
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-user"></i> {{ 'application.new.organizer_info'|trans }}</h3>
             </div>

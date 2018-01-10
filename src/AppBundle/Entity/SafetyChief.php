@@ -41,16 +41,9 @@ class SafetyChief
      */
     private $applications;
 
-    /**
-     * @var SubCompetition[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="SubCompetition", mappedBy="safetyChief")
-     */
-    private $subCompetition;
-
     public function __construct()
     {
         $this->applications = new ArrayCollection();
-        $this->subCompetition = new ArrayCollection();
     }
 
     /**
@@ -120,33 +113,6 @@ class SafetyChief
     public function getApplications()
     {
         return $this->applications;
-    }
-
-    /**
-     * @param SubCompetition $subCompetition
-     * @return SafetyChief
-     */
-    public function addSubCompetition(SubCompetition $subCompetition)
-    {
-        $this->subCompetition->add($subCompetition);
-
-        return $this;
-    }
-
-    /**
-     * @param SubCompetition $subCompetition
-     */
-    public function removeSubCompetition(SubCompetition $subCompetition)
-    {
-        $this->subCompetition->removeElement($subCompetition);
-    }
-
-    /**
-     * @return SubCompetition[]|ArrayCollection
-     */
-    public function getSubCompetitions()
-    {
-        return $this->subCompetition;
     }
 }
 

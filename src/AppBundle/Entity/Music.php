@@ -8,7 +8,7 @@ use AppBundle\Validator\Constraints as AppAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="MusicRepository")
  * @ORM\Table(name="music")
  * @UniqueEntity("name")
  */

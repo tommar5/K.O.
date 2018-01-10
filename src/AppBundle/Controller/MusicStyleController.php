@@ -1,7 +1,7 @@
 <?php namespace AppBundle\Controller;
 
-use AppBundle\Entity\Sport;
-use AppBundle\Form\SportType;
+use AppBundle\Entity\MusicStyle;
+use AppBundle\Form\MusicStyleType;
 use DataDog\PagerBundle\Pagination;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -10,12 +10,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class SportController extends Controller implements VerifyTermsInterface
+class MusicStyleController extends Controller implements VerifyTermsInterface
 {
     use DoctrineController;
 
     /**
-     * @Route("/sport")
+     * @Route("/music-style")
      * @Method("GET")
      * @Template
      * @Security("has_role('ROLE_ADMIN')")
@@ -24,10 +24,10 @@ class SportController extends Controller implements VerifyTermsInterface
      */
     public function indexAction(Request $request)
     {
-        $sports = $this->get('em')->getRepository('AppBundle:Sport')->createQueryBuilder('s');
+        $musicStyles = $this->get('em')->getRepository('AppBundle:MusicStyle')->createQueryBuilder('s');
 
         return [
-            'sports' => new Pagination($sports, $request),
+            'musicStyles' => new Pagination($musicStyles, $request),
         ];
     }
 
@@ -41,22 +41,22 @@ class SportController extends Controller implements VerifyTermsInterface
      */
     public function newAction(Request $request)
     {
-        $sport = new Sport();
-        $form = $this->createForm(new SportType(), $sport);
+        $musicStyle = new MusicStyle();
+        $form = $this->createForm(new MusicStyleType(), $musicStyle);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
             return [
-                'entity' => $sport,
+                'entity' => $musicStyle,
                 'form' => $form->createView(),
             ];
         }
 
-        $this->persist($sport);
+        $this->persist($musicStyle);
         $this->flush();
         $this->addFlash("success", $this->get('translator')->trans('sport.flash.created'));
 
-        return $this->redirectToRoute('app_sport_index');
+        return $this->redirectToRoute('app_musicstyle_index');
     }
 
     /**
@@ -64,42 +64,42 @@ class SportController extends Controller implements VerifyTermsInterface
      * @Method({"GET", "POST"})
      * @Template
      * @Security("has_role('ROLE_ADMIN')")
-     * @param Sport $sport
+     * @param MusicStyle $musicStyle
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Sport $sport, Request $request)
+    public function editAction(MusicStyle $musicStyle, Request $request)
     {
-        $form = $this->createForm(new SportType(), $sport);
+        $form = $this->createForm(new MusicStyleType(), $musicStyle);
         $form->handleRequest($request);
 
         if (!$form->isValid()) {
             return [
                 'form' => $form->createView(),
-                'entity' => $sport,
+                'entity' => $musicStyle,
             ];
         }
 
-        $this->persist($sport);
+        $this->persist($musicStyle);
         $this->flush();
         $this->addFlash("success", $this->get('translator')->trans('sport.flash.updated'));
 
-        return $this->redirectToRoute('app_sport_index');
+        return $this->redirectToRoute('app_musicstyle_index');
     }
 
     /**
      * @Route("/{id}/delete")
      * @Method("GET")
      * @Security("has_role('ROLE_ADMIN')")
-     * @param Sport $sport
+     * @param MusicStyle $musicStyle
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction(Sport $sport)
+    public function deleteAction(MusicStyle $musicStyle)
     {
-        $this->remove($sport);
+        $this->remove($musicStyle);
         $this->flush();
         $this->addFlash("success", $this->get('translator')->trans('sport.flash.removed'));
 
-        return $this->redirectToRoute('app_sport_index');
+        return $this->redirectToRoute('app_musicstyle_index');
     }
 }

@@ -49,15 +49,15 @@ class Steward
     private $user;
 
     /**
-     * @var Sport[]|ArrayCollection
+     * @var MusicStyle[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Sport", cascade={"persist"}, inversedBy="stewards")
+     * @ORM\ManyToMany(targetEntity="MusicStyle", cascade={"persist"}, inversedBy="stewards")
      * @ORM\JoinTable(name="stewards_sports",
      *      joinColumns={@ORM\JoinColumn(name="steward_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="sport_id", referencedColumnName="id")}
      * )
      */
-    private $sports;
+    private $musicStyles;
 
     /**
      * @var Application[]|ArrayCollection
@@ -65,17 +65,10 @@ class Steward
      */
     private $applications;
 
-    /**
-     * @var SubCompetition[]|ArrayCollection
-     * @ORM\ManyToMany(targetEntity="subCompetition", mappedBy="stewards")
-     */
-    private $subCompetitions;
-
     public function __construct()
     {
-        $this->sports = new ArrayCollection();
+        $this->musicStyles = new ArrayCollection();
         $this->applications = new ArrayCollection();
-        $this->subCompetitions = new ArrayCollection();
     }
     /**
      * Get id
@@ -104,16 +97,16 @@ class Steward
     }
 
     /**
-     * @param Sport $sport
+     * @param MusicStyle $musicStyle
      */
-    public function addSport(Sport $sport)
+    public function addMusicStyle(MusicStyle $musicStyle)
     {
-        $this->sports->add($sport);
+        $this->musicStyles->add($musicStyle);
     }
 
-    public function removeSport(Sport $sport)
+    public function removeMusicStyle(MusicStyle $musicStyle)
     {
-        $this->sports->removeElement($sport);
+        $this->musicStyles->removeElement($musicStyle);
     }
 
     /**
@@ -133,13 +126,13 @@ class Steward
     }
 
     /**
-     * Get sports
+     * Get musicStyles
      *
-     * @return Sport[]|ArrayCollection
+     * @return MusicStyle[]|ArrayCollection
      */
-    public function getSports()
+    public function getMusicStyles()
     {
-        return $this->sports;
+        return $this->musicStyles;
     }
 
     /**
@@ -167,33 +160,6 @@ class Steward
     public function getApplications()
     {
         return $this->applications;
-    }
-
-    /**
-     * @param SubCompetition $subCompetition
-     * @return Steward
-     */
-    public function addSubCompetition(SubCompetition $subCompetition)
-    {
-        $this->subCompetitions->add($subCompetition);
-
-        return $this;
-    }
-
-    /**
-     * @param SubCompetition $subCompetition
-     */
-    public function removeSubCompetition(SubCompetition $subCompetition)
-    {
-        $this->subCompetitions->removeElement($subCompetition);
-    }
-
-    /**
-     * @return SubCompetition[]|ArrayCollection
-     */
-    public function getSubCompetitions()
-    {
-        return $this->subCompetitions;
     }
 }
 

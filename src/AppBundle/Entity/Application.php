@@ -233,11 +233,11 @@ class Application extends CompetitionInfo
     private $applicationAgreement;
 
     /**
-     * @var Sport
-     * @ORM\ManyToOne(targetEntity="Sport", inversedBy="applications")
+     * @var MusicStyle
+     * @ORM\ManyToOne(targetEntity="MusicStyle", inversedBy="applications")
      * @Assert\NotBlank()
      */
-    private $sport;
+    private $musicStyle;
 
     /**
      * @var CompetitionChief
@@ -255,12 +255,6 @@ class Application extends CompetitionInfo
      */
     private $judges;
 
-    /**
-     * @var SafetyChief
-     * @ORM\ManyToOne(targetEntity="SafetyChief", inversedBy="applications")
-     */
-    private $safetyChief;
-
 
     /**
      * @var Steward[]|ArrayCollection
@@ -272,17 +266,10 @@ class Application extends CompetitionInfo
      */
     private $stewards;
 
-    /**
-     * @var SubCompetition[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="SubCompetition", mappedBy="application", cascade={"persist", "remove"})
-     */
-    private $subCompetitions;
-
 
     public function __construct()
     {
         $this->documents = new ArrayCollection();
-        $this->subCompetitions = new ArrayCollection();
         $this->judges = new ArrayCollection();
         $this->stewards = new ArrayCollection();
     }
@@ -703,35 +690,19 @@ class Application extends CompetitionInfo
     }
 
     /**
-     * @return Sport
+     * @return MusicStyle
      */
-    public function getSport()
+    public function getMusicStyle()
     {
-        return $this->sport;
+        return $this->musicStyle;
     }
 
     /**
-     * @param Sport|null $sport
+     * @param MusicStyle|null $musicStyle
      */
-    public function setSport($sport)
+    public function setMusicStyle($musicStyle)
     {
-        $this->sport = $sport;
-    }
-
-    /**
-     * @return SafetyChief
-     */
-    public function getSafetyChief()
-    {
-        return $this->safetyChief;
-    }
-
-    /**
-     * @param SafetyChief $safetyChief
-     */
-    public function setSafetyChief(SafetyChief $safetyChief = null)
-    {
-        $this->safetyChief = $safetyChief;
+        $this->musicStyle = $musicStyle;
     }
 
     /**
@@ -819,47 +790,6 @@ class Application extends CompetitionInfo
     public function getStewards()
     {
         return $this->stewards;
-    }
-
-    /**
-     * @return SubCompetition[]|ArrayCollection
-     */
-    public function getSubCompetitions()
-    {
-        return $this->subCompetitions;
-    }
-
-    /**
-     * @param SubCompetition[]|ArrayCollection $subCompetitions
-     */
-    public function setSubCompetitions($subCompetitions)
-    {
-        $this->subCompetitions = $subCompetitions;
-    }
-
-    /**
-     * @param SubCompetition $subCompetition
-     * @return Application
-     */
-    public function addSubCompetition(SubCompetition $subCompetition)
-    {
-        $subCompetition->setApplication($this);
-        $this->subCompetitions->add($subCompetition);
-
-        return $this;
-    }
-
-    /**
-     * @param SubCompetition $subCompetition
-     * @return Application
-     */
-    public function removeSubCompetition(SubCompetition $subCompetition)
-    {
-        if ($this->subCompetitions->contains($subCompetition)) {
-            $this->subCompetitions->removeElement($subCompetition);
-        }
-
-        return $this;
     }
 
     /**

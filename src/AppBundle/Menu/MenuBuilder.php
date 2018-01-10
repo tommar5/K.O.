@@ -81,8 +81,13 @@ class MenuBuilder extends ContainerAware
             ]);
 
             $dropdown->addChild($this->trans('sport'), [
-                'route' => 'app_sport_index',
+                'route' => 'app_musicstyle_index',
                 'attributes' => ['icon' => 'fa fa-music']
+            ]);
+
+            $dropdown->addChild($this->trans('music'), [
+                'route' => 'app_music_index',
+                'attributes' => ['icon' => 'fa fa-play']
             ]);
 
             $dropdown->addChild($this->trans('audit'), [

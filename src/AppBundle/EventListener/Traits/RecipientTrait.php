@@ -1,7 +1,7 @@
 <?php
 namespace AppBundle\EventListener\Traits;
 
-use AppBundle\Entity\Sport;
+use AppBundle\Entity\MusicStyle;
 use AppBundle\Entity\User;
 
 trait RecipientTrait
@@ -9,7 +9,7 @@ trait RecipientTrait
 
     /**
      * @param $roles
-     * @param null|Sport $sport
+     * @param null|MusicStyle $sport
      * @return array
      */
     private function getUsersByRoles(array $roles, $sport = null)

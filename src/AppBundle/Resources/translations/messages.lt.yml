@@ -1152,3 +1152,14 @@ sport:
     removed: 'Muzikos stilius sėkmingai pašalintas.'
     cant_remove: 'Muzikos stilius negali būti pašalintas, nes yra naudojama sistemoje.'
     are_you_sure: 'Ar tikrai nori ištrinti stilių?'
+music:
+  index:
+    title: 'Ikelt muziką'
+    new: 'Prideti nauja'
+  label:
+    songs: 'Dainos'
+    song_title: 'Dainos pavadinimas'
+    song_artist: 'Dainos atlikėjas'
+    upload_date: 'Įkelta'
+  list:
+

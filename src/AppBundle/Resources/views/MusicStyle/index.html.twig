@@ -5,7 +5,7 @@
     <div class="page-header">
         <h1>
             {{ 'sport.index.title'|trans }}
-            <a href="{{ url('app_sport_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> {{ 'sport.index.new'|trans }}
+            <a href="{{ url('app_musicstyle_new') }}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> {{ 'sport.index.new'|trans }}
             </a>
         </h1>
     </div>
@@ -21,27 +21,27 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>{{ sorter_link(sports, 's.name', 'sport.label.name'|trans) }}</th>
-                        <th>{{ sorter_link(sports, 's.alias', 'sport.label.alias'|trans) }}</th>
+                        <th>{{ sorter_link(musicStyles, 's.name', 'sport.label.name'|trans) }}</th>
+                        <th>{{ sorter_link(musicStyles, 's.alias', 'sport.label.alias'|trans) }}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                {% for sport in sports %}
+                {% for style in musicStyles %}
                 <tr>
-                    <td data-title="{{ '#'|trans }}" class="col-min">{{ sport.id }}</td>
-                    <td data-title="{{ 'sport.label.name'|trans }}">{{ sport.name }}</td>
-                    <td data-title="{{ 'sport.label.alias'|trans }}">{{ sport.alias }}</td>
+                    <td data-title="{{ '#'|trans }}" class="col-min">{{ style.id }}</td>
+                    <td data-title="{{ 'sport.label.name'|trans }}">{{ style.name }}</td>
+                    <td data-title="{{ 'sport.label.alias'|trans }}">{{ style.alias }}</td>
                     <td data-title="" class="col-min">
-                        <a href="{{ url('app_sport_edit', {id: sport.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
+                        <a href="{{ url('app_musicstyle_edit', {id: style.id}) }}" class="btn btn-xs btn-link" data-title="{{ 'title.edit'|trans }}" data-toggle="tooltip">
                             <i class="fa fa-search"></i>
                         </a>
                         {% set delete = true %}
-                        {% if sport.committee is not empty or sport.licence is not empty or sport.applications is not empty or sport.competitionChiefs is not empty or sport.stewards is not empty or sport.subCompetitions is not empty%}
+                        {% if style.committee is not empty or style.applications is not empty or style.competitionChiefs is not empty or style.stewards is not empty%}
                             {% set delete = false %}
                         {% endif %}
                         {% if delete == true %}
-                        <a href="{{ url('app_sport_delete', {id: sport.id}) }}" class="btn btn-xs btn-link js-confirm" data-toggle="tooltip" data-title="{{ 'title.delete'|trans }}" data-text="{{ 'sport.flash.are_you_sure'|trans }}">
+                        <a href="{{ url('app_musicstyle_delete', {id: style.id}) }}" class="btn btn-xs btn-link js-confirm" data-toggle="tooltip" data-title="{{ 'title.delete'|trans }}" data-text="{{ 'sport.flash.are_you_sure'|trans }}">
                             <i class="fa fa-times"></i>
                         </a>
                         {% else %}
@@ -55,7 +55,7 @@
                 </tbody>
             </table>
             <div class="panel-footer">
-                {{ pagination(sports) }}
+                {{ pagination(musicStyles) }}
             </div>
         </div>
     </div>

@@ -195,13 +195,6 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
     private $documents;
 
     /**
-     * @var Licence[]
-     *
-     * @OneToMany(targetEntity="Licence", mappedBy="user")
-     */
-    private $licences;
-
-    /**
      * @var User
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="children")
      */
@@ -305,22 +298,10 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
     private $skkApplications;
 
     /**
-     * @var SubCompetition[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="SubCompetition", mappedBy="skkHead")
-     */
-    private $skkSubCompetitions;
-
-    /**
      * @var Application[]|ArrayCollection
      * @ORM\OneToMany(targetEntity="Application", mappedBy="observer")
      */
     private $observerApplications;
-
-    /**
-     * @var SubCompetition[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="SubCompetition", mappedBy="observer")
-     */
-    private $observerSubCompetitions;
 
     /**
      * @var Application[]|ArrayCollection
@@ -371,15 +352,15 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
     private $comments;
 
     /**
-     * @var Sport[]|ArrayCollection
+     * @var MusicStyle[]|ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Sport", cascade={"persist"}, inversedBy="committes")
+     * @ORM\ManyToMany(targetEntity="MusicStyle", cascade={"persist"}, inversedBy="committes")
      * @ORM\JoinTable(name="committe_sports",
      *      joinColumns={@ORM\JoinColumn(name="committe_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="sport_id", referencedColumnName="id")}
      * )
      */
-    private $sports;
+    private $musicStyles;
 
     /**
      * @var Language[]|ArrayCollection
@@ -398,7 +379,6 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
         $this->documents = new ArrayCollection();
         $this->competitions = new ArrayCollection();
         $this->children = new ArrayCollection();
-        $this->licences = new ArrayCollection();
         $this->applications = new ArrayCollection();
         $this->races = new ArrayCollection();
         $this->members = new ArrayCollection();
@@ -408,10 +388,8 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
         $this->skkApplications = new ArrayCollection();
         $this->observerApplications = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->sports = new ArrayCollection();
+        $this->musicStyles = new ArrayCollection();
         $this->languages = new ArrayCollection();
-        $this->skkSubCompetitions = new ArrayCollection();
-        $this->observerSubCompetitions = new ArrayCollection();
         $this->svoDelegateApplications = new ArrayCollection();
     }
 
@@ -868,22 +846,6 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
     }
 
     /**
-     * @return Licence[]|ArrayCollection
-     */
-    public function getLicences()
-    {
-        return $this->licences;
-    }
-
-    /**
-     * @param Licence $licences
-     */
-    public function setLicences($licences)
-    {
-        $this->licences = $licences;
-    }
-
-    /**
      * @return Application[]|ArrayCollection
      */
     public function getApplications()
@@ -1188,50 +1150,22 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
 
     public function hasActiveMembership()
     {
-        if ($this->legal) {
-            foreach ($this->licences as $licence) {
-                if ($licence->isMembershipLicence() && $licence->isActive()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return true;
     }
 
     public function hasAskedForMembership()
     {
-        if ($this->legal) {
-            foreach ($this->licences as $licence) {
-                if ($licence->isMembershipLicence() && !$licence->isUnconfirmed()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return true;
     }
 
     public function hasActiveDLicence()
     {
-        foreach ($this->licences as $licence) {
-            if ($licence->getType() == Licence::TYPE_DRIVER_D && $licence->isActive()) {
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 
     public function hadDriverLicence()
     {
-        foreach ($this->licences as $licence) {
-            if ($licence->isDriverLicence() && $licence->isCompleted()) {
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 
     /**
@@ -1248,22 +1182,6 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
     public function setReceiveNotifications($receiveNotifications)
     {
         $this->receiveNotifications = $receiveNotifications;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPrefLicence()
-    {
-        return $this->prefLicence;
-    }
-
-    /**
-     * @param string $prefLicence
-     */
-    public function setPrefLicence($prefLicence)
-    {
-        $this->prefLicence = $prefLicence;
     }
 
     /**
@@ -1323,72 +1241,6 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
     public function getSkkApplications()
     {
         return $this->skkApplications;
-    }
-
-    /**
-     * @param SubCompetition $skkSubCompetition
-     * @return User
-     */
-    public function addSkkSubCompetition(SubCompetition $skkSubCompetition)
-    {
-        $this->skkApplications->add($skkSubCompetition);
-
-        return $this;
-    }
-
-    /**
-     * @param SubCompetition $skkSubCompetition
-     */
-    public function removeSkkSubCompetition(SubCompetition $skkSubCompetition)
-    {
-        $this->skkApplications->removeElement($skkSubCompetition);
-    }
-
-    /**
-     * @return SubCompetition[]|ArrayCollection
-     */
-    public function getSkkSubCompetitions()
-    {
-        return $this->skkSubCompetitions;
-    }
-
-    /**
-     * @return array
-     */
-    public function getDriverLicences()
-    {
-        $driverLicences = [];
-        foreach ($this->licences as $licence) {
-            if ($licence->isDriverLicence() && $licence->isCompleted()) {
-                $driverLicences[] = $licence;
-            }
-        }
-
-        return $driverLicences;
-    }
-
-    /**
-     * @param $type
-     * @param null $licence
-     * @return int
-     */
-    public function documentTypeCount($type, $licence = null)
-    {
-        $count = 0;
-        foreach($this->getDocuments() as $document) {
-            if (!$licence) {
-                if ($document->getType() == $type) {
-                    $count++;
-                }
-            } else {
-                foreach ($licence->getDocuments() as $licenceDocument) {
-                    if ($licenceDocument->getType() == $type) {
-                        $count++;
-                    }
-                }
-            }
-        }
-        return $count;
     }
 
     /**
@@ -1458,43 +1310,43 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
     }
 
     /**
-     * @param Sport $sport
+     * @param MusicStyle $musicStyle
      */
-    public function addSport(Sport $sport)
+    public function addMusicStyle(MusicStyle $musicStyle)
     {
-        $this->sports->add($sport);
+        $this->musicStyles->add($musicStyle);
     }
 
-    public function removeSport(Sport $sport)
+    public function removeMusicStyles(MusicStyle $musicStyle)
     {
-        $this->sports->removeElement($sport);
+        $this->musicStyles->removeElement($musicStyle);
     }
 
     /**
-     * Get sports
+     * Get musicStyles
      *
-     * @return Sport[]|ArrayCollection
+     * @return MusicStyle[]|ArrayCollection
      */
-    public function getSports()
+    public function getMusicStyles()
     {
-        return $this->sports;
+        return $this->musicStyles;
     }
 
     /**
-     * @param ArrayCollection $sports
+     * @param ArrayCollection $musicStyles
      */
-    public function setSports($sports)
+    public function setMusicStyles($musicStyles)
     {
-        $this->sports = $sports;
+        $this->musicStyles = $musicStyles;
     }
 
     /**
-     * @param Sport $sport
+     * @param MusicStyle $musicStyle
      * @return bool
      */
-    public function hasSport(Sport $sport)
+    public function hasMusicStyle(MusicStyle $musicStyle)
     {
-        return $this->getSports()->contains($sport);
+        return $this->getMusicStyles()->contains($musicStyle);
     }
 
     /**
@@ -1551,28 +1403,5 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
                $this->hasRole('ROLE_LASF_COMMITTEE') ||
                $this->hasRole('ROLE_COMPETITION_CHIEF') ||
                $this->hasRole('ROLE_JUDGE_COMMITTEE');
-    }
-
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function hasLicence($type)
-    {
-        $criteria = Criteria::create()->where(Criteria::expr()->eq('type', $type))
-            ->andWhere(Criteria::expr()->neq('status', Licence::STATUS_UNCONFIRMED));
-        return (bool)$this->licences->matching($criteria)->count();
-    }
-
-    /**
-     * @param $type
-     * @return mixed
-     */
-    public function getUnfinishedLicence($type)
-    {
-        $criteria = Criteria::create()->where(Criteria::expr()->eq('type', $type))
-            ->andWhere(Criteria::expr()->eq('status', Licence::STATUS_UNCONFIRMED));
-
-        return $this->licences->matching($criteria)->last();
     }
 }

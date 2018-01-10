@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\CompetitionChief;
-use AppBundle\Entity\Sport;
+use AppBundle\Entity\MusicStyle;
 use AppBundle\Form\CompetitionChiefType;
 use DataDog\PagerBundle\Pagination;
 use Symfony\Component\HttpFoundation\Request;

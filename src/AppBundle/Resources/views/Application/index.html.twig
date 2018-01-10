@@ -109,43 +109,8 @@
                                 {% if is_granted('application-show-actions', app.user) %}
                                     {% include 'AppBundle:Application:application_actions.html.twig' %}
                                 {% endif %}
-                                {% if application.subCompetitions.first and application.subCompetitions|checkForSports((app.user)) %}
-                                    <button class="btn btn-xs btn-default toggle-sub-competition" data-title="{{ 'application.index.sub_competition'|trans }}">
-                                        <i class="fa fa-arrow-down"></i> {{ 'button.sub_competition'|trans }}
-                                    </button>
-                                {% endif %}
                             </td>
                         </tr>
-                        {% for subCompetition in application.subCompetitions %}
-                            {% if subCompetition|checkForSports(app.user) %}
-                                <tr class="hidden">
-                                    <td class="sub-competition-title" data-title="{{ 'application.label.name'|trans }}">{{ subCompetition.name }}</td>
-                                    <td data-title="{{ 'application.label.date_from_index'|trans }} / {{ 'application.label.date_from'|trans }}">
-                                        {{ subCompetition.createdAt|localizeddate('long', 'none') }}<br>
-                                        {{ subCompetition.dateFrom|localizeddate('short', 'none') }}
-                                    </td>
-                                    <td data-title="{{ 'application.label.location'|trans }}">{{ subCompetition.location }}</td>
-                                    <td data-title="{{ 'application.label.sport'|trans }}">{{ subCompetition.sport.name }}</td>
-                                    <td data-title="{{ 'application.label.organisator'|trans }}">{{ application.user.legal ? application.user.memberName : application.user.fullName }}</td>
-                                    <td data-title="{{ 'application.index.sub_competition'|trans }}">{{ 'application.index.sub_competition'|trans }}</td>
-                                    <td class="application-actions">
-                                        <a href="{{ path('app_sub_competition_modify', {'id': application.id, 'competition_id': subCompetition.id}) }}"
-                                           class="btn btn-xs btn-default js-no-ajax"
-                                           data-title="{{ 'application.index.modify'|trans }}">
-                                            <i class="fa fa-info-circle"></i> {{ 'button.preview'|trans }}
-                                        </a>
-                                        {% if is_granted('application-delete', app.user) %}
-                                            <br>
-                                            <a href="{{ url('app_sub_competition_delete', {id: subCompetition.id}) }}"
-                                               class="btn btn-xs btn-default js-confirm js-no-ajax" data-text="{{ 'application.index.remove_text'|trans }}"
-                                               data-title="{{ 'button.delete'|trans }}">
-                                                <i class="fa fa-times-circle"></i> {{ 'button.delete'|trans }}
-                                            </a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
                     {% endfor %}
                     </tbody>
                 </table>

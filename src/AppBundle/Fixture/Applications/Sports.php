@@ -2,7 +2,7 @@
 
 namespace AppBundle\Fixture\Applications;
 
-use AppBundle\Entity\Sport;
+use AppBundle\Entity\MusicStyle;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -51,7 +51,7 @@ class Sports implements FixtureInterface, OrderedFixtureInterface, ContainerAwar
         ];
 
         foreach ($sports as $sportElement) {
-            $sport = new Sport();
+            $sport = new MusicStyle();
             $sport->setName($sportElement['name']);
             $sport->setAlias($sportElement['alias']);
 

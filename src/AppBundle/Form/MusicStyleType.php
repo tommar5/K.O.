@@ -1,11 +1,11 @@
 <?php namespace AppBundle\Form;
 
-use AppBundle\Entity\Sport;
+use AppBundle\Entity\MusicStyle;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SportType extends AbstractType
+class MusicStyleType extends AbstractType
 {
     /**
      * Returns the name of this type.
@@ -49,7 +49,7 @@ class SportType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Sport::class
+            'data_class' => MusicStyle::class
         ]);
     }
 

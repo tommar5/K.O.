@@ -117,12 +117,6 @@ class Competition
     private $user;
 
     /**
-     * @var Licence
-     * @ORM\ManyToOne(targetEntity="Licence")
-     */
-    private $licence;
-
-    /**
      * @var FileUpload[]
      * @ORM\ManyToMany(targetEntity="FileUpload")
      */
@@ -358,22 +352,6 @@ class Competition
     public function setSafetyWatcher($safetyWatcher)
     {
         $this->safetyWatcher = $safetyWatcher;
-    }
-
-    /**
-     * @return Licence
-     */
-    public function getLicence()
-    {
-        return $this->licence;
-    }
-
-    /**
-     * @param Licence $licence
-     */
-    public function setLicence(Licence $licence)
-    {
-        $this->licence = $licence;
     }
 
     /**

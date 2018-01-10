@@ -36,7 +36,7 @@ class ApplicationRepository extends EntityRepository
             ->addSelect('s, sub')
             ->leftJoin('t.sport', 's')
             ->leftJoin('t.subCompetitions', 'sub');
-        foreach ($user->getSports() as $key => $sport) {
+        foreach ($user->getMusicStyles() as $key => $sport) {
             $qb
                 ->orWhere('t.sport = :sport' . $key)
                 ->orWhere('sub.sport = :sport' . $key)

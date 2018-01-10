@@ -9,11 +9,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="sports")
+ * @ORM\Table(name="music_styles")
  * @UniqueEntity("name")
  * @UniqueEntity("alias")
  */
-class Sport
+class MusicStyle
 {
     /**
      * @var integer
@@ -60,28 +60,28 @@ class Sport
 
     /**
      * @var Application[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="Application", mappedBy="sport", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Application", mappedBy="musicStyle", cascade={"remove"})
      */
     private $applications;
 
     /**
      * @var CompetitionChief[]
      *
-     * @ORM\ManyToMany(targetEntity="CompetitionChief", mappedBy="sports")
+     * @ORM\ManyToMany(targetEntity="CompetitionChief", mappedBy="musicStyles")
      */
     private $competitionChiefs;
 
     /**
      * @var Steward[]
      *
-     * @ORM\ManyToMany(targetEntity="Steward", mappedBy="sports")
+     * @ORM\ManyToMany(targetEntity="Steward", mappedBy="musicStyles")
      */
     private $stewards;
 
     /**
      * @var User[]
      *
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="sports")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="musicStyles")
      */
     private $committes;
 
@@ -151,7 +151,7 @@ class Sport
 
     /**
      * @param \DateTime $createdAt
-     * @return Sport
+     * @return MusicStyle
      */
     public function setCreatedAt($createdAt)
     {
@@ -162,7 +162,7 @@ class Sport
 
     /**
      * @param \DateTime $updatedAt
-     * @return Sport
+     * @return MusicStyle
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -173,7 +173,7 @@ class Sport
 
     /**
      * @param Application $application
-     * @return Sport
+     * @return MusicStyle
      */
     public function addApplication(Application $application)
     {
