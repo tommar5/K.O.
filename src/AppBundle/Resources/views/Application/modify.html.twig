@@ -63,7 +63,7 @@
                         {% if application.isUnconfirmed and is_granted('admin-fields-view', app.user) %}
                             {% include 'AppBundle:Application:form_fields.html.twig' %}
                             <div class="col-md-6">
-                                <a href="{{ path('app_sub_competition_new', {'id' : application.id}) }}" class="btn btn-primary" style="margin-top: 25px;">{{ 'application.new.new_sub_competition'|trans }}</a>
+                                {#<a href="{{ path('app_sub_competition_new', {'id' : application.id}) }}" class="btn btn-primary" style="margin-top: 25px;">{{ 'application.new.new_sub_competition'|trans }}</a>#}
                             </div>
                         {% else %}
                             {% include 'AppBundle:Application:form_fields_modify.html.twig' %}

@@ -35,10 +35,10 @@
                 <div class="clearfix"></div>
                 <div class="col-md-6">
                 {% if not application.termsConfirmed %}
-                    <strong>{{ 'application.terms.links'|trans }}:</strong><br>
-                    <a target="_blank" href="http://www.lasf.lt/wp-content/uploads/2013/12/Lietuvos-automobilių-sporto-varžybų-organizavimo-ir-vykdymo-taisyklių-redakcija-2015-11-263.pdf  ">LASVOT taisyklės</a><br>
-                    <a target="_blank" href="http://www.lasf.lt/wp-content/uploads/2013/12/Lietuvos-automobili%C5%B3-sporto-kodeksas-2016.pdf">LASK taisyklės</a><br>
-                    <a target="_blank" href="http://www.lasf.lt/wp-content/uploads/2013/12/Licenciju-isdavimo-tvarkos-taisykliu-2015-02-17redakcija.pdf">Licenzijų išdavimo taisyklės</a><br>
+                    {#<strong>{{ 'application.terms.links'|trans }}:</strong><br>#}
+                    {#<a target="_blank" href="http://www.lasf.lt/wp-content/uploads/2013/12/Lietuvos-automobilių-sporto-varžybų-organizavimo-ir-vykdymo-taisyklių-redakcija-2015-11-263.pdf  ">LASVOT taisyklės</a><br>#}
+                    {#<a target="_blank" href="http://www.lasf.lt/wp-content/uploads/2013/12/Lietuvos-automobili%C5%B3-sporto-kodeksas-2016.pdf">LASK taisyklės</a><br>#}
+                    {#<a target="_blank" href="http://www.lasf.lt/wp-content/uploads/2013/12/Licenciju-isdavimo-tvarkos-taisykliu-2015-02-17redakcija.pdf">Licenzijų išdavimo taisyklės</a><br>#}
                     {{ form_widget(form.termsConfirmed, {label: 'application.terms.agree'}) }}
                 {% endif %}
                 </div>

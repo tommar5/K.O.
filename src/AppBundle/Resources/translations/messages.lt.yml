@@ -559,7 +559,7 @@ application:
     added_additional_competition_rules: 'Pateikti papildomi varžybų reikalavimai'
     done: 'Varžybos baigėsi'
   terms:
-    agree: "Sutinku su LASF reglamentu ir tasyklėmis"
+    agree: "Sutinku su K.O tasyklėmis"
     links: "Nuorodos"
   file_uploads:
     type:

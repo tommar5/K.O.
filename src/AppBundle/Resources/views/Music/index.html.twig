@@ -4,27 +4,33 @@
 
     {% include 'AppBundle::flashes.html.twig' %}
 
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <div class="container-fluid">
-        <div class="jumbotron col-sm-12">
-            <div class="col-sm-12">
-                <div class="page-header">
-                        <h1>DAINOS</h1>
+        <div class="jumbotron col-md-12">
+            <div class="col-md-12">
+                <div class="page-header musicPageTitle">
+                        <h1 class="petras">Dainos su žodžiais bei tablatūromis ar akordais</h1>
                     </a>
                 </div>
-                <div>
-                    <ul>
-                        {% for song in songs %}
-                            <li>
-                                {% set x = song.artist~" - "~song.name %}
-                                <a href="{{ path('song', {'song': x } ) }}">
-                              <span>
-                                {{ song.name }}
-                              </span>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                <ul class="musicListUl">
+                    {% for song in songs %}
+                        <li>
+                            {% set x = song.artist~" - "~song.name %}
+                            <a href="{{ path('song', {'song': x } ) }}">
+                                <div class="row songpadding">
+                                    <div class="col-md-2 musicIconPadding">
+                                        <img class="musicImage" src="https://cdn1.iconfinder.com/data/icons/appicns/513/appicns_iTunes.png"/>
+                                    </div>
+                                    <div class="col-md-10 musicTitle">
+                                          <span class="musicFont">
+                                            {{ song.name }}
+                                          </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>

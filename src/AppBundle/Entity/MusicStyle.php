@@ -79,33 +79,18 @@ class Sport
     private $stewards;
 
     /**
-     * @var Licence[]
-     *
-     * @ORM\ManyToMany(targetEntity="Licence", mappedBy="sports")
-     */
-    private $licences;
-
-    /**
      * @var User[]
      *
      * @ORM\ManyToMany(targetEntity="User", mappedBy="sports")
      */
     private $committes;
 
-    /**
-     * @var SubCompetition[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="SubCompetition", mappedBy="sport", cascade={"remove"})
-     */
-    private $subCompetitions;
-
     public function __construct()
     {
         $this->applications = new ArrayCollection();
         $this->competitionChiefs = new ArrayCollection();
         $this->stewards = new ArrayCollection();
-        $this->licences = new ArrayCollection();
         $this->committes = new ArrayCollection();
-        $this->subCompetitions = new ArrayCollection();
     }
 
     /**
@@ -214,33 +199,6 @@ class Sport
     }
 
     /**
-     * @param SubCompetition $subCompetition
-     * @return Sport
-     */
-    public function addSubCompetition(SubCompetition $subCompetition)
-    {
-        $this->subCompetitions->add($subCompetition);
-
-        return $this;
-    }
-
-    /**
-     * @param SubCompetition $subCompetition
-     */
-    public function removeSubCompetition(SubCompetition $subCompetition)
-    {
-        $this->subCompetitions->removeElement($subCompetition);
-    }
-
-    /**
-     * @return SubCompetition[]|ArrayCollection
-     */
-    public function getSubCompetitions()
-    {
-        return $this->subCompetitions;
-    }
-
-    /**
      * @return CompetitionChief[]|ArrayCollection
      */
     public function getCompetitionChiefs()
@@ -280,27 +238,6 @@ class Sport
     public function removeSteward(Steward $steward)
     {
         $this->stewards->removeElement($steward);
-    }
-
-    /**
-     * @return Licence[]|ArrayCollection
-     */
-    public function getLicence()
-    {
-        return $this->licences;
-    }
-
-    /**
-     * @param Licence $licences
-     */
-    public function addLicence(Licence $licences)
-    {
-        $this->licences->add($licences);
-    }
-
-    public function removeLicence(Licence $licences)
-    {
-        $this->licences->removeElement($licences);
     }
 
     /**
