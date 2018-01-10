@@ -54,7 +54,7 @@
                             {{ sorter_link(applications, 't.dateFrom', 'application.label.date_from_index'|trans) }}
                         </th>
                         <th>{{ sorter_link(applications, 't.location', 'application.label.location'|trans) }}</th>
-                        <th>{{ sorter_link(applications, 't.sport', 'application.label.sport'|trans) }}</th>
+                        <th>{{ sorter_link(applications, 't.musicStyle', 'application.label.sport'|trans) }}</th>
                         <th>{{ sorter_link(applications, "t.user", 'application.label.organisator'|trans) }}</th>
                         <th>{{ sorter_link(applications, 't.status', 'application.label.status'|trans) }}</th>
                         <th></th>
@@ -63,7 +63,7 @@
                         <td>{{ filter_search(applications, "t.name") }}</td>
                         <td>{{ filter_search(applications, "t.dateFrom") }}</td>
                         <td>{{ filter_search(applications, "t.location") }}</td>
-                        <td>{{ filter_select(applications, "t.sport", sportTypes) }}</td>
+                        <td>{{ filter_select(applications, "t.musicStyle", sportTypes) }}</td>
                         <td>{{ filter_search(applications, "t.user") }}</td>
                         <td>{{ filter_select(applications, "t.status", statuses) }}</td>
                     </tr>
@@ -84,7 +84,7 @@
                                     {{ application.location }}
                                 {% endif %}
                             </td>
-                            <td data-title="{{ 'application.label.sport'|trans }}">{{ ('application.sport_select.'~application.sport.alias)|trans }}</td>
+                            <td data-title="{{ 'application.label.sport'|trans }}">{{ ('application.sport_select.'~application.musicStyle.alias)|trans }}</td>
                             <td data-title="{{ 'application.label.organisator'|trans }}">{{ application.user.legal ? application.user.memberName : application.user.fullName }}</td>
                             <td data-title="{{ 'application.label.status'|trans }}">
                                 {% if 'now'|date('Y-m-d') > application.dateTo|localizeddate('short', 'none') %}

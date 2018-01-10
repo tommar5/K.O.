@@ -30,7 +30,7 @@ class FilterTypesService
      */
     public function getSportsType()
     {
-        $sports = $this->em->getRepository('AppBundle:Sport')->findAll();
+        $sports = $this->em->getRepository('AppBundle:MusicStyle')->findAll();
         $sportTypes = [
             Pagination::$filterAny => 'all',
         ];
