@@ -7,10 +7,9 @@
     <div class="container-fluid">
         <div class="jumbotron col-sm-12">
             <div class="col-sm-12">
-                <div class="page-header">
-                    <a href="{{ path('app_article_index') }}">
-                        <h1>STRAIPSNIAI</h1>
-                    </a>
+                <div class="page-header contentPageTitle">
+                    <h1>STRAIPSNIAI</h1>
+                </div>
                     {% if articles is empty %}
                         <div>
                             <span>
@@ -19,13 +18,20 @@
                         </div>
                     {% else %}
                         <div>
-                            <ul>
-                                {% for song in songs %}
+                            <ul class="contentListUl">
+                                {% for article in articles %}
                                     <li>
-                                        <a href="{{ path('song', {'song': song.name } ) }}">
-                              <span>
-                                {{ song.name }}
-                              </span>
+                                        <a href="{{ path('article', {'id': loop.index } ) }}">
+                                            <div class="row contentpadding">
+                                                <div class="col-md-2 contentIconPadding">
+                                                    <img class="contentImage" src="https://www.heighpubs.org/articleIcons/0423042031704article-icon[1].png"/>
+                                                </div>
+                                                <div class="col-md-10 contentTitle">
+                                                  <span class="contentFont">
+                                                    {{ article.title }}
+                                                  </span>
+                                                </div>
+                                            </div>
                                         </a>
                                     </li>
                                 {% endfor %}
