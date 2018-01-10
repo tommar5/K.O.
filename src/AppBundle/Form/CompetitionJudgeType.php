@@ -53,12 +53,12 @@ class CompetitionJudgeType extends AbstractType
         $builder->add('role', 'choice', [
             'label' => 'competition_judge.label.role',
             'choices' => [
-                CompetitionJudge::ROLE_SPORTO_KOMISARAS => 'competition_judge.role.sporto_komisaras',
-                CompetitionJudge::ROLE_VARZYBU_VADOVAS => 'competition_judge.role.varzybu_vadovas',
-                CompetitionJudge::ROLE_VARZYBU_SEKTORIUS => 'competition_judge.role.varzybu_sektorius',
+                CompetitionJudge::ROLE_SPORTO_KOMISARAS => 'competition_judge.role.koncerto_komisaras',
+                CompetitionJudge::ROLE_VARZYBU_VADOVAS => 'competition_judge.role.koncerto_vadovas',
+                CompetitionJudge::ROLE_VARZYBU_SEKTORIUS => 'competition_judge.role.koncerto_sektorius',
                 CompetitionJudge::ROLE_LAIKININKAS => 'competition_judge.role.laikininkas',
                 CompetitionJudge::ROLE_TECHNINIS_KOMISARAS => 'competition_judge.role.techninis_komisaras',
-                CompetitionJudge::ROLE_TECHNINIS_TEISEJAS => 'competition_judge.role.techninis_teisejas',
+                CompetitionJudge::ROLE_TECHNINIS_TEISEJAS => 'competition_judge.role.techninis_vadovas',
                 CompetitionJudge::ROLE_SAUGUMO_VIRSININKAS => 'competition_judge.role.saugumo_virsininkas',
                 CompetitionJudge::ROLE_PITLANE_TEISEJAS => 'competition_judge.role.pitlane_teisejas',
                 CompetitionJudge::ROLE_TRASOS_TEISEJAS => 'competition_judge.role.trasos_teisejas',

@@ -170,16 +170,16 @@ class UserType extends AbstractType
                 'ROLE_SPECTATOR' => 'user.roles.spectator',
 //                'ROLE_LASF_COMMITTEE' => 'user.roles.lasf_committee',
 //                'ROLE_SVO_COMMITTEE' => 'user.roles.svo_committee',
-                'ROLE_COMPETITION_CHIEF' => 'user.roles.competition_chief',
+                'ROLE_COMPETITION_CHIEF' => 'user.roles.concert_chief',
 //                'ROLE_PRESIDENT' => 'user.roles.president',
                 'ROLE_SECRETARY' => 'user.roles.secretary',
 //                'ROLE_JUDGE_COMMITTEE' => 'user.roles.judge_committee',
-                'ROLE_SKK_HEAD' => 'user.roles.skk_head'
+                'ROLE_SKK_HEAD' => 'user.roles.scene_decorator_head'
             ];
         } else {
             $roles = [
-                'ROLE_RACER' => 'user.roles.racer',
-                'ROLE_JUDGE' => 'user.roles.judge',
+                'ROLE_RACER' => 'user.roles.musician',
+                'ROLE_JUDGE' => 'user.roles.manager',
             ];
         }
 
