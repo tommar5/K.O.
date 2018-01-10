@@ -16,18 +16,27 @@
                     {% for song in songs %}
                         <li>
                             {% set x = song.artist~" - "~song.name %}
-                            <a href="{{ path('song', {'song': x } ) }}">
+
                                 <div class="row contentpadding">
-                                    <div class="col-md-2 contentIconPadding">
-                                        <img class="contentImage" src="https://cdn1.iconfinder.com/data/icons/appicns/513/appicns_iTunes.png"/>
-                                    </div>
-                                    <div class="col-md-10 contentTitle">
-                                          <span class="contentFont">
-                                            {{ song.name }}
-                                          </span>
-                                    </div>
+                                        <div class="col-md-2 contentIconPadding">
+                                            <img class="contentImage" src="https://cdn1.iconfinder.com/data/icons/appicns/513/appicns_iTunes.png"/>
+                                        </div>
+                                        <div class="col-md-10 contentTitle">
+                                            <a href="{{ path('song', {'song': x } ) }}">
+                                                <div class="col-md-10">
+                                                    <span class="contentFont">
+                                                    {{ song.name }}
+                                                  </span>
+                                                </div>
+                                            </a>
+                                            <div class="col-md-2" style="padding-right: 0px">
+                                                <button type="button" class="btn btn-info" style="width: 60px; height: 60px; float: right;">
+                                                    <i class="span fa fa-heart-o" style="font-size: 35px" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                 </div>
-                            </a>
+
                         </li>
                     {% endfor %}
                 </ul>
