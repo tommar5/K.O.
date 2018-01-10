@@ -8,12 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CompetitionJudge
 {
-    const ROLE_SPORTO_KOMISARAS = 'sporto_komisaras';
-    const ROLE_VARZYBU_VADOVAS = 'varzybu_vadovas';
-    const ROLE_VARZYBU_SEKTORIUS = 'varzybu_sektorius';
+    const ROLE_SPORTO_KOMISARAS = 'koncerto_komisaras';
+    const ROLE_VARZYBU_VADOVAS = 'koncerto_vadovas';
+    const ROLE_VARZYBU_SEKTORIUS = 'koncerto_sektorius';
     const ROLE_LAIKININKAS = 'laikininkas';
     const ROLE_TECHNINIS_KOMISARAS = 'techninis_komisaras';
-    const ROLE_TECHNINIS_TEISEJAS = 'techninis_teisejas';
+    const ROLE_TECHNINIS_TEISEJAS = 'techninis_vadovas';
     const ROLE_SAUGUMO_VIRSININKAS = 'saugumo_virsininkas';
     const ROLE_PITLANE_TEISEJAS = 'pitlane_teisejas';
     const ROLE_TRASOS_TEISEJAS = 'trasos_teisejas';

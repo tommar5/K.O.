@@ -1,4 +1,4 @@
-project_name: "LASF"
+project_name: "K.O."
 
 "": ""
 
@@ -27,7 +27,7 @@ button:
   confirm_user: 'Išsaugoti ir patvirtinti registraciją'
   confirm_application: 'Pateikti prašymą pasirašyti sutartį'
   preview: 'Peržiūrėti'
-  sub_competition: 'Papildomos varžybos'
+  sub_concert: 'Papildomas koncertas'
   confirm_doc: 'Patvirtinti dokumentą'
   show_more: 'Skaityti daugiau'
   show_less: 'Mažiau'
@@ -37,7 +37,7 @@ status:
   waiting: 'Laukiama'
   confirmed: 'Patvirtinta'
   rejected: 'Atmesta'
-  confirmed_by_lasf: 'Patvirtino LASF komitetas'
+  confirmed_by_ko: 'Patvirtino K.O. komitetas'
   confirmed_by_secretary: 'Patvirtino generalinė sekretorė'
 
 audit:
@@ -121,7 +121,7 @@ user:
     id_code: 'Asmens kodas'
     birthday: 'Gimimo data'
     member_name: 'Koncertų organizavimo nario pavadinimas'
-    member_code: 'LASF nario (juridinio asmens) kodas'
+    member_code: 'K.O. nario (juridinio asmens) kodas'
     vat_code: 'PVM mokėtojo kodas'
     bank: "Bankas"
     bank_account: "Banko sąskaitos numeris"
@@ -143,23 +143,23 @@ user:
   roles:
     user: 'Registruotas vartotojas'
     simple_user: 'Vartotojas'
-    racer: 'Sportininkas'
-    declarant: 'Pareiškėjas / Sporto klubas'
+    musician: 'Muzikantas'
+    declarant: 'Pareiškėjas / Grupė'
     organisator: 'Organizatorius'
-    judge: 'Teisėjas'
+    manager: 'Vadovas'
     admin: 'Administratorius'
     department: 'Departamentas'
     accountant: 'Buhalteris'
     spectator: 'Koncerto stebėtojas'
-    commissioner: 'Varžybų komisaras'
-    lasf_committee: 'LASF komitetas'
+    commissioner: 'Koncerto komisaras'
+    ko_committee: 'K.O. komitetas'
     svo_committee: 'SVO komitetas'
-    competition_chief: 'Koncerto vadovas'
+    concert_chief: 'Koncerto vadovas'
     chairman: 'Pirmininkas'
-    president: 'LASF prezidentas'
+    president: 'K.O. prezidentas'
     secretary: 'Generalinė sekretorė'
-    judge_committee: 'Teisėjų komitetas'
-    skk_head: 'Atsakingas scenos dekoratorius'
+    manager_committee: 'Vadovų komitetas'
+    scene_decorator_head: 'Atsakingas scenos dekoratorius'
   new:
     title: 'Naujo vartotojo kūrimas'
     enter_details: 'Įveskite vartotojo informaciją'
@@ -226,23 +226,23 @@ user:
     licence:
       type: 'Licencijos tipas'
       expires: 'Galioja iki'
-    additional_info: 'LASF nario informacija'
+    additional_info: 'K.O. nario informacija'
   enabled: 'Vartotojas gali prisijungti'
   disabled: 'Vartotojas užblokotas'
   public_profile:
     title: 'Vartotojo profilis'
-    team: "Komanda"
-  my_racers:
-    title: 'Mano sportininkai'
-    new: 'Priskirti sportininką'
-    no_racers: 'Šiuo metu neturite priskirtų sportininkų.'
-    remove: 'Sportininko pašalinimas'
-    remove_text: "Ar tikrai norite pašalinti šį sportininką iš priskirtų sportininkų sąrašo?"
+    team: "Grupė"
+  my_musicians:
+    title: 'Mano muzikantai'
+    new: 'Priskirti muzikantą'
+    no_musicians: 'Šiuo metu neturite priskirtų muzikantų.'
+    remove: 'Muzikanto pašalinimas'
+    remove_text: "Ar tikrai norite pašalinti šį muzikantą iš priskirtų muzikantų sąrašo?"
     flash:
       removed: 'Vartotojas sėkmingai pašalintas iš sąrašo.'
       added: 'Vartotojas priskirtas sėkmingai.'
     add:
-      title: 'Pridėti sportininką'
+      title: 'Pridėti muzikantą'
   change_password:
     title: 'Pasikeiskite slaptažodį'
   register:
@@ -259,15 +259,15 @@ competition_judge:
     user: "Komisarai"
     role: "Rolė"
     competition: "Koncertai"
-  add: 'Priskirti teisėją'
+  add: 'Priskirti vadovą'
   role:
-    sporto_komisaras: "Sporto komisaras"
-    varzybu_vadovas: "Koncerto vadovas"
-    varzybu_sektorius: "Varžybų sekretorius"
+    koncerto_komisaras: "Koncerto komisaras"
+    koncerto_vadovas: "Koncerto vadovas"
+    koncerto_sektorius: "Koncerto sekretorius"
     laikininkas: "Laikininkas"
     techninis_komisaras: "Techninės komisijos komisaras"
-    techninis_teisejas: "Techninės komisijos teisėjas"
-    saugumo_virsininkas: "Saugumo ir trasos viršininkas"
+    techninis_vadovas: "Techninės komisijos vadovas"
+    saugumo_virsininkas: "Saugumo viršininkas"
     pitlane_teisejas: "Uždaro parko arba remonto-degalų užpildymo zonos, „Pitlane“, teisėjas"
     rysininkas: "Teisėjas ryšiams su dalyviais"
     trasos_teisejas: "Trasos teisėjas"
@@ -290,28 +290,28 @@ competition:
     licence: 'Licencija'
   index:
     title: 'Koncertai'
-    new: 'Sukurti naujas varžybas'
-    join: 'Pažymėti, jog vyksiu į varžybas'
-    competition_calendar_title: 'Varžybų kalendorius'
+    new: 'Sukurti naują koncertą'
+    join: 'Pažymėti, jog vyksiu į koncertą'
+    concert_calendar_title: 'Koncertų kalendorius'
   new:
-    title: 'Naujų varžybų kūrimas'
-    enter_details: 'Įveskite varžybų informaciją'
+    title: 'Naujo koncerto kūrimas'
+    enter_details: 'Įveskite koncerto informaciją'
     choose_judge: 'pasirinkite koncerto vadovą'
     choose_licence: 'pasirinkite organizatoriaus licenciją'
   edit:
-    title: 'Varžybų redagavimas'
+    title: 'Koncerto redagavimas'
     licences: 'Licencijos'
     no_users: 'Šiuo metu dalyvių nėra.'
   show:
-    title: 'Varžybų informacija'
-    enter_details: 'Papildomi varžybų teisėjai (padėjėjai)'
-    remove_judge: "Ar tikrai norite pašalinti šį teisėją?"
+    title: 'Koncerto informacija'
+    enter_details: 'Papildomi koncerto organizatoriai(padėjėjai)'
+    remove_judge: "Ar tikrai norite pašalinti šį organizatorių?"
   flash:
-    updated: 'Varžybos atnaujintos sėkmingai.'
-    created: 'Varžybos sukurtos sėkmingai.'
-    removed: 'Varžybos pašalintos sėkmingai.'
-    judge_added: 'Teisėjas varžyboms priskirtas sėkmingai.'
-    judge_removed: 'Teisėjas sėkmingai pašalintas iš varžybų.'
+    updated: 'Koncertas atnaujintos sėkmingai.'
+    created: 'Koncertas sukurtas sėkmingai.'
+    removed: 'Koncertas pašalintas sėkmingai.'
+    judge_added: 'Organizatorius koncertui priskirtas sėkmingai.'
+    judge_removed: 'Organizatorius sėkmingai pašalintas iš koncerto.'
     joined: 'Apie jūsų prašymą dalyvauti informavome organizatorius.'
     please_agree: "Norint organizuoti renginį, privaloma sutikti su taisyklėmis."
     file_removed: 'Failas sėkmingai pašalintas'
@@ -320,10 +320,10 @@ competition:
     already_participating: 'Dalyvauju'
     participate: 'Dalyvausiu'
   terms:
-    title: 'Varžybų kūrimo taisyklės'
+    title: 'Koncerto kūrimo taisyklės'
     agree: "Sutinku su organizavimo taisyklėmis"
   result:
-    title: 'Varžybų dalyviai ir rezultatai'
+    title: 'Koncerto dalyviai ir rezultatai'
     submit_results: 'Pateikti failus'
     submit_results_title: "Pateikti rezultatus"
     delete: 'Ar tikrai norite pašalinti šį failą?'
@@ -335,11 +335,11 @@ application:
     title: 'Paraiška'
     enter_details: 'Informacija apie organizuojamą koncertą'
     organizer_info: 'Koncerto organizatorius'
-    title: 'Varžybų paraiška'
+    title: 'Koncerto paraiška'
     handled_paper_copy: 'Ranka užpildytos popierinės paraiškos kopija (Neprivaloma)'
     invoice: 'Sąskaita'
     deliver_info: 'Pristatymo informacija'
-    contract_by_lasf: 'LASF prezidento pasirašyta sutartis'
+    contract_by_lasf: 'K.O. prezidento pasirašyta sutartis'
     contract_by_organisator: 'Organizatoriaus pasirašyta sutartis'
     competition_insurance: 'Koncerto draudimas'
     other_documents: 'Papildomi dokumentai'
@@ -352,10 +352,10 @@ application:
     report: 'Varžybų ataskaita'
     bulletin: 'Organizatoriaus biuletenis'
     skk_report: 'SKK pirmininko ataskaita'
-    competition_chief_decisions: 'Varžybų vadovo sprendimai'
+    competition_chief_decisions: 'Koncerto vadovo sprendimai'
     contract: 'Sutartis'
-    new_sub_competition: 'Pridėti papildomas varžybas'
-    sub_competition: 'Papildomos važybos'
+    new_sub_competition: 'Pridėti papildomą koncertą'
+    sub_competition: 'Papildomas koncertas'
     show_sub_competitions: 'Išskleisti'
   label:
     name: 'Pavadinimas'
@@ -366,17 +366,17 @@ application:
     sport: 'Muzikos stilius'
     competition_chief: 'Koncerto vadovas'
     safety_chief: 'Koncerto saugos viršininkas'
-    steward: 'Varžybų komisaras'
+    steward: 'Kocnerto komisaras'
     status: 'Statusas'
     competition_name: 'Koncerto pavadinimas'
     stage: 'Koncerto trukmė'
     type: 'Pertrauka'
-    start_at: 'Varžybų pradžios data'
-    end_at: 'Varžybų pabaigos data'
+    start_at: 'Koncerto pradžios data'
+    end_at: 'Koncerto pabaigos data'
     cenzur: 'Cenzūra'
     placeholder: 'Draudžiama naudoti žodžius "Tarptautinis", "Pasaulinis", "Europos"'
-    date_start: 'Prašau pasirinkti varžybų pradžios datą'
-    date_end: 'Prašau pasirinkti varžybų pabaigos datą'
+    date_start: 'Prašau pasirinkti koncerto pradžios datą'
+    date_end: 'Prašau pasirinkti koncerto pabaigos datą'
     lasf_name: 'Koncertų organizavimo nario pavadinimas'
     vat_number: 'PVM mokėtojo kodas'
     member_code: 'Įmonės kodas'
@@ -390,10 +390,10 @@ application:
     file: 'Failas'
     registered_on: 'Pateikimo data'
     invoice: 'Sąskaita'
-    lasf: 'Atvyksiu atsiimti pats į Federaciją (Savanorių pr. 56, Kaunas)'
+    lasf: 'Atvyksiu atsiimti pats į Federaciją'
     lp_express: 'Pristatyti į artimiausia LP Express terminalą arba Lietuvos pašto skyrių (Papildomas licencijos pristatymo mokestis - 5 Eur.)'
     deliver_to: 'Pristatyti į:'
-    signed_application_by_organisator: 'Organizatoriaus pasirašyta varžybų organizavimo sutartis'
+    signed_application_by_organisator: 'Organizatoriaus pasirašyta koncerto organizavimo sutartis'
     signed_application_by_lasf: 'Administratoriaus pasirašyta koncerto organizavimo sutartis'
     organisator: 'Organizatorius'
     contract_by_lasf_url: 'Nuoroda į pasirašytą sutartį'
@@ -409,17 +409,17 @@ application:
     observer: 'Koncerto stebėtojas'
     svo_delegate: 'Koncerto dizaineris'
     technical_delegate: 'Koncerto techninis delegatas'
-    judges: 'Varžybų teisėjai'
+    judges: 'Koncerto organizatoriai'
     deliver_to_address: 'LP Express adresas'
-    competition_results: 'Varžybų rezultatai'
-    report: 'Varžybų ataskaita'
+    competition_results: 'Koncerto rezultatai'
+    report: 'Koncerto ataskaita'
     bulletin: 'Organizatoriaus biuletenis'
     skk_report: 'SKK pirmininko ataskaita'
-    competition_chief_decisions: 'Varžybų vadovo sprendimai'
+    competition_chief_decisions: 'Koncerto vadovo sprendimai'
     not_selected: 'Nepasirinkta'
     inspection_date: 'Patikros data'
   sub_competition:
-    application: 'Papildomų varžybų paraiška'
+    application: 'Papildomų koncertų paraiška'
     sub_competition_modify: 'Išsaugoti'
     sub_competition_delete: 'Ištrinti'
   svo_delegate:
@@ -442,7 +442,7 @@ application:
     yes: 'Yra'
     no: 'Nėra'
   stage_select:
-    placeholder: 'Pasirinkite koncerto trukmė'
+    placeholder: 'Pasirinkite koncerto trukmę'
   sport_select:
     rock: 'Rokas'
     placeholder: 'Pasirinkite muzikos stilių'
@@ -466,20 +466,20 @@ application:
       placeholder: 'Pasirinkite saugos vadovą'
       title: 'Koncerto saugumo viršininkas'
   steward:
-    placeholder: 'Pasirinkite varžybų komisarą'
-    title: 'Varžybų komisaras'
+    placeholder: 'Pasirinkite koncerto komisarą'
+    title: 'Koncerto komisaras'
   judge_select:
-    placeholder: 'Pasirinkite varžybų teisėjus'
-    title: 'Varžybų teisėjai'
+    placeholder: 'Pasirinkite koncerto teisėjus'
+    title: 'Koncerto teisėjai'
   index:
     title: 'Koncertai'
     new: 'Pateikti paraišką'
-    competition_calendar_title: 'Varžybų kalendorius'
+    competition_calendar_title: 'Koncerto kalendorius'
     dates: 'Datų įvedimas'
     times: 'Terminų nustatymas'
     modify: 'Peržiūrėti'
-    sub_competition: 'Papildomos varžybos'
-    sub_competition_where: 'Papildomose varžybose'
+    sub_competition: 'Papildomas koncertas'
+    sub_competition_where: 'Papildomame koncerte'
     remove_text: 'Ar tikrai norite pašalinti paraišką?'
     confirm: 'Patvirtinti'
     confirm_secretary: 'Patvirtina generalinė sekretorė'
@@ -494,7 +494,7 @@ application:
     comment: 'Komentuoti'
     commentator: 'Komentatoriaus ID'
     edit: 'Redaguoti komentarą'
-    competition_calendar_title: 'Varžybų kalendorius'
+    concert_calendar_title: 'Koncertų kalendorius'
     remind_upload_document: 'Siųsti priminimą'
   competition_chief_assigned:
     title: 'Man priskirti koncertai'
@@ -530,13 +530,13 @@ application:
     document_removed: 'Dokumentas ištrintas'
     document_not_removed: 'Dokumentas nebuvo ištrintas'
     document_approve: 'Dokumentas patvirtintas'
-    svo_toggled: 'LASF SVO delegato patvirtinimo statusas pakeistas'
+    svo_toggled: 'K.O. delegato patvirtinimo statusas pakeistas'
     info_missing: 'Jūsų vartotojo paskyroje nenurodyta visa reikiama informacija paraiškos teikimui. Prašome užpildyti trūkstamus laukus.'
     ready_to_pay: 'Prašome apmokėti mokesčius nurodytus sutartyje.'
     missing_lasf_info: 'Šis organizatorius/pareiškėjas neturi visos privalomos profilio informacijos'
     missing_lasf_info_add: 'Papildyti'
     not_owner: 'Jūs negalite peržiūrėti šios paraiškos.'
-    past_application: 'Varžybos pasibaigusios'
+    past_application: 'Koncertas pasibaigęs'
   status:
     unconfirmed: 'Nepatvirtinta'
     uploaded: 'Laukia patvirtinimo'
@@ -554,10 +554,10 @@ application:
     payment_pending: 'Laukiama apmokėjimo'
     signed_application_by_lasf: 'Pateikta sutartis organizatoriui'
     signed_application_by_organisator: 'Sutartis pasirašyta'
-    contract_by_lasf_deleted: 'Ištrinta LASF įkelta sutartis'
+    contract_by_lasf_deleted: 'Ištrinta K.O. įkelta sutartis'
     contract_by_organisator_deleted: 'Ištrinta organizatoriaus įkelta sutartis'
-    added_additional_competition_rules: 'Pateikti papildomi varžybų reikalavimai'
-    done: 'Varžybos baigėsi'
+    added_additional_competition_rules: 'Pateikti papildomi koncerto reikalavimai'
+    done: 'Koncertas baigėsi'
   terms:
     agree: "Sutinku su K.O tasyklėmis"
     links: "Nuorodos"
@@ -565,20 +565,20 @@ application:
     type:
       application_copy: "Ranka užpildytos popierinės paraiškos kopija"
       invoice: 'Sąskaita'
-      signed_application_by_organisator: 'Organizatoriaus pasirašyta varžybų organizavimo sutartis'
+      signed_application_by_organisator: 'Organizatoriaus pasirašyta koncerto organizavimo sutartis'
       signed_application_by_lasf: 'Administratoriaus pasirašyta koncerto organizavimo sutartis'
-      competition_insurance: 'Varžybų draudimo dokumentas'
+      competition_insurance: 'Koncerto draudimo dokumentas'
       other_documents: 'Papildomas dokumentas'
       additional_rules: 'Papildomas koncerto nuostato dokumentas'
       safety_plan: 'Koncerto saugumo planas'
       track_acceptance: 'Scenos priėmimo aktas'
       organisator_licence: 'Organizatoriaus licencija'
       track_licence: 'Scenos licencija'
-      competition_results: 'Varžybų rezultatai'
-      report: 'Varžybų ataskaita'
+      competition_results: 'Koncerto rezultatai'
+      report: 'Koncerto ataskaita'
       bulletin: 'Organizatoriaus biuletenis'
-      skk_report: 'SKK pirmininko ataskaita'
-      competition_chief_decisions: 'Varžybų vadovo sprendimai'
+      skk_report: 'Scenos dekoratoriaus ataskaita'
+      competition_chief_decisions: 'Koncerto vadovo sprendimai'
   documents:
     label: 'Dokumentai'
     additional_rules: 'Papildomi koncerto nuostatai'
@@ -595,8 +595,8 @@ application:
     competition_results: 'Varžybų rezultatai'
     report: 'Varžybų ataskaita'
     bulletin: 'Organizatoriaus biuletenis'
-    skk_report: 'SKK pirmininko ataskaita'
-    competition_chief_decisions: 'Varžybų vadovo sprendimai'
+    skk_report: 'Scenos dekoratoriaus ataskaita'
+    competition_chief_decisions: 'Koncerto vadovo sprendimai'
     left: 'Liko'
     days: 'dienų'
     uploaded: 'Įkelta'
@@ -610,72 +610,72 @@ application:
     title: 'Atmesti paraišką'
     label: 'Paraiškos atmetimo priežastis'
   svo:
-    toggle: 'Keisti LASF SVO delegato statusą'
+    toggle: 'Keisti K.O. delegato statusą'
 
 competition_chief:
   index:
-    title: 'Varžybų vadovai'
+    title: 'Koncerto vadovai'
     new: 'Pridėti naują vadovą'
   new:
     title: 'Pridėti naują vadovą'
-    enter_details: 'Varžybų vadovo duomenys'
+    enter_details: 'Koncerto vadovo duomenys'
   label:
     user: 'Vartotojas'
-    sports: 'Sporto šakos'
+    sports: 'Muzikos stiliai'
     name: 'Vardas'
   title:
     delete: 'Ištrinti'
-    remove_text: 'Ar tikrai norite pašalinti varžybų vadovą?'
+    remove_text: 'Ar tikrai norite pašalinti koncerto vadovą?'
   sport_select:
-    placeholder: 'Pasirinkite sporto šaką'
+    placeholder: 'Pasirinkite koncerto stilių'
   user_select:
     placeholder: 'Pasirinkite vartotoją'
   flash:
-    created: 'Varžybų vadovas sėkmingai sukurtas.'
-    has_application_cant_delete: 'Negalima ištrinti vadovo, jis priskirtas varžyboms.'
-    deleted: 'Varžybų vadovas sėkmingai ištrintas.'
-    chief_already_exists: 'Varžybų vadovas tokiu vardu jau yra pridėtas.'
-    edited: 'Varžybų vadovas sėkmingai atnaujintas.'
+    created: 'Koncerto vadovas sėkmingai sukurtas.'
+    has_application_cant_delete: 'Negalima ištrinti vadovo, jis priskirtas koncertui.'
+    deleted: 'Koncerto vadovas sėkmingai ištrintas.'
+    chief_already_exists: 'Koncerto vadovas tokiu vardu jau yra pridėtas.'
+    edited: 'Koncerto vadovas sėkmingai atnaujintas.'
   edit:
-    title: 'Redaguoti varžybų vadovo informaciją'
+    title: 'Redaguoti kocnerto vadovo informaciją'
     label: 'Koncerto vadovas'
-    validation-message: 'Būtina įvesti sporto šakas!'
+    validation-message: 'Būtina įvesti muzikos stilių!'
 
 steward:
   index:
-    title: 'Varžybų komisarai'
+    title: 'Koncerto komisarai'
     new: 'Pridėti naują komisarą'
   new:
     title: 'Pridėti naują komisarą'
-    enter_details: 'Varžybų komisaro duomenys'
+    enter_details: 'Koncerto komisaro duomenys'
   title:
     delete: 'Ištrinti'
     remove_text: 'Ar tikrai norite pašalinti komisarą?'
   label:
     user: 'Vartotojas'
-    sports: 'Sporto šakos'
+    sports: 'Muzikos stiliai'
     name: 'Vardas'
   sport_select:
-    placeholder: 'Pasirinkite sporto šaką'
+    placeholder: 'Pasirinkite muzikos stilių'
   user_select:
     placeholder: 'Pasirinkite vartotoją'
   flash:
-    created: 'Varžybų komisaras sėkmingai sukurtas.'
-    has_application_cant_delete: 'Negalima ištrinti komisaro, jis priskirtas varžyboms.'
-    deleted: 'Varžybų komisaras sėkmingai ištrintas.'
-    steward_already_exists: 'Varžybų komisaras tokiu vardu jau egzistuoja.'
-    edited: 'Varžybų komisaras sėkmingai atnaujintas.'
+    created: 'Koncerto komisaras sėkmingai sukurtas.'
+    has_application_cant_delete: 'Negalima ištrinti komisaro, jis priskirtas koncertui.'
+    deleted: 'Koncerto komisaras sėkmingai ištrintas.'
+    steward_already_exists: 'Koncerto komisaras tokiu vardu jau egzistuoja.'
+    edited: 'Koncerto komisaras sėkmingai atnaujintas.'
   edit:
-    title: 'Redaguoti varžybų komisaro informaciją'
-    label: 'Varžybų komisaras'
-    validation-message: 'Būtina įvesti sporto šakas!'
+    title: 'Redaguoti koncerto komisaro informaciją'
+    label: 'Koncerto komisaras'
+    validation-message: 'Būtina įvesti muzikos stilių!'
 
 application_agreement:
   modify: 'Peržiūrėti sutartį'
   create: 'Patvirtinti ir sugeneruoti sutartį'
   new:
-    title: 'Varžybų organizavimo sutartis'
-    enter_details: 'Varžybų organizavimo sutarties peržiūra ir redagavimas'
+    title: 'Koncerto organizavimo sutartis'
+    enter_details: 'Koncerto organizavimo sutarties peržiūra ir redagavimas'
   label:
     content: 'Sutarties turinys'
   flash:
@@ -711,7 +711,7 @@ file_uploads:
     organisator_licence: 'Organizatoriaus licencija'
     track_licence: 'Scenos licencija'
     other: "Papildomi dokumentai"
-    competition_result: "Varžybų rezultatai"
+    competition_result: "Koncerto rezultatai"
     judge_certificate: "Atestacijos pažymėjimas"
     membership_recommendation: "Esamo tikrojo nario rekomendacija"
     membership_registry: "Registro išrasas"
@@ -719,15 +719,15 @@ file_uploads:
     statute_copy: "Įstatų kopija"
     rally_participant: "LARČ dalyvio paraiška"
     application_copy: "Ranka užpildytos popierinės paraiškos kopija"
-    signed_application_by_lasf: "LASF prezidento pasirašyta varžybų organizavimo sutartis"
+    signed_application_by_lasf: "K.O. prezidento pasirašyta varžybų organizavimo sutartis"
     signed_application_by_organisator: "Organizatoriaus pasirašyta varžybų organizavimo sutartis"
     invoice: "Sąskaita"
     competition_insurance: "Koncerto draudimas"
     other_documents: "Papildomas dokumentas"
     additional_rules: "Papildomi koncerto nuostatai"
     track_acceptance: "Scenos priėmimo aktas"
-    competition_results: "Varžybų rezultatai"
-    report: "Varžybų ataskaita"
+    competition_results: "Koncerto rezultatai"
+    report: "Koncerto ataskaita"
     bulletin: "Organizatoriaus biuletenis"
   status:
     new: 'Pateiktas peržiūrai'
@@ -737,7 +737,7 @@ file_uploads:
     revoked: 'Anuliuotas'
     added_additional_competition_rules: 'Pateiktas'
     commented_additional_competition_rules: 'Pakomentuotas'
-    confirmed_additional_competition_rules_by_last: 'Patvirtino LASF komitetas'
+    confirmed_additional_competition_rules_by_last: 'Patvirtino K.O. komitetas'
     confirmed_additional_competition_rules_by_secretary: 'Patvirtino generalinė sekretorė'
     confirmed_additional_competition_rules: 'Patvirtintas'
     added_safety_plan: 'Pateiktas'
@@ -779,10 +779,10 @@ licences:
     documents: 'Pateikti dokumentai'
     user: 'Vartotojas'
     comment: 'Komentaras'
-    licence: "Komanda"
+    licence: "Grupė"
     serial_code: "Numeris"
     serial_number: "Serijos numeris"
-    sports: 'Sporto šakos'
+    sports: 'Muzikos stiliai'
     city: 'Miestas'
     gender: 'Lytis'
     licence_csv: 'Licencijų CSV'
@@ -797,22 +797,22 @@ licences:
     language: 'Kalba'
     declarant:
       lasf_name: "Koncertų organizavimo nario pavadinimas"
-      team_name: "Komandos pavadinimas"
-      personal_code: "LASF nario (juridinio asmens) kodas"
+      team_name: "Grupės pavadinimas"
+      personal_code: "K.O. nario (juridinio asmens) kodas"
       vat_number: "PVM mokėtojo kodas"
       lasf_address: "Koncertų organizavimo nario adresas"
       mobile_number: "Mobilaus telefono Nr."
       email: "El. pašto adresas"
-      manager_full_name: "LASF nario vadovo Vardas, Pavardė"
+      manager_full_name: "K.O. nario vadovo Vardas, Pavardė"
     organisator:
       lasf_address: "Adresas"
       phone: "Telefonas/faksas"
       bank: "Bankas"
       bank_account: "Sąskaitos nr."
-      mobile_number: "Varžybų vadovo tel. nr."
+      mobile_number: "Koncerto vadovo tel. nr."
       email: "Vadovo el. paštas"
       name: "Koncerto pavadinimas"
-      date: "Varžybų data"
+      date: "Koncerto data"
     judge:
       declarant: "Pareiškėjo pavadinimas"
       name: "Vardas, Pavardė"
@@ -820,15 +820,15 @@ licences:
       lasf_address: "Adresas"
       mobile_number: "Telefonas"
       email: "El. paštas"
-      sports: 'Sporto šakos'
+      sports: 'Muzikos stiliai'
     full_serial: 'Licencijos numeris'
     deliver_to: 'Licencijos atsiėmimas'
     representatives: 'Pareiškėjo komandos atstovai'
-    users: "Sportininkai"
+    users: "Muzikantai"
     insurance:
       title: 'Draudimo polisas'
       have: "Turiu reikalingą draudimą"
-      need: "Įsigyti draudimą per LASF"
+      need: "Įsigyti draudimą per K.O."
       code: "Asmens kodas"
       agree: "Sutinku su draudimo sąlygomis"
     urgency: 'Licencijos išdavimo terminas'
@@ -863,7 +863,7 @@ licences:
     produced: 'Pagaminta'
     btn_paid: 'Apmokėta'
     btn_invoice: 'Sąskaita pateikta'
-    legal_person: 'LASF narys'
+    legal_person: 'K.O. narys'
     produced_membership: 'Narystė pavirtinta'
     confirm_produced_membership: 'Pažymėti, jog narystė patvirtinta?'
   decline:
@@ -879,7 +879,7 @@ licences:
     no_licences: 'Jūsų vartotojas neturi aktyvių licencijų. Norėdami sukurti naują licenciją, spauskite žalią mygtuką viršuje.'
     edit: 'Keisti pateiktą informaciją'
     cannot_extend: 'Licencija negali būti pratęsta'
-    extend_team_licence: 'Komandos licencija negalioja'
+    extend_team_licence: 'Grupės licencija negalioja'
   new:
     title: 'Licencijos išdavimo prašymas'
   edit:
@@ -892,24 +892,24 @@ licences:
     user_notes: 'Pastabos, priskirtos vartotojui'
     choose_membership_type: 'Pasirinkite narystės tipą'
     conditions:
-      declarant: 'Aš Patvirtinu, kad Paraiškoje pateikti duomenys yra teisingi. Esu atsakingas už visus šioje Paraiškoje esančių asmenų bei už jų mechanikų ir/ar keleivių veiksmus. Pasižadu laikytis FIA ir Lietuvos automobilių Sporto Kodekso, Lietuvos automobilių sporto varžybų organizavimo ir vykdymo taisyklių, varžybų taisyklių ir papildomų nuostatų. Pasižadu, jog Pareiškėjo komanda nedalyvaus Draudžiamosiose varžybose. Patvirtinu, kad pripažįstu LASF Apeliacinį teismą kaip aukščiausią organą sprendžiantį ginčus automobilių sporte.'
-      driver: 'Teikdamas šią paraišką aš patvirtinu kad: 1. Visi paraiškoje pateikti duomenys yra teisingi; 2. Įsipareigoju laikytis LR Kūno Kultūros ir sporto įstatymo reikalavimų, Lietuvos automobilių sporto kodekso, atitinkamų LASF Reglamentų, varžybų taisyklių, techninių reikalavimų, varžybų papildomų nuostatų; 3. Nenaudosiu jokių Antidopingo konvencijoje ir jos papildymuose nurodytų draudžiamų preparatų ir metodų 5. Sutinku, kad varžybų metu įvykus nelaimingam atsitikimui man būtų suteikta medicininė ir kita neatidėliotina pagalba; 6. Pats esu atsakingas už savo sveikatos būklę 7. Mano elgesys varžybų metu neprieštaraus sportinei etikai; 8. Nedalyvausiu Draudžiamosiose varžybose. 8. Pripažįstu LASF, kaip vienintelį automobilių sporto valdžios organą Lietuvos Respublikos teritorijoje. 9. Pripažįstu LASF Apeliacinį teismą, kaip galutinę instanciją sprendžiančią ginčus automobilių sporte. Neprieštarauju, kad mano asmens duomenys ir informacija apie mane būtų kaupiama LASF-e bei perduodama KKSD'
-      judge: 'Asmuo gaunantis LASF teisėjo licenciją įsipareigoja: būti sąžiningu ir nešališku bei laikytis LR Kūno Kultūros ir sporto įstatymo reikalavimų, Lietuvos automobilių sporto kodekso, visų LASF Reglamentų, varžybų taisyklių ir techninių reikalavimų, o taip pat ir jų papildomų nuostatų. Įsipareigoja naudoti visas turimas galimybes propaguoti LASF ir automobilių sportą. Sutinka, kad varžybų metu įvykus nelaimingam atsitikimui jam būtų suteikta medicininė ir kita neatidėliotina pagalba. Pasižada, jog jo elgesys, pareigų atlikimo metu, neprieštaraus sportinei etikai. Pasižada nedalyvauti Draudžiamosiose varžybose. Pripažįsta LASF kaip vienintelį automobilių sporto valdžios organą Lietuvos Respublikos teritorijoje. Pripažįsta LASF Apeliacinį teismą kaip galutinę instanciją sprendžiančią ginčus automobilių sporte. Neprieštarauja, kad jo asmens duomenys ir informacija apie jį būtų kaupiama LASF-e bei perduodama KKSD'
+      declarant: 'Aš Patvirtinu, kad Paraiškoje pateikti duomenys yra teisingi. Esu atsakingas už visus šioje Paraiškoje esančių asmenų bei už jų mechanikų ir/ar keleivių veiksmus.'
+      driver: 'Teikdamas šią paraišką aš patvirtinu kad visi paraiškoje ęsantys duomenys yra teisingi.'
+      judge: 'Asmuo gaunantis K.O. licenciją įsipareigoja: būti sąžiningu ir nešališku bei laikytis reikalavimų'
   extend:
     submit: "Pateikti pratesimo prašymą"
   info:
     submit_licence_request: 'Pateikti prašymą išduoti licenciją'
-    select_team: 'pasirinkite norimą komandą'
+    select_team: 'pasirinkite norimą grupę'
     modify_licence_request: 'Pateikti atnaujintą informaciją'
     add_representative: 'Pridėti atstovą'
-    add_racer: 'Pridėti sportininką'
+    add_racer: 'Pridėti muzikantą'
     template: 'Šablonas'
-    rally_participant_note: 'Šią paraišką turi pildyti tik dalyvausiantys Lietuvos Ralio čempionate'
+    rally_participant_note: 'Šią paraišką turi pildyti tik dalyvausiantys koncerte'
   deliver:
     lasf: "Atvyksiu atsiimti pats į Federaciją (%address%)"
     custom: "Pristatyti į artimiausia LP Express terminalą arba Lietuvos pašto skyrių (%cost%)"
   type:
-    membership: 'LASF narystė'
+    membership: 'K.O. narystė'
     driver: "Vairuotojo licencija"
     driver_licence:
       m: "Vairuotojo, Nacionalinė, M licencija"
@@ -921,14 +921,14 @@ licences:
       b: "Vairuotojo, Tarptautinė, B licencija"
       c: "Vairuotojo, Tarptautinė, C licencija"
       r: "Vairuotojo, Tarptautinė, R licencija"
-    judge: "Teisėjo licencija"
+    judge: "Organizatoriaus licencija"
     judge_licence:
-      first: "Teisėjo, Pirma kategorija"
-      second: "Teisėjo, Antra kategorija"
-      third: "Teisėjo, Trečia kategorija"
-      national: "Teisėjo, Nacionalinė kategorija"
-      international: "Teisėjo, Tarptautinė kategorija"
-      trainee: "Teisėjo, Stažuotojo kategorija"
+      first: "Organizatoriaus, Pirma kategorija"
+      second: "Organizatoriaus, Antra kategorija"
+      third: "Organizatoriaus, Trečia kategorija"
+      national: "Organizatoriaus, Nacionalinė kategorija"
+      international: "Organizatoriaus, Tarptautinė kategorija"
+      trainee: "Organizatoriaus, Stažuotojo kategorija"
     declarant: 'Pareiškėjo licencija'
     declarant_licence_a: "Pareiškėjo, A licencija"
     declarant_licence_b: "Pareiškėjo, B ir žemesnė licencija"
@@ -942,7 +942,7 @@ licences:
       k: "Pareiškėjo, A (kroso) licencija"
     organisator_licence: "Organizatoriaus licencija"
     track_licence: "Scenos licencija"
-    safety_licence: "Automobilių saugos rėmų gamintojo (montuotojo) licencija"
+    safety_licence: "Saugos darbuotojo licencija"
   flash:
     upload_info: 'Prašome pateikti licencijai reikalingą informaciją.'
     updated: 'Licencijos informacija atnaujinta sėkmingai.'
@@ -991,7 +991,7 @@ declarant:
     current: 'Esamas pareiškėjas'
     new: 'Norimas pareiškėjas'
     comment: 'Komentaras'
-    racer: 'Sportininkas'
+    racer: 'Muzikantas'
     status: 'Statusas'
   flash:
     request_sent: 'Prašymas išsiųstas sėkmingai'
@@ -1007,15 +1007,15 @@ department:
 dashboard:
   driver_title: 'Sportininkai ir jų licencijos'
   judge_title: 'Teisėjai ir jų licencijos'
-  title_assoc: 'LASF asocijuotieji nariai'
-  title_not_assoc: 'LASF tikrieji nariai'
+  title_assoc: 'K.O. asocijuotieji nariai'
+  title_not_assoc: 'K.O. tikrieji nariai'
   help:
     title: 'Pagalba'
     contact: 'Susisiekimo informacija'
   index:
-    no_licences: 'Šiuo metu sportininkų su aktyviomis licencijomis nėra.'
-    search: 'Įveskite sportininko vardą ar pavardę.'
-    search_judge: 'Įveskite teisėjo vardą ar pavardę.'
+    no_licences: 'Šiuo metu muzikantų su aktyviomis licencijomis nėra.'
+    search: 'Įveskite muzikanto vardą ar pavardę.'
+    search_judge: 'Įveskite organizatoriaus vardą ar pavardę.'
     no_results: 'Rezultatų pagal jūsų paiešką neradome.'
   terms:
     title: 'Taisyklės'
@@ -1029,10 +1029,10 @@ competition_participant:
   label:
     points: 'Taškų kiekis'
   flash:
-    participant_removed: 'Vartotojas pašalintas iš varžybų rezultatų lentelės.'
+    participant_removed: 'Vartotojas pašalintas iš koncerto rezultatų lentelės.'
     results_saved: 'Nurodyti rezultatai išsaugoti.'
   add:
-    title: 'Pridėti varžybų rezultatus'
+    title: 'Pridėti koncerto rezultatus'
     select_user: "pasirinkite vartotoją"
 
 team_representative:
@@ -1054,22 +1054,22 @@ print:
   date: "data"
   signature: "parašas"
   accepted: "Patvirtinta:"
-  lasf_committee: "LASF Tiesėjų"
+  lasf_committee: "K.O. Organizatorių"
   chairman: "komiteto pirminiko"
   date_input: '20........___________mėn.____d.'
   licence_receiver: 'Licencijos gavėjo:'
   signature_placeholder: '(vardas, pavardė, paštas)'
-  signature_placeholder_lasf: '(LASF darbuotojo išdavusio licenciją parašas)'
+  signature_placeholder_lasf: '(K.O. darbuotojo išdavusio licenciją parašas)'
   declarant: 'Pareiškėjo'
-  separator_text: 'Arba patiekiamas Pareiškėjų narių, norinčių gauti LASF teisėjo licenciją sąrašas.'
-  lasf_licence_field: 'LASF Teisėjų komiteto suteikta LASF Teisėjo _____________________ kategorija'
+  separator_text: 'Arba patiekiamas Pareiškėjų narių, norinčių gauti K.O. teisėjo licenciją sąrašas.'
+  lasf_licence_field: 'K.O. Organizatorių komiteto suteikta K.O. Organizatoriaus _____________________ kategorija'
   lasf_licence_field_two: '(I-a arba nacionalinė)'
   date_licence_field: 'Licenciją Nr. __________ išduota  data:...................'
-  lasf_field: 'Pildo Lasf:'
+  lasf_field: 'Pildo K.O.:'
   driver_category_field: 'SUTEIKTA ........................... KATEGORIJOS LICENCIJA KURIOS NR.: ..........'
   licence_giver_signature: 'Licenciją išdavusio asmens parašas:..............................'
   date_field: 'Data: ............................'
-  lasf_theory_block: 'LASF  teorinių žinių egzaminas:'
+  lasf_theory_block: 'K.O.  teorinių žinių egzaminas:'
   result: 'Rezultatas......................................................................'
   accepted_exam: 'Egzaminą priėmė:'
 
@@ -1093,16 +1093,16 @@ time_restriction:
       add: 'Pridėti'
     label:
       date: 'Leistini terminai:'
-      placeholder: 'Įveskite datą, kada galima rengti varžybas.'
+      placeholder: 'Įveskite datą, kada galima rengti koncertą.'
       purpose: 'Paskirtis'
-      date_to_competition: 'Data iki varžybų'
+      date_to_competition: 'Data iki koncerto'
       time_in_days: 'Laikas kalendorinėmis dienomis'
-      pay_taxes_term: 'Sumokėti mokesčius nurodytus Varžybų organizavimo sutartyje'
-      additional_rules_term: 'Varžybų Papildomų nuostatų projekto (LT ar EN kalba) pateikimas'
-      additional_rules_confirmation_term: 'Varžybų papildomų nuostatų suderinimas sporto šakos komitete, pasirašant komiteto pirmininkui'
+      pay_taxes_term: 'Sumokėti mokesčius nurodytus koncerto organizavimo sutartyje'
+      additional_rules_term: 'Koncerto Papildomų nuostatų projekto (LT ar EN kalba) pateikimas'
+      additional_rules_confirmation_term: 'Koncerto papildomų nuostatų suderinimas muzikos stilių komitete, pasirašant komiteto pirmininkui'
       additional_rules_agreement_term: 'Saugos plano pateikimas'
-      final_rules_term: 'Varžybų Papildomų nuostatų galutinis variantas su programa'
-      contact_administrator_term: 'Kreiptis į LASF administraciją dėl licencijos trasos išdavimo'
+      final_rules_term: 'Koncerto Papildomų nuostatų galutinis variantas su programa'
+      contact_administrator_term: 'Kreiptis į K.O. administraciją dėl licencijos trasos išdavimo'
       track_term: 'Scenos priėmimo aktas'
     flash:
       modified: 'Laikai pakeisti.'

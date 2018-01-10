@@ -25,7 +25,7 @@
                             </a>
                             {% if document.status == constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES') %}
                                 - {{ 'status.confirmed_by_secretary'|trans }}  <i class="fa fa-check-circle"></i>
-                                - {{ 'status.confirmed_by_lasf'|trans }} <i class="fa fa-check-circle"></i>
+                                - {{ 'status.confirmed_by_ko'|trans }} <i class="fa fa-check-circle"></i>
                             {% endif %}
                             {% if document.status == constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES_BY_SECRETARY')  %}
                                 - {{ 'status.confirmed_by_secretary'|trans }}  <i class="fa fa-check-circle"></i>
@@ -39,12 +39,12 @@
                             {% endif %}
 
                             {% if document.status == constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES_BY_LASF') %}
-                                - {{ 'status.confirmed_by_lasf'|trans }} <i class="fa fa-check-circle"></i>
+                                - {{ 'status.confirmed_by_ko'|trans }} <i class="fa fa-check-circle"></i>
                             {% else %}
                                 {% if is_granted('regulations-confirm-lasf', app.user) %}
                                     {% if document.status != constant('AppBundle\\Entity\\FileUpload::STATUS_CONFIRMED_ADDITIONAL_COMPETITION_RULES') %}
                                         {% include 'AppBundle:Application:files/confirm_document_button.html.twig' %}
-                                        <span class="confirmed-file hidden"> - {{ 'status.confirmed_by_lasf'|trans }} <i class="fa fa-check-circle"></i></span>
+                                        <span class="confirmed-file hidden"> - {{ 'status.confirmed_by_ko'|trans }} <i class="fa fa-check-circle"></i></span>
                                     {% endif %}
                                 {% endif %}
                             {% endif %}
