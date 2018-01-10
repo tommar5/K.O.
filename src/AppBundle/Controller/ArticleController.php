@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -15,8 +16,11 @@ class ArticleController extends Controller
      * @Template
      */
     public function indexAction(){
-        return [
-            'articles' => []
+
+        $articles = $this->get('em')->getRepository(Article::class)->findAll();
+
+        return  [
+            'articles' => $articles
         ];
     }
 
@@ -25,8 +29,10 @@ class ArticleController extends Controller
      * @Method("GET")
      * @Template
      */
-    public function articleAction(){
-
-        return [];
+    public function articleAction($id){
+        $article = $this->get('em')->getRepository(Article::class)->find($id);
+        return [
+            'article' => $article
+        ];
     }
 }

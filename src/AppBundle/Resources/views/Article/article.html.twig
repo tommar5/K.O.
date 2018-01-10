@@ -3,11 +3,11 @@
 {% block content %}
     <div class="jumbotron">
         <div class="text-center page-header">
-            <h1 style="font-size: 40px;">{{ article.title }}</h1>
+            <h1 style="font-size: 30px;">{{ article.getTitle() }}</h1>
         </div>
         <div class="page-header">
-            <h1>Autorius: {{ article.author }}</h1>
-            <h2>{{ article.createdAt|date("d/m/Y") }}</h2>
+            <h2>Autorius: {{ article.author }}</h2>
+            <h2>Data: {{ article.createdAt|date("Y-m-d") }}</h2>
         </div>
         <div>
             <p>{{ article.content }}</p>

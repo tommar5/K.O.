@@ -64,10 +64,10 @@ class Article
      */
     private $updatedAt;
 
-    /**
+    /*/**
      * @ORM\ManyToOne(targetEntity="User")
-     */
-    private $userid;
+
+    private $userid;*/
 
     /**
      * @var string
@@ -172,20 +172,20 @@ class Article
 
     /**
      * @return User[]|ArrayCollection
-     */
+
     public function getUserid()
     {
         return $this->userid;
-    }
+    }*/
 
     /**
      * @param User $userid
-     */
+
     public function setUserid($userid)
     {
         $this->userid = $userid;
     }
-
+    */
     /**
      * @param \DateTime $updatedAt
      * @return Article
