@@ -57,7 +57,7 @@ class ApplicationController extends Controller
                     'applyFilter' => [$this, 'applicationsFilter'],
                 ]
             ),
-            'sportTypes' => $filterService->getSportsType(),
+            'musicStyleTypes' => $filterService->getSportsType(),
             'statuses' => $filterService->getApplicationStatuses(),
         ];
     }
@@ -69,7 +69,7 @@ class ApplicationController extends Controller
      * @Security("is_granted('application-new', user)")
      *
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newAction(Request $request)
     {
@@ -87,8 +87,6 @@ class ApplicationController extends Controller
         }
 
         if ($form->isValid()) {
-            dump($form);
-            die();
             if ($form->get('application_copy')->getData()) {
                 foreach ($form->get('application_copy')->getData() as $item) {
                     if ($item) {
@@ -114,11 +112,6 @@ class ApplicationController extends Controller
             $this->persist($application);
             $this->flush();
             $this->addFlash("success", $this->get('translator')->trans('application.flash.created'));
-
-            $this->get('event_dispatcher')->dispatch(
-                'application.status.changed',
-                new ApplicationStatusChangeEvent($application)
-            );
 
             return $this->redirectToRoute('app_application_index');
         }
@@ -158,7 +151,7 @@ class ApplicationController extends Controller
          * @var User $editor
          * */
         $editor = $this->getUser();
-        if ($editor->hasRole(User::ROLE_LASF_COMMITTEE) && !in_array($application->getSport(), $editor->getSports()->toArray())) {
+        if ($editor->hasRole(User::ROLE_LASF_COMMITTEE) && !in_array($application->getMusicStyle(), $editor->getMusicStyles()->toArray())) {
             return $this->redirectToRoute('app_application_index');
         }
 
@@ -200,16 +193,15 @@ class ApplicationController extends Controller
         }
 
         $data = $this->get('em')->getRepository(Application::class)->createQueryBuilder('t')
-            ->select('t, td, sub')
+            ->select('t, td')
             ->leftJoin('t.documents', 'td')
-            ->leftJoin('t.subCompetitions', 'sub')
             ->where('t.id = :id')
             ->setParameter('id', $application->getId());
         if (!$this->isGranted('application-modify-others', $this->getUser())) {
             $data->andWhere('t.user = :user')
                 ->setParameter('user', $this->getUser());
         }
-        $data = $data->add('orderBy', 't.id desc, sub.dateFrom ASC')
+        $data = $data->add('orderBy', 't.id desc')
             ->getQuery()->getOneOrNullResult();
 
         if (is_null($data)) {

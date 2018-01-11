@@ -9,7 +9,6 @@
     }
     %}
     {% include 'AppBundle:Application:form_js.html.twig' %}
-    {% include 'AppBundle::google_maps.html.twig' with {'element': 'application_location'} %}
     {% include 'AppBundle:Application/status:status_js.html.twig' with {'application': application}  %}
 {% endblock %}
 {% block content %}

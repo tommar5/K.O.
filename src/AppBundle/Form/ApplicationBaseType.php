@@ -52,8 +52,8 @@ abstract class ApplicationBaseType extends AbstractType
                     'placeholder' => 'application.label.placeholder',
                 ],
             ])
-            ->add('sport', 'entity', [
-                'class' => 'AppBundle:Sport',
+            ->add('musicStyle', 'entity', [
+                'class' => 'AppBundle:MusicStyle',
                 'label' => 'application.label.sport',
                 'required' => true,
                 'placeholder' => 'application.sport_select.placeholder',
@@ -104,7 +104,7 @@ abstract class ApplicationBaseType extends AbstractType
     }
 
     /**
-     * @param SubCompetition|Application $competition
+     * @param Application $competition
      * @param FormBuilderInterface $builder
      * @param AuthorizationChecker $authorization
      * @param User $user
@@ -112,7 +112,7 @@ abstract class ApplicationBaseType extends AbstractType
      */
     protected function competitionDelegates($competition, FormBuilderInterface $builder, AuthorizationChecker $authorization, User $user, $disabled) {
         /** Saving sport of subCompetition or application */
-        $sport = $competition->getSport();
+        $musicStyle = $competition->getMusicStyle();
         if ($authorization->isGranted('competition-chief-view', $user)) {
             $builder
                 ->add('competitionChief', 'entity', [
@@ -122,13 +122,13 @@ abstract class ApplicationBaseType extends AbstractType
                     'placeholder' => 'application.competition_chief_select.placeholder',
                     'choice_label' => 'user.fullName',
                     'disabled' => $disabled,
-                    'query_builder' => function (EntityRepository $er) use ($sport) {
+                    'query_builder' => function (EntityRepository $er) use ($musicStyle) {
                         $qb = $er->createQueryBuilder('cc');
-                        if ($sport) {
-                            $qb->select(['cc', 's'])
-                                ->leftJoin('cc.sports', 's')
-                                ->where('s.id = :sport')
-                                ->setParameter('sport', $sport->getId());
+                        if ($musicStyle) {
+                            $qb->select(['cc', 'm'])
+                                ->leftJoin('cc.musicStyles', 'm')
+                                ->where('m.id = :style')
+                                ->setParameter('style', $musicStyle->getId());
                         }
                         return $qb;
                     },
@@ -173,13 +173,13 @@ abstract class ApplicationBaseType extends AbstractType
                 'disabled' => $disabled,
                 'choice_label' => 'user.fullName',
                 'multiple' => true,
-                'query_builder' => function (EntityRepository $er) use ($sport) {
+                'query_builder' => function (EntityRepository $er) use ($musicStyle) {
                     $qb = $er->createQueryBuilder('s');
-                    if ($sport) {
+                    if ($musicStyle) {
                         $qb->select(['s', 'ss'])
-                            ->leftJoin('s.sports', 'ss')
+                            ->leftJoin('s.musicStyles', 'ss')
                             ->where('ss.id = :sport')
-                            ->setParameter('sport', $sport->getId());
+                            ->setParameter('sport', $musicStyle->getId());
                     }
                     return $qb;
                 },

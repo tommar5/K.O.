@@ -255,6 +255,12 @@ class Application extends CompetitionInfo
      */
     private $judges;
 
+    /**
+     * @var SafetyChief
+     * @ORM\ManyToOne(targetEntity="SafetyChief", inversedBy="applications")
+     */
+    private $safetyChief;
+
 
     /**
      * @var Steward[]|ArrayCollection
@@ -703,6 +709,22 @@ class Application extends CompetitionInfo
     public function setMusicStyle($musicStyle)
     {
         $this->musicStyle = $musicStyle;
+    }
+
+    /**
+     * @return SafetyChief
+     */
+    public function getSafetyChief()
+    {
+        return $this->safetyChief;
+    }
+
+    /**
+     * @param SafetyChief $safetyChief
+     */
+    public function setSafetyChief(SafetyChief $safetyChief = null)
+    {
+        $this->safetyChief = $safetyChief;
     }
 
     /**

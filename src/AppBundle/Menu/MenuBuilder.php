@@ -52,14 +52,6 @@ class MenuBuilder extends ContainerAware
             $child('department', 'app_department_index');
         }
 
-//        if ($user->hasRole('ROLE_DECLARANT')) {
-//            $child('my_racers', 'app_user_racers');
-//        }
-
-//        if ($this->userHasAnyOfRoles($user, ["ROLE_RACER", "ROLE_DECLARANT", "ROLE_ORGANISATOR", "ROLE_JUDGE"])) {
-//            $child('my_licences', 'app_licences_my');
-//        }
-
         if ($user->hasRole('ROLE_ADMIN')) {
             // dropdown
             $dropdown = $menu->addChild($user->isLegal() ? $user->getMemberName() : $user->getFirstname(), [
@@ -86,7 +78,7 @@ class MenuBuilder extends ContainerAware
             ]);
 
             $dropdown->addChild($this->trans('music'), [
-                'route' => 'app_music_index',
+                'route' => 'app_music_musiclist',
                 'attributes' => ['icon' => 'fa fa-play']
             ]);
 
@@ -119,6 +111,28 @@ class MenuBuilder extends ContainerAware
                 ]
             ]);
         } else {
+            if ($this->userHasAnyOfRoles($user, ["ROLE_RACER", "ROLE_DECLARANT", "ROLE_USER"])) {
+                $menu->addChild($this->trans('article'), [
+                    'route' => 'app_article_index',
+                    'attributes' => [
+                        'role' => 'presentation',
+                    ]
+                ]);
+
+                $menu->addChild($this->trans('music'), [
+                    'route' => 'app_music_index',
+                    'attributes' => [
+                        'role' => 'presentation',
+                    ]
+                ]);
+
+                $menu->addChild($this->trans('liked-music'), [
+                    'route' => 'app_music_likedsongs',
+                    'attributes' => [
+                        'role' => 'presentation',
+                    ]
+                ]);
+            }
             $menu->addChild($this->trans('profile'), [
                 'route' => 'app_user_profile',
                 'attributes' => ['icon' => 'fa fa-user',]

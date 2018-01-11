@@ -1,11 +1,10 @@
 <?php namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Validator\Constraints as AppAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="MusicRepository")
@@ -65,11 +64,54 @@ class Music
     private $time;
 
     /**
+     * @var string
+     * @ORM\Column(name="music_file", type="string")
+     */
+    private $musicFileName;
+
+    /**
+     * @var File
+     */
+    private $musicFile;
+
+    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return File
+     */
+    public function getMusicFile()
+    {
+        return $this->musicFile;
+    }
+
+    /**
+     * @param $file
+     */
+    public function setMusicFile($file)
+    {
+        $this->musicFile = $file;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMusicFileName()
+    {
+        return $this->musicFileName;
+    }
+
+    /**
+     * @param string $fileName
+     */
+    public function setFileName($fileName)
+    {
+        $this->musicFileName = $fileName;
     }
 
     /**

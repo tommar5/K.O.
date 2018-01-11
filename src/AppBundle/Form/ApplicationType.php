@@ -176,16 +176,16 @@ class ApplicationType extends ApplicationBaseType
                     ]);
         }
 
-        if (!$application->getId()) {
-            $builder->add('subCompetitions', 'collection', [
-                'label' => false,
-                'type' => new SubCompetitionType($this->authorizationChecker, $this->tokenStorage),
-                'by_reference' => false,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'required' => false,
-            ]);
-        }
+//        if (!$application->getId()) {
+//            $builder->add('subCompetitions', 'collection', [
+//                'label' => false,
+//                'type' => new SubCompetitionType($this->authorizationChecker, $this->tokenStorage),
+//                'by_reference' => false,
+//                'allow_add' => true,
+//                'allow_delete' => true,
+//                'required' => false,
+//            ]);
+//        }
 
         if ($application->getId()) {
 
