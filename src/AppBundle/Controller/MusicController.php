@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Music;
+use AppBundle\Form\MusicType;
 use DataDog\PagerBundle\Pagination;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MusicController extends Controller
 {
+    use DoctrineController;
+
     /**
      * @Route("/music")
      * @Method("GET")
@@ -45,7 +48,7 @@ class MusicController extends Controller
      * @Security("has_role('ROLE_ADMIN')")
      * @Template
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return array
      */
     public function musicListAction(Request $request){
 
@@ -60,9 +63,43 @@ class MusicController extends Controller
      * @Route("/add-music")
      * @Security("has_role('ROLE_ADMIN')")
      * @Template
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function addMusicAction(){
-        return [];
+    public function addMusicAction(Request $request){
+
+        $music = new Music();
+
+        $form = $this->createForm(new MusicType(), $music);
+        $form->handleRequest($request);
+
+        if (!$form->isValid()) {
+            return [
+                'form' => $form->createView(),
+                'music' => $music
+            ];
+        }
+
+        $this->persist($music);
+        $this->flush();
+        $this->addFlash("success", $this->get('translator')->trans('sport.flash.created'));
+
+        return $this->redirectToRoute('app_music_musiclist');
+    }
+
+    /**
+     * @Route("/music-liked")
+     * @Method("GET")
+     * @Security("has_role('ROLE_USER') or has_role('ROLE_DECLARANT') or has_role('ROLE_RACER')")
+     * @Template
+     * @param Request $request
+     * @return array
+     */
+    public function likedSongsAction(Request $request){
+        $songs = $this->get('em')->getRepository(Music::class)->createQueryBuilder('m');
+        return [
+            'songs' => new Pagination($songs, $request)
+        ];
     }
 
 }
