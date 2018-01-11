@@ -373,6 +373,18 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
      */
     private $languages;
 
+    /**
+     * @var FavouriteSong[]|ArrayCollection
+     *
+     * Many Users have Many Songs.
+     * @ORM\ManyToMany(targetEntity="Music")
+     * @ORM\JoinTable(name="favorite_songs",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="song_id", referencedColumnName="id")}
+     *      )
+     */
+    private $favoriteSongs;
+
     public function __construct()
     {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
@@ -391,6 +403,7 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
         $this->musicStyles = new ArrayCollection();
         $this->languages = new ArrayCollection();
         $this->svoDelegateApplications = new ArrayCollection();
+        $this->favoriteSongs = new ArrayCollection();
     }
 
     /**
@@ -1403,5 +1416,21 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
                $this->hasRole('ROLE_LASF_COMMITTEE') ||
                $this->hasRole('ROLE_COMPETITION_CHIEF') ||
                $this->hasRole('ROLE_JUDGE_COMMITTEE');
+    }
+
+    /**
+     * @return FavouriteSong[]|ArrayCollection
+     */
+    public function getFavoriteSongs()
+    {
+        return $this->favoriteSongs;
+    }
+
+    /**
+     * @param FavouriteSong[]|ArrayCollection $favoriteSongs
+     */
+    public function setFavoriteSongs($favoriteSongs)
+    {
+        $this->favoriteSongs = $favoriteSongs;
     }
 }

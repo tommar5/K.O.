@@ -75,6 +75,12 @@ class Music
     private $musicFile;
 
     /**
+     * Many Songs have Many Users.
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="favorite_songs")
+     */
+    private $users;
+
+    /**
      * @return int
      */
     public function getId()
@@ -190,5 +196,26 @@ class Music
     public function setTime($time)
     {
         $this->time = $time;
+    }
+
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return Application[]|ArrayCollection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param Application[]|ArrayCollection $users
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
     }
 }

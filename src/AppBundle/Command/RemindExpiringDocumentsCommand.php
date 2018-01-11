@@ -1,7 +1,7 @@
 <?php namespace AppBundle\Command;
 
 use AppBundle\Entity\FileUpload;
-use AppBundle\Entity\Licence;
+//use AppBundle\Entity\Licence;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,8 +13,8 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class RemindExpiringDocumentsCommand extends ContainerAwareCommand
 {
     const licencesStatus = [
-        Licence::STATUS_PAID,
-        Licence::STATUS_PRODUCED,
+//        Licence::STATUS_PAID,
+//        Licence::STATUS_PRODUCED,
     ];
 
     const fileType = [
@@ -42,7 +42,7 @@ class RemindExpiringDocumentsCommand extends ContainerAwareCommand
 
         $em = $this->getContainer()->get('em');
 
-        $licences = $em->getRepository(Licence::class)->createQueryBuilder('l')
+        /*$licences = $em->getRepository(Licence::class)->createQueryBuilder('l')
             ->addSelect('ld')
             ->join('l.documents', 'ld')
             ->where($em->getExpressionBuilder()->andX(
@@ -56,7 +56,7 @@ class RemindExpiringDocumentsCommand extends ContainerAwareCommand
                 'status' => self::licencesStatus,
             ])
             ->getQuery();
-
+*/
         $mailer = $this->getContainer()->get('mail');
 
         $admins = $em->getRepository(User::class)->getAdmins();

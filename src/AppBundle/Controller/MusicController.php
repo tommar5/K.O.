@@ -1,6 +1,8 @@
 <?php
 namespace AppBundle\Controller;
 
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use AppBundle\Entity\FavoriteSong;
 use AppBundle\Entity\Music;
 use AppBundle\Form\MusicType;
 use DataDog\PagerBundle\Pagination;
@@ -40,6 +42,33 @@ class MusicController extends Controller
         return [
             'song' => $song
         ];
+    }
+
+
+    /**
+     * @Route("/favourite/{id}/{userId}")
+     * @Method("GET")
+     * @Template
+     */
+    public function favouriteAction($id, $userId){
+        $songs = $this->get('em')->getRepository(FavoriteSong::class)->findAll();
+        var_dump($songs);
+        $exists = false;
+        var_dump($songs[0].getId());
+        foreach($songs as $song){
+            if($song.getUserId()==$userId && $song.getSongId()==$id){
+                $exists=true;
+            }
+        }
+        if($exists){
+            //delete the song from the database
+            var_dump("EXISTS");
+        } else {
+            //add song to favorites list
+            var_dump("DOESNT EXIST");
+        }
+
+        //return $this->redirectToRoute('music');
     }
 
     /**

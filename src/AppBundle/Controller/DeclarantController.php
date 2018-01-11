@@ -2,7 +2,7 @@
 
 use AppBundle\Entity\DeclarantRequest;
 use AppBundle\Entity\FileUpload;
-use AppBundle\Entity\Licence;
+//use AppBundle\Entity\Licence;
 use AppBundle\Entity\User;
 use AppBundle\Form\DeclarantRequestType;
 use DataDog\PagerBundle\Pagination;
