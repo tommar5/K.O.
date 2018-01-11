@@ -29,13 +29,25 @@
                                                   </span>
                                                 </div>
                                             </a>
-                                            <a href="{{ url('app_music_favourite', {'id': song.id, 'userId': app.user.id}) }}">
-                                                <div class="col-md-2" style="padding-right: 0px">
-                                                    <button type="button" class="btn btn-info" style="width: 60px; height: 60px; float: right;">
-                                                        <i class="span fa fa-heart-o" style="font-size: 35px" aria-hidden="true"></i>
-                                                    </button>
-                                                </div>
-                                            </a>
+                                                {% if app.user %}
+                                                    <div class="col-md-2" align="right">
+                                                        {% set has=false %}
+                                                        {% for user in song.users %}
+                                                            {% if user.id == app.user.id %}
+                                                                {% set has=true %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        {% if has %}
+                                                            <a class="btn btn-info" href="{{ url('app_music_deletefromfavourite', {'id': song.id,  'page': "music" }) }}">
+                                                                <i class="span fa fa-heart" style="font-size: 35px" aria-hidden="true"></i>
+                                                            </a>
+                                                        {% else %}
+                                                            <a class="btn btn-info" href="{{ url('app_music_addtofavourite', {'id': song.id, 'userId': app.user.id}) }}">
+                                                                <i class="span fa fa-heart-o" style="font-size: 35px" aria-hidden="true"></i>
+                                                            </a>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endif %}
                                         </div>
                                 </div>
                         </li>

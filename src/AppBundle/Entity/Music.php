@@ -76,7 +76,7 @@ class Music
 
     /**
      * Many Songs have Many Users.
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="favorite_songs")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="favoriteSongs")
      */
     private $users;
 

@@ -30,9 +30,9 @@
                                         </div>
                                     </a>
                                     <div class="col-md-2" style="padding-right: 0px">
-                                        <button type="button" class="btn btn-info" style="width: 60px; height: 60px; float: right;">
-                                            <i class="span fa fa-heart-o" style="font-size: 35px" aria-hidden="true"></i>
-                                        </button>
+                                        <a class="btn btn-info" href="{{ url('app_music_deletefromfavourite', {'id': song.id, 'page': "favourite" }) }}">
+                                            <i class="span fa fa-heart" style="font-size: 35px" aria-hidden="true"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

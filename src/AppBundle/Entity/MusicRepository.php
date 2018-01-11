@@ -14,4 +14,13 @@ class MusicRepository extends EntityRepository {
         return $this->createQueryBuilder('m')
             ->getQuery();
     }
+
+    public function getUserSongs($userId){
+        return $this->createQueryBuilder('m')
+            ->leftJoin('m.users', 'fs')
+            ->where('fs.id=:id')
+            ->setParameter('id', $userId)
+            ->getQuery()
+            ->getResult();
+    }
 }

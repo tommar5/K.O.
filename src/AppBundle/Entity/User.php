@@ -1427,10 +1427,18 @@ class User extends UserInfo implements UserInterface, \Serializable, ContactInte
     }
 
     /**
-     * @param FavouriteSong[]|ArrayCollection $favoriteSongs
+     * @param Music $favoriteSongs
      */
-    public function setFavoriteSongs($favoriteSongs)
+    public function addFavoriteSongs(Music $favoriteSongs)
     {
-        $this->favoriteSongs = $favoriteSongs;
+        $this->favoriteSongs->add($favoriteSongs);
+    }
+
+    /**
+     * @param Music $favoriteSongs
+     */
+    public function removeFavoriteSongs(Music $favoriteSongs)
+    {
+        $this->favoriteSongs->removeElement($favoriteSongs);
     }
 }

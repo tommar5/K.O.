@@ -46,29 +46,34 @@ class MusicController extends Controller
 
 
     /**
-     * @Route("/favourite/{id}/{userId}")
+     * @Route("/favourite/add/{id}")
      * @Method("GET")
      * @Template
      */
-    public function favouriteAction($id, $userId){
-        $songs = $this->get('em')->getRepository(FavoriteSong::class)->findAll();
-        var_dump($songs);
-        $exists = false;
-        var_dump($songs[0].getId());
-        foreach($songs as $song){
-            if($song.getUserId()==$userId && $song.getSongId()==$id){
-                $exists=true;
-            }
-        }
-        if($exists){
-            //delete the song from the database
-            var_dump("EXISTS");
-        } else {
-            //add song to favorites list
-            var_dump("DOESNT EXIST");
-        }
+    public function addToFavouriteAction($id){
+        $user = $this->getUser();
+        $song = $this->get('em')->getRepository(Music::class)->findOneById($id);
+        $user->addFavoriteSongs($song);
+        $this->flush($user);
+        $this->persist();
+        return $this->redirectToRoute('app_music_index');
+    }
 
-        //return $this->redirectToRoute('music');
+    /**
+     * @Route("/favourite/delete/{id}/{page}")
+     * @Method("GET")
+     * @Template
+     */
+    public function deleteFromFavouriteAction($id, $page){
+        $user = $this->getUser();
+        $song = $this->get('em')->getRepository(Music::class)->findOneById($id);
+        $user->removeFavoriteSongs($song);
+        $this->flush($user);
+        $this->persist();
+        if($page=="favourite"){
+            return $this->redirectToRoute('app_music_likedsongs');
+        }
+        return $this->redirectToRoute('app_music_index');
     }
 
     /**
@@ -125,9 +130,10 @@ class MusicController extends Controller
      * @return array
      */
     public function likedSongsAction(Request $request){
-        $songs = $this->get('em')->getRepository(Music::class)->createQueryBuilder('m');
+
+        $songs = $this->get('em')->getRepository(Music::class)->getUserSongs($this->getUser()->getId());
         return [
-            'songs' => new Pagination($songs, $request)
+            'songs' => $songs
         ];
     }
 
